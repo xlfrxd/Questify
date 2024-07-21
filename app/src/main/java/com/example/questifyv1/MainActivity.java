@@ -46,7 +46,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(view);
 
         // Instantiate Database
-        //DatabaseHandler dbHelper = new DatabaseHandler(this);
+        DatabaseHandler dbHelper = new DatabaseHandler(this);
 
         // Set Default Home fragment to display
         replaceFragment(new HomeFragment());
@@ -55,6 +55,8 @@ public class MainActivity extends FragmentActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
 
             if(item.getItemId() == R.id.nav_add) { // Add Quest Dialog
+
+                replaceFragment(new HomeFragment());
 
                 dialog_add = new AddQuestDialog();
                 dialog_add.isCancelable();
