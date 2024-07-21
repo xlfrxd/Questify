@@ -17,7 +17,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                     QuestContract.QuestEntry.COLUMN_NAME_CATEGORY + " TEXT," +
                     QuestContract.QuestEntry.COLUMN_NAME_DUE_DATE + " TEXT," +
                     QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION + " TEXT," +
-                    QuestContract.QuestEntry.COLUMN_NAME_REWARD + " TEXT)";
+                    QuestContract.QuestEntry.COLUMN_NAME_REWARD + " TEXT," +
+                    QuestContract.QuestEntry.COLUMN_NAME_STATUS + " TEXT," +
+                    QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " TEXT," +
+                    QuestContract.QuestEntry.COLUMN_NAME_DIBSBY + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + QuestContract.QuestEntry.TABLE_NAME;
