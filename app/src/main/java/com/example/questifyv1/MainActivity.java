@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.questifyv1.database.DatabaseHandler;
 import com.example.questifyv1.databinding.ActivityMainBinding;
 
 import java.util.List;
@@ -45,6 +46,10 @@ public class MainActivity extends FragmentActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        // Instantiate Database
+        DatabaseHandler dbHelper = new DatabaseHandler(this);
+
+        // Set Default Home fragment to display
         replaceFragment(new HomeFragment());
 
         // Bottom Navigation
@@ -54,11 +59,6 @@ public class MainActivity extends FragmentActivity {
 
                 dialog_add = new AddQuestDialog();
                 dialog_add.show(getSupportFragmentManager(),"addquest");
-
-                //replaceFragment(new AddFragment());
-
-                //Toast.makeText(MainActivity.this, "Clicked!", Toast.LENGTH_SHORT).show();
-
 
             } else if (item.getItemId() == R.id.nav_profile) {
                 replaceFragment(new ProfileFragment());
