@@ -34,7 +34,6 @@ public class MainActivity extends FragmentActivity {
     private List<Post> postList;
 
     DialogFragment dialog_add;
-    Button dialog_btn_addQuest;
 
     private ActivityMainBinding binding;
 
@@ -47,7 +46,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(view);
 
         // Instantiate Database
-        DatabaseHandler dbHelper = new DatabaseHandler(this);
+        //DatabaseHandler dbHelper = new DatabaseHandler(this);
 
         // Set Default Home fragment to display
         replaceFragment(new HomeFragment());
@@ -58,7 +57,9 @@ public class MainActivity extends FragmentActivity {
             if(item.getItemId() == R.id.nav_add) { // Add Quest Dialog
 
                 dialog_add = new AddQuestDialog();
+                dialog_add.isCancelable();
                 dialog_add.show(getSupportFragmentManager(),"addquest");
+
 
             } else if (item.getItemId() == R.id.nav_profile) {
                 replaceFragment(new ProfileFragment());
@@ -70,6 +71,8 @@ public class MainActivity extends FragmentActivity {
 
             return true;
         });
+
+
 
         // RecyclerView Stuff
         /*
