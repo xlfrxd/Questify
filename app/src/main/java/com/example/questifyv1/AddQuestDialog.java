@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -42,7 +43,7 @@ public class AddQuestDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.DialogTheme);
 
         // Get the LayoutInflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -110,5 +111,14 @@ public class AddQuestDialog extends DialogFragment {
 
         // Create the AlertDialog and return it
         return builder.create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
+        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+        params.height = 1600;
+        getDialog().getWindow().setAttributes(params);
     }
 }

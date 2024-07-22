@@ -3,15 +3,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="380dp"
+    android:layout_width="400dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:layout_gravity="center"
-    android:layout_height="600dp">
+    android:layout_height="match_parent"
+    app:cardElevation="16dp"
+    android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <TextView
             android:id="@+id/tv_AddQuest"
@@ -20,8 +25,8 @@
             android:layout_marginStart="27dp"
             android:layout_marginTop="60dp"
             android:text="Add Quest"
-            android:textSize="24sp"
             android:textColor="@color/purple"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,12 +35,12 @@
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="text"
             android:text="Enter Title"
-            android:textSize="16sp"
             android:textColor="@color/gray"
-            android:background="@drawable/edit_text_bg"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_AddQuest" />
@@ -59,12 +64,12 @@
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="text"
             android:text="Due Date"
-            android:background="@drawable/edit_text_bg"
-            android:textSize="16sp"
             android:textColor="@color/gray"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_Category" />
@@ -74,14 +79,14 @@
             android:layout_width="330dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:text="Enter Description"
-            android:background="@drawable/edit_text_bg"
             android:textAlignment="viewStart"
-            android:textSize="16sp"
             android:textColor="@color/gray"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_DueDate" />
@@ -91,18 +96,19 @@
             android:layout_width="330dp"
             android:layout_height="40dp"
             android:layout_marginTop="21dp"
+            android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="number"
             android:text="Reward"
-            android:background="@drawable/edit_text_bg"
-            android:textSize="16sp"
             android:textColor="@color/gray"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_Desc" />
 
         <Button
             android:id="@+id/btn_addQuest"
+            style="@style/AddQuest"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginStart="88dp"
