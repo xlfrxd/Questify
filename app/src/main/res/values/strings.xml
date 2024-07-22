@@ -2,6 +2,12 @@
     <string name="app_name">Questify</string>
     <string name="home_header">Quests</string>
     <string name="profile_header">Profile</string>
+    <string-array name="quest_categories">
+        <item>Physical</item>
+        <item>Digital</item>
+        <item>Professional</item>
+        <item>Creative</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

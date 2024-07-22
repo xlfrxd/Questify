@@ -7,17 +7,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;
+
+import java.lang.reflect.Array;
 
 public class AddQuestDialog extends DialogFragment {
     private EditText etQuestTitle;
@@ -26,6 +30,7 @@ public class AddQuestDialog extends DialogFragment {
     private EditText etDesc;
     private EditText etNumReward;
     private Button btnPostQuest;
+    private Spinner spCategory;
     private MainActivity mainActivity;
 
     @Override
@@ -52,12 +57,20 @@ public class AddQuestDialog extends DialogFragment {
 
         // Initialize widgets
         etQuestTitle = view.findViewById(R.id.et_QuestTitle);
-        etCategory = view.findViewById(R.id.et_Category);
+        spCategory = view.findViewById(R.id.et_Category);
         etDueDate = view.findViewById(R.id.et_DueDate);
         etDesc = view.findViewById(R.id.et_Desc);
         etNumReward = view.findViewById(R.id.et_Reward);
         btnPostQuest = view.findViewById(R.id.btn_addQuest);
 
+        // Spinner Setup
+        ArrayAdapter<CharSequence> spAdapter = ArrayAdapter.createFromResource(
+                getActivity(),
+                R.array.quest_categories,
+                android.R.layout.simple_spinner_item
+        );
+        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCategory.setAdapter(spAdapter);
 
         // Instantiate Database
         QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this.getContext());
