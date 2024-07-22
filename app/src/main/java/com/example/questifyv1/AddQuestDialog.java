@@ -67,9 +67,10 @@ public class AddQuestDialog extends DialogFragment {
         ArrayAdapter<CharSequence> spAdapter = ArrayAdapter.createFromResource(
                 getActivity(),
                 R.array.quest_categories,
-                android.R.layout.simple_spinner_item
+                R.layout.spinner_item
         );
-        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         spCategory.setAdapter(spAdapter);
 
         // Instantiate Database
