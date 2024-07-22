@@ -80,4 +80,11 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setAdapter(postAdapter);
     }
+
+    // Method to update the RecyclerView
+    public void updateData(List<Post> newPostList) {
+        postList.clear();
+        postList.addAll(newPostList);
+        postAdapter.notifyDataSetChanged();
+    }
 }
