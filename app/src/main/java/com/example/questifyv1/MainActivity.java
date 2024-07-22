@@ -48,9 +48,6 @@ public class MainActivity extends FragmentActivity {
         // Instantiate Database
         DatabaseHandler dbHelper = new DatabaseHandler(this);
 
-        // Set Default Home fragment to display
-        replaceFragment(new HomeFragment());
-
         // Bottom Navigation
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
 
@@ -74,8 +71,6 @@ public class MainActivity extends FragmentActivity {
             return true;
         });
 
-
-
         // RecyclerView Stuff
         /*
         recyclerView = findViewById(R.id.recyclerView);
@@ -86,6 +81,9 @@ public class MainActivity extends FragmentActivity {
         recyclerView.setAdapter(postAdapter);
 
          */
+
+        // Set Default Home fragment to display
+        replaceFragment(new HomeFragment());
     }
 private void replaceFragment(Fragment fragment){
     FragmentManager fragmentManager = getSupportFragmentManager();
