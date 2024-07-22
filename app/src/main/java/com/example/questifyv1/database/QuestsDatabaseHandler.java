@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class DatabaseHandler extends SQLiteOpenHelper{
+public class QuestsDatabaseHandler extends SQLiteOpenHelper{
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Posts.sqlite";
@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + QuestContract.QuestEntry.TABLE_NAME;
 
-    public DatabaseHandler(Context context) {
+    public QuestsDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {

@@ -1,41 +1,27 @@
 package com.example.questifyv1;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.sqlite.SQLiteDatabase;
-import com.example.questifyv1.database.DatabaseHandler;
+import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;
 import com.example.questifyv1.databinding.ActivityMainBinding;
 
-import java.sql.SQLInput;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
     private HomeFragment homeFragment;
-    private DatabaseHandler dbHelper;
+    private QuestsDatabaseHandler dbHelper;
     private SQLiteDatabase db;
 
     private ActivityMainBinding binding;
@@ -49,7 +35,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(view);
 
         // Instantiate Database
-        dbHelper = new DatabaseHandler(this);
+        dbHelper = new QuestsDatabaseHandler(this);
         db = dbHelper.getReadableDatabase();
 
         // Initialize fragment

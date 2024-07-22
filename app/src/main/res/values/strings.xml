@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">Questify v.1</string>
+    <string name="app_name">Questify</string>
+    <string name="home_header">Quests</string>
+    <string name="profile_header">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
