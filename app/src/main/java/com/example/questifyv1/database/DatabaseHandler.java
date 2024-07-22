@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHandler extends SQLiteOpenHelper{
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Posts.db";
+    public static final String DATABASE_NAME = "Posts.sqlite";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + QuestContract.QuestEntry.TABLE_NAME + " (" +
