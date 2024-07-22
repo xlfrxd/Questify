@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ public class AddQuestDialog extends DialogFragment {
     private EditText etDesc;
     private EditText etNumReward;
     private Button btnPostQuest;
+    private ImageButton btnClose;
     private Spinner spCategory;
     private MainActivity mainActivity;
 
@@ -62,6 +64,7 @@ public class AddQuestDialog extends DialogFragment {
         etDesc = view.findViewById(R.id.et_Desc);
         etNumReward = view.findViewById(R.id.et_Reward);
         btnPostQuest = view.findViewById(R.id.btn_addQuest);
+        btnClose = view.findViewById(R.id.btn_close);
 
         // Spinner Setup
         ArrayAdapter<CharSequence> spAdapter = ArrayAdapter.createFromResource(
@@ -109,6 +112,14 @@ public class AddQuestDialog extends DialogFragment {
                 dismiss(); // Close dialog after
             }
         });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
 
         // Create the AlertDialog and return it
         return builder.create();
