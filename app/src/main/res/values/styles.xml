@@ -26,7 +26,16 @@
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:dialogCornerRadius">16dp</item>
+        <item name="android:dialogCornerRadius">16dp</item> <!-- Ignore warnings -->
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/gray</item>
+
     </style>
 
 

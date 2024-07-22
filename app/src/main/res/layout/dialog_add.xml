@@ -20,13 +20,16 @@
 
         <TextView
             android:id="@+id/tv_AddQuest"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="60dp"
             android:text="Add Quest"
             android:textColor="@color/purple"
-            android:textSize="24sp"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,14 +37,17 @@
             android:id="@+id/et_QuestTitle"
             android:layout_width="330dp"
             android:layout_height="40dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="text"
             android:text="Enter Title"
             android:textColor="@color/gray"
             android:textSize="16sp"
+
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_AddQuest" />
 
@@ -49,6 +55,7 @@
             android:id="@+id/et_Category"
             android:layout_width="330dp"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/spinner_bg"
             android:spinnerMode="dropdown"
@@ -56,6 +63,7 @@
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
 
@@ -63,6 +71,7 @@
             android:id="@+id/et_DueDate"
             android:layout_width="330dp"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
@@ -71,6 +80,7 @@
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_Category" />
 
@@ -78,6 +88,7 @@
             android:id="@+id/et_Desc"
             android:layout_width="330dp"
             android:layout_height="100dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
@@ -88,6 +99,7 @@
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_DueDate" />
 
@@ -95,7 +107,8 @@
             android:id="@+id/et_Reward"
             android:layout_width="330dp"
             android:layout_height="40dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="number"
@@ -103,6 +116,7 @@
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_Desc" />
 
