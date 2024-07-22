@@ -3,13 +3,228 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_profile"
     tools:context=".ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile Fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/questor_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:text="Questor Profile"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/quests_info"
+            android:layout_width="381dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/profile_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:src="@drawable/profile" />
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="4dp"
+                    android:text="Alex Thompson"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/profile_joined_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Joined December 2023"
+                    android:textColor="#43445E"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/quests_taken_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="284dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/taken_quests"
+                android:layout_width="125dp"
+                android:layout_height="110dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/gray_container"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="285dp">
+
+                <ImageView
+                    android:id="@+id/taken_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/taken"
+                    tools:layout_editor_absoluteX="116dp"
+                    tools:layout_editor_absoluteY="264dp" />
+
+                <TextView
+                    android:id="@+id/taken_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="23 Taken"
+                    android:textColor="#474545"
+                    android:textSize="14sp"
+                    tools:layout_editor_absoluteX="116dp"
+                    tools:layout_editor_absoluteY="320dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/posted_quests"
+                android:layout_width="125dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="12dp"
+                android:background="@drawable/gray_container"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="225dp"
+                tools:layout_editor_absoluteY="287dp">
+
+                <ImageView
+                    android:id="@+id/posted_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/posted"
+                    tools:layout_editor_absoluteX="116dp"
+                    tools:layout_editor_absoluteY="264dp" />
+
+                <TextView
+                    android:id="@+id/posted_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="15 Posted"
+                    android:textColor="#474545"
+                    android:textSize="14sp"
+                    tools:layout_editor_absoluteX="116dp"
+                    tools:layout_editor_absoluteY="320dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wallet_box"
+            android:layout_width="275dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gray_container"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quests_taken_posted">
+
+            <TextView
+                android:id="@+id/wallet_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="20dp"
+                android:text="₱480.10"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                tools:layout_editor_absoluteX="34dp"
+                tools:layout_editor_absoluteY="631dp" />
+
+            <TextView
+                android:id="@+id/wallet_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="20dp"
+                android:text="Wallet Balance"
+                android:textColor="#808080"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="220dp"
+                tools:layout_editor_absoluteY="647dp" />
+
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <Button
+                    android:id="@+id/cashin_button"
+                    android:layout_width="40dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:text="Cash In" />
+
+                <Button
+                    android:id="@+id/send_button"
+                    android:layout_width="40dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:text="Send" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:text="Log Out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wallet_box" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

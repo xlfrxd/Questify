@@ -28,26 +28,6 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <Button
-                style="@style/CustomButtonStyle1"
-                android:layout_width="160dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
-                android:padding="0dp"
-                android:text="Unfinished Quests"
-                android:textAlignment="center"
-                android:textSize="13dp"
-                app:textAllCaps="false" />
-
-            <Button
-                style="@style/CustomButtonStyle2"
-                android:layout_width="160dp"
-                android:layout_height="30dp"
-                android:padding="0dp"
-                android:text="Finished Quests"
-                android:textAlignment="center"
-                android:textSize="13dp"
-                app:textAllCaps="false" />
         </LinearLayout>
 
     </LinearLayout>
