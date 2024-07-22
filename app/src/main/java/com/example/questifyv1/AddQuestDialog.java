@@ -26,6 +26,15 @@ public class AddQuestDialog extends DialogFragment {
     private EditText etDesc;
     private EditText etNumReward;
     private Button btnPostQuest;
+    private MainActivity mainActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainActivity){
+            mainActivity = (MainActivity) context;
+        }
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -75,6 +84,12 @@ public class AddQuestDialog extends DialogFragment {
 
                 // Insert the new row, returning the primary key value of the new row
                 long newRowId = db.insert(QuestContract.QuestEntry.TABLE_NAME, null, values);
+
+                // After adding, update the RecyclerView
+                if (mainActivity != null){
+                    mainActivity.updateQuestFeed();
+                    //mainActivity.setHomeFragment();
+                }
 
                 dismiss(); // Close dialog after
             }

@@ -26,6 +26,10 @@ public class DataHelper {
         posts.add(new Post(title, dueDate, author, points, getCategoryImage(category)));
     }
 
+    public static void clear(){
+        posts.clear();
+    }
+
     public static int getCategoryImage(String category){
         switch (category){
             case "Physical":
