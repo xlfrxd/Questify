@@ -42,7 +42,7 @@
             android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="text"
-            android:text="Enter Title"
+            android:hint="Enter Quest Title"
             android:textColor="@color/gray"
             android:textSize="16sp"
 
@@ -67,6 +67,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
 
+        <!--Change to date picker-->
         <EditText
             android:id="@+id/et_DueDate"
             android:layout_width="330dp"
@@ -94,7 +95,7 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:text="Enter Description"
+            android:hint="Enter Description"
             android:textAlignment="viewStart"
             android:textColor="@color/gray"
             android:textSize="16sp"
@@ -112,7 +113,7 @@
             android:background="@drawable/edit_text_bg"
             android:ems="10"
             android:inputType="number"
-            android:text="Reward"
+            android:hint="Reward"
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -128,7 +129,7 @@
             android:layout_marginStart="88dp"
             android:layout_marginTop="328dp"
             android:background="@drawable/button_home_1"
-            android:text="Publish Quest"
+            android:hint="Publish Quest"
             app:cornerRadius="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
