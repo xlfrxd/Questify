@@ -135,13 +135,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
 
+        <!--TODO: Image Button (X) not showing-->
         <ImageButton
             android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="315dp"
             android:layout_marginTop="30dp"
             android:background="@null"
+            android:contentDescription="Close the dialog"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/close" />
