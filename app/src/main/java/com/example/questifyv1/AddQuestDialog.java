@@ -25,7 +25,6 @@ import java.lang.reflect.Array;
 
 public class AddQuestDialog extends DialogFragment {
     private EditText etQuestTitle;
-    private EditText etCategory;
     private EditText etDueDate;
     private EditText etDesc;
     private EditText etNumReward;
@@ -87,7 +86,7 @@ public class AddQuestDialog extends DialogFragment {
                 // Create a new map of values, where column names are the keys
                 ContentValues values = new ContentValues();
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_TITLE, etQuestTitle.getText().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_CATEGORY, etCategory.getText().toString());
+                values.put(QuestContract.QuestEntry.COLUMN_NAME_CATEGORY, spCategory.getSelectedItem().toString());
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_DUE_DATE, etDueDate.getText().toString());
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION, etDesc.getText().toString());
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_REWARD, etNumReward.getText().toString());
@@ -103,6 +102,7 @@ public class AddQuestDialog extends DialogFragment {
                     mainActivity.updateQuestFeed();
                     //mainActivity.setHomeFragment();
                 }
+
 
                 dismiss(); // Close dialog after
             }

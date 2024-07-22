@@ -103,10 +103,10 @@
 
         <Button
             android:id="@+id/btn_addQuest"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginStart="124dp"
-            android:layout_marginTop="340dp"
+            android:layout_marginStart="88dp"
+            android:layout_marginTop="328dp"
             android:background="@drawable/button_home_1"
             android:text="Publish Quest"
             app:cornerRadius="24dp"
