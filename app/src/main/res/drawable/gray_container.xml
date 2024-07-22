@@ -6,7 +6,6 @@
         android:top="10dp"
         android:right="10dp"
         android:bottom="10dp" />
-    <solid android:color="@color/purple"/>
+    <solid android:color="@color/gray_2"/>
 
 </shape>
-
