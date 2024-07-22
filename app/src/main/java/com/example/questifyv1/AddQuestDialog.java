@@ -16,7 +16,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.questifyv1.database.DatabaseHandler;
+import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;
 
 public class AddQuestDialog extends DialogFragment {
@@ -60,7 +60,7 @@ public class AddQuestDialog extends DialogFragment {
 
 
         // Instantiate Database
-        DatabaseHandler dbHelper = new DatabaseHandler(this.getContext());
+        QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this.getContext());
 
         // Post Quest listener
         btnPostQuest.setOnClickListener(new View.OnClickListener() {
