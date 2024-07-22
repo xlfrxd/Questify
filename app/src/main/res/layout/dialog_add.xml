@@ -51,6 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_AddQuest" />
 
+        <!--TODO: Spinner arrow UI same color as background; change to something cleaner?-->
         <Spinner
             android:id="@+id/et_Category"
             android:layout_width="330dp"
