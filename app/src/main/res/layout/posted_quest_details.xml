@@ -33,7 +33,7 @@
             android:layout_gravity="center_horizontal"
             android:textSize="26sp"
             android:textColor="#FFFFFF"
-            android:text="Fix My Cellphone" />
+            android:text="Tutor Me in Calculus" />
 
         <TextView
             android:id="@+id/posted_quest"
@@ -43,13 +43,13 @@
             android:layout_gravity="center_horizontal"
             android:textSize="14sp"
             android:textColor="#FFFFFF"
-            android:text="Posted by @isakyaki" />
+            android:text="Taken by @caicai" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@null"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="Quest"
+        android:text="Quests Posted"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="70dp"
-            android:text="Due Today at 5:00pm"
+            android:text="Due July 22 at 10:00am"
             android:textColor="#474545"
             android:textSize="12sp" />
 
@@ -114,7 +114,7 @@
             android:id="@+id/text_reward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PHP 900"
+            android:text="PHP 700"
             android:textColor="#474545"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -133,23 +133,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/due_container">
 
-        <TextView
-            android:id="@+id/text_assigned_to"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:text="Assigned to: None"
-            android:textColor="@color/purple"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:id="@+id/status_container"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/status_background"
+            android:background="@color/gray"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -157,7 +145,7 @@
                 android:id="@+id/text_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status: Not taken"
+                android:text="STATUS: ONGOING"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -177,20 +165,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="I'm looking for someone to help fix my cellphone. It's been acting up, and I need it for my classes. The task involves diagnosing the issue and repairing it. The phone has been randomly shutting down and the screen occasionally freezes. Reward is ₱900 plus a coffee from the campus cafe. Must be knowledgeable in phone repairs and reliable. Contact me at @isakyaki on my Instagram or my mobile number 09123456789."
+            android:text="I need assistance in understanding calculus concepts and solving problems. Must be knowledgeable in calculus and reliable. The reward for completing the task is PHP 700. You can contact me through Instagram @itsjaneee for more details."
             android:textColor="#474545"
             android:textSize="13sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_doquest"
-        android:layout_width="120dp"
-        android:layout_height="42dp"
+        android:layout_width="149dp"
+        android:layout_height="53dp"
         android:layout_gravity="center"
-        android:layout_marginTop="28dp"
-        android:text="DO QUEST"
+        android:layout_marginTop="24dp"
+        android:text="PAY NOW"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/white_container" />
 
@@ -210,3 +199,8 @@
         app:layout_constraintTop_toBottomOf="@id/btn_doquest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
