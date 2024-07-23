@@ -37,6 +37,11 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/bottom_navigation.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/card.xml">
         <config>
           <theme>@style/Theme.QuestifyV1</theme>
@@ -52,6 +57,11 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/menu/nav_menu.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
     </layouts>
   </component>
   <component name="AutoImportSettings">
@@ -60,6 +70,8 @@
   <component name="ChangeListManager">
     <list default="true" id="819be2ce-21df-42a2-865b-c9697c56e52d" name="Changes" comment="Initial commit; Kaye's UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_posted.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_posted.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_taken.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_taken.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +146,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="_Designer_Tab" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5

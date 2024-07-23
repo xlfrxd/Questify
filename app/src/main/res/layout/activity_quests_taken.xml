@@ -31,40 +31,44 @@
             android:fontFamily="@font/actor_regular"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="8dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_below="@id/pageTitle">
-
-            <Button
-                android:id="@+id/btnActive"
-                android:layout_width="160dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="12dp"
-                android:padding="0dp"
-                android:text="Active"
-                android:textAlignment="center"
-                android:textSize="13dp"
-                app:textAllCaps="false"
-                style="@style/CustomButtonStyle1"
-                android:fontFamily="@font/actor_regular"/>
-
-            <Button
-                android:id="@+id/btnFinished"
-                android:layout_width="160dp"
-                android:layout_height="30dp"
-                android:padding="0dp"
-                android:text="Finished"
-                android:textSize="13dp"
-                android:textAlignment="center"
-                app:textAllCaps="false"
-                style="@style/CustomButtonStyle2"
-                android:fontFamily="@font/actor_regular"/>
-        </LinearLayout>
     </RelativeLayout>
+
+    <!-- Container for Active and Finished Buttons -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/header"
+        android:padding="14dp"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btnActive"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="12dp"
+            android:text="Active"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:textAllCaps="false"
+            style="@style/CustomButtonStyle1"
+            android:fontFamily="@font/actor_regular"/>
+
+        <Button
+            android:id="@+id/btnFinished"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Finished"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            app:textAllCaps="false"
+            style="@style/CustomButtonStyle2"
+            android:fontFamily="@font/actor_regular"/>
+    </LinearLayout>
 
     <!-- RecyclerView for Quests -->
     <androidx.recyclerview.widget.RecyclerView
@@ -72,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@id/bottom_navigation"
-        android:layout_below="@id/header"
+        android:layout_below="@id/buttonContainer"
         android:padding="16dp"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
@@ -88,3 +92,4 @@
         app:labelVisibilityMode="unlabeled"
         style="@style/CustomBottomNavigationStyle"/>
 </RelativeLayout>
+
