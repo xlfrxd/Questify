@@ -15,7 +15,6 @@ public final class QuestContract {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_DUE_DATE = "due_date";
         public static final String COLUMN_NAME_REWARD = "reward";
-
         public static final String COLUMN_NAME_STATUS = "status";
         public static final String COLUMN_NAME_POSTEDBY = "posted_by";
         public static final String COLUMN_NAME_DIBSBY = "dibs_by";
