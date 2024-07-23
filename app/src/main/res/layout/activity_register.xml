@@ -7,72 +7,183 @@
     android:layout_height="match_parent"
     tools:context=".activity.RegisterActivity">
 
+    <!-- Sign Up Text -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
-        android:text="Create Account"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/actor_regular"
+        android:text="Sign Up"
+        android:textColor="@color/purple"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Full Name Input Field -->
+    <!-- TODO: Implement Full Name in Database -->
+    <!--
+    <EditText
+        android:id="@+id/fullNameEditText"
+        android:layout_width="354dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
+        android:hint="Full Name"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signUpText" />
+    -->
 
-
+    <!-- Username Input Field -->
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
+        android:layout_width="354dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
         android:hint="Username"
-        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+
+    <!-- Email Input Field -->
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
+        android:layout_width="354dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
         android:hint="Email"
-        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+        app:layout_constraintTop_toBottomOf="@id/etUsername" />
 
+    <!-- Password Input Field -->
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
+        android:layout_width="354dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
         android:hint="Password"
         android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-
+    <!-- Create Account Button -->
     <Button
         android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="217dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/actor_regular"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
         android:text="Create Account"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <Button
-        android:id="@+id/btnSignIn"
+    <!-- Custom Sign Up with Google Button -->
+    <LinearLayout
+        android:id="@+id/llGoogleSignUp"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_background"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRegister"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvGoogleSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up with Google"
+            android:textColor="#5B5F97"
+            android:textSize="16sp"
+            android:fontFamily="@font/actor_regular" />
+
+        <ImageView
+            android:id="@+id/ivGoogleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/google" />
+    </LinearLayout>
+
+    <!-- Have an account? Sign In Text Container -->
+    <LinearLayout
+        android:id="@+id/llHaveAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="9dp"
-        android:text="Back to Sign In"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/llGoogleSignUp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/actor_regular"
+            android:text="Have an account?"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/actor_regular"
+            android:text=" Sign In"
+            android:textStyle="bold"
+            android:textColor="@color/purple"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

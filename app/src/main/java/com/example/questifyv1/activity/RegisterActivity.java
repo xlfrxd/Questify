@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +23,7 @@ import com.example.questifyv1.database.UserDatabaseHandler;
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
-    private Button btnBack;
+    private TextView btnBack;
 
     private UserDatabaseHandler dbHelper;
 
@@ -94,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // TODO: Implement reverse swipe animation
         // Navigate back to Sign In
-        btnBack = findViewById(R.id.btnSignIn);
+        btnBack = findViewById(R.id.tvSignIn);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this,SignInActivity.class);
             startActivity(intent);
