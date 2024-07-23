@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
@@ -94,6 +95,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
         switch (columnName.toUpperCase()){
             case "USERNAME":
                 selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
+                Log.e("Inside Username Case", "true");
                 break;
             case "EMAIL":
                 selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = ?";
@@ -106,12 +108,13 @@ public static final String DATABASE_NAME = "Users.sqlite";
         String[] selectionArgs = {searchArg};
 
         // Sort by ID
-        String sortOrder = " ASC";
+        String sortOrder = UserContract.UserEntry.COLUMN_NAME_USERNAME + " ASC";
 
 
+        Cursor cursor;
         try{ // Cursor will return a table or null if no results
             // Query the user table
-            Cursor cursor = db.query(
+            cursor = db.query(
                     UserContract.UserEntry.TABLE_NAME,
                     projection,
                     selection,
@@ -120,15 +123,17 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     null,
                     sortOrder
             );
-            cursor.getCount();
-
-            // User exists
-            return true;
+            Log.e("Cursor Count", String.valueOf(cursor.getCount()));
         }
         catch (Exception e){ // User does not exist
-            e.printStackTrace();
+            Log.e("User does not exist", e.toString());
             return false;
         }
+        if (cursor.getCount() == 0){
+            return false;
+        }
+        // User exists
+        return true;
 
     }
 

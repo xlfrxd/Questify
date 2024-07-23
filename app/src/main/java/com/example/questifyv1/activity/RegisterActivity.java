@@ -55,20 +55,21 @@ public class RegisterActivity extends AppCompatActivity {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 
-            // Check if username already exists
 
+
+            // Check if username already exists
             if (dbHelper.checkExists(username, "username")) {
                 // Show error message
                 //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "USER ALREADY EXISTS", Toast.LENGTH_LONG).show();
             }
+            // Check if email already exists
             else if (dbHelper.checkExists(email, "email")) {
                 // Show error message
                 //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "EMAIL ALREADY EXITS", Toast.LENGTH_LONG).show();
             }
             else {
-
 
             // Register user credentials to database
 
