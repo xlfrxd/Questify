@@ -8,5 +8,6 @@
     <color name="purple2">#A4A7CA</color>
     <color name="nav_item_color">#FFFFFF</color>
     <color name="nav_background_color">#5B5F97</color>
-
+    <color name="teal">#78BCC4</color>
+    <color name="dirty_white">#FDFDFD</color>
 </resources>
