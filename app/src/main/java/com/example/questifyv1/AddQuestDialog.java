@@ -16,6 +16,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -87,6 +88,17 @@ public class AddQuestDialog extends DialogFragment {
             public void onClick(View view) {
                 // Add Quest Entry
 
+                // Check if empty
+                if( etQuestTitle.getText().toString().isEmpty() ||
+                    etDueDate.getText().toString().isEmpty() ||
+                    etDesc.getText().toString().isEmpty() ||
+                    etNumReward.getText().toString().isEmpty()
+                    ){
+                    Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+
                 // Gets the data repository in write mode
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -112,6 +124,7 @@ public class AddQuestDialog extends DialogFragment {
 
 
                 dismiss(); // Close dialog after
+                }
             }
         });
 
