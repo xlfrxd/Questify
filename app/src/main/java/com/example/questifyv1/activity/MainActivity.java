@@ -135,9 +135,16 @@ public void updateQuestFeed(){
             QuestContract.QuestEntry.COLUMN_NAME_DIBSBY
     };
 
-    // Filter results WHERE "status" = "NONE"
-    String selection = QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ?";
-    String[] selectionArgs = { "NONE" };
+    // Filter results WHERE "status" != "DONE"
+    String selection = QuestContract.QuestEntry.COLUMN_NAME_STATUS + " != ?";
+    /*
+    Status can be:
+    - NONE (default)
+    - IN_PROGRESS
+    - DONE
+     */
+    String[] selectionArgs = { "DONE" };
+
 
     // Sorting by title (TODO: Change to due date)
     String sortOrder = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " ASC";
