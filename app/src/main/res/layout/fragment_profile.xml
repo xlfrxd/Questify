@@ -165,12 +165,12 @@
             app:layout_constraintTop_toBottomOf="@+id/quests_taken_posted">
 
             <TextView
-                android:id="@+id/wallet_balance"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvWallet"
+                android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="12dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
                 android:text="₱480.10"
                 android:textColor="#000000"
                 android:textSize="30sp"

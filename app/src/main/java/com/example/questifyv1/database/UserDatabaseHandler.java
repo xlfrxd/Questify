@@ -9,12 +9,13 @@ import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
-public static final int DATABASE_VERSION = 2; // Increment this when you change the database schema
+public static final int DATABASE_VERSION = 3; // Increment this when you change the database schema
 public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
                     UserContract.UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserContract.UserEntry.COLUMN_NAME_NAME + " TEXT," +
+                    UserContract.UserEntry.COLUMN_NAME_WALLET + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_USERNAME + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT)";
@@ -81,6 +82,65 @@ public static final String DATABASE_NAME = "Users.sqlite";
         }
         // Invalid Credentials
         return false;
+    }
+
+    public String[] getUserInfo(String username){
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] details = new String[6];
+        // Get all user information
+        String[] projection = {
+                BaseColumns._ID,
+                UserContract.UserEntry.COLUMN_NAME_NAME,
+                UserContract.UserEntry.COLUMN_NAME_USERNAME,
+                UserContract.UserEntry.COLUMN_NAME_WALLET,
+                UserContract.UserEntry.COLUMN_NAME_EMAIL,
+                UserContract.UserEntry.COLUMN_NAME_PASSWORD
+        };
+
+        // Filter results WHERE "username" = username
+        String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
+        String[] selectionArgs = {username};
+
+        // Sort by username
+        String sortOrder = UserContract.UserEntry.COLUMN_NAME_USERNAME + " ASC";
+
+        Cursor cursor;
+        try {
+            // Query
+            cursor = db.query(
+                    UserContract.UserEntry.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    sortOrder
+            );
+
+            // Check if query returns results
+            if (cursor.getCount() == 0) {
+                return null;
+            }
+            else{
+                cursor.moveToFirst();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        details = new String[]{
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
+        };
+
+        return details;
+
+
     }
 
     public boolean checkExists(String searchArg, String columnName){

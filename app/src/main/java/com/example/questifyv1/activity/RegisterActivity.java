@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             String username = etUsername.getText().toString();
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
+            int wallet = 0; // Default wallet balance
 
 
             // Check if empty fields
@@ -83,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
             // Map new values
             ContentValues values = new ContentValues();
             values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
+            values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
             values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
             values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
             values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
