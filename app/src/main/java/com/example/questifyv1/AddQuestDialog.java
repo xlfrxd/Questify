@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.BaseColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -89,7 +92,9 @@ public class AddQuestDialog extends DialogFragment {
             public void onClick(View view) {
                 // Add Quest Entry
 
-                // Check if empty
+                // TODO: Implement -> Only 1 title by 1 author can be made
+
+                // Check if input fields are empty
                 if( etQuestTitle.getText().toString().isEmpty() ||
                     etDueDate.getText().toString().isEmpty() ||
                     etDesc.getText().toString().isEmpty() ||
@@ -99,39 +104,78 @@ public class AddQuestDialog extends DialogFragment {
                 }
                 else {
 
+                    // Placeholder for currently signed in user
                     String userName = "default_user";
+
                     // Get currently signed in user
                     if (getArguments() != null) {
-                         userName = "@" + getArguments().getString(USER_SESSION);
+                        userName = getArguments().getString(USER_SESSION);
                     }
 
+                    // Flag for invalid quest
+                    // Invalid quest: Same title, same user; Basically duplicate from the same user
+                    Boolean questValid = false; // Set invalid quest to false by default
+                    // Gets the data repository in read mode
+                    SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+                    String[] projection = {
+                            BaseColumns._ID,
+                            QuestContract.QuestEntry.COLUMN_NAME_TITLE,
+                            QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY
+                    };
 
-                // Gets the data repository in write mode
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    // WHERE title = etQuestTitle AND dibsBy = userName
+                    String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " = ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " = ?";
+                    String[] selectionArgs = {etQuestTitle.getText().toString(), userName};
 
-                // Create a new map of values, where column names are the keys
-                ContentValues values = new ContentValues();
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_TITLE, etQuestTitle.getText().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_CATEGORY, spCategory.getSelectedItem().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_DUE_DATE, etDueDate.getText().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION, etDesc.getText().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_REWARD, etNumReward.getText().toString());
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "NONE");
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY, userName);
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY, "NONE"); // default; to be updated when status changes
+                    // Sort by Title
+                    String sortOrder = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " ASC";
 
-                // Insert the new row, returning the primary key value of the new row
-                long newRowId = db.insert(QuestContract.QuestEntry.TABLE_NAME, null, values);
+                    Cursor cursor;
+                    try {
 
-                // After adding, update the RecyclerView
-                if (mainActivity != null){
-                    mainActivity.updateQuestFeed();
-                    //mainActivity.setHomeFragment();
-                }
+                        cursor = db.query(
+                                QuestContract.QuestEntry.TABLE_NAME,
+                                projection,
+                                selection,
+                                selectionArgs,
+                                null,
+                                null,
+                                sortOrder
+                        );
+                        if(cursor.getCount()>0)questValid=false;
+                    } catch (Exception e) {
+                        // Quest has unique title and author is not current user
+                        questValid = true;
+                    }
 
+                    if (!questValid) { // Notify user of duplicate quest
+                        Toast.makeText(getContext(), "You already posted this quest", Toast.LENGTH_LONG).show();
+                    } else { // Start adding quest
+                        // Gets the data repository in write mode
+                        db = dbHelper.getWritableDatabase();
 
-                dismiss(); // Close dialog after
+                        // Create a new map of values, where column names are the keys
+                        ContentValues values = new ContentValues();
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_TITLE, etQuestTitle.getText().toString());
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_CATEGORY, spCategory.getSelectedItem().toString());
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_DUE_DATE, etDueDate.getText().toString());
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION, etDesc.getText().toString());
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_REWARD, etNumReward.getText().toString());
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "NONE");
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY, userName);
+                        values.put(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY, "NONE"); // default; to be updated when status changes
+
+                        // Insert the new row, returning the primary key value of the new row
+                        long newRowId = db.insert(QuestContract.QuestEntry.TABLE_NAME, null, values);
+
+                        // After adding, update the RecyclerView
+                        if (mainActivity != null) {
+                            mainActivity.updateQuestFeed();
+                            //mainActivity.setHomeFragment();
+                        }
+                        dismiss(); // Close dialog after successful quest input
+                    }
                 }
             }
         });
