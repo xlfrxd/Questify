@@ -32,7 +32,7 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml">
         <config>
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
@@ -69,9 +69,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="819be2ce-21df-42a2-865b-c9697c56e52d" name="Changes" comment="Initial commit; Kaye's UI">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/google.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_posted.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_posted.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_taken.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_quests_taken.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_in.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,8 +131,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -146,7 +148,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="_Designer_Tab" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
