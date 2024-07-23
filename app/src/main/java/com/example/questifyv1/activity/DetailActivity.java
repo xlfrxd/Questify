@@ -38,28 +38,35 @@ public class DetailActivity extends AppCompatActivity {
         else if(imageResource == R.drawable.idea){
             category = "Creative";
         }
-
         category = category + " Service";
+        String desc = getIntent().getStringExtra("desc");
+        String dibsBy = getIntent().getStringExtra("dibsBy");
 
         // Find the views and set data
-        TextView titleView = findViewById(R.id.questTitle);
-        TextView dueDateView = findViewById(R.id.tvDueDate);
-        TextView usernameView = findViewById(R.id.tvPostedBy);
-        TextView priceView = findViewById(R.id.tvReward);
-        TextView categoryView = findViewById(R.id.tvCategory);
+        TextView titleView = findViewById(R.id.tvQuestTitle);
+        TextView dueDateView = findViewById(R.id.tvQuestDueDate);
+        TextView usernameView = findViewById(R.id.tvQuestPostedBy);
+        TextView priceView = findViewById(R.id.tvQuestReward);
+        TextView categoryView = findViewById(R.id.tvQuestCategory);
+        TextView descView = findViewById(R.id.tvQuestDesc);
+        TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
 
-        /*
-        TODO: Implement getting desc, dibsby either by hiding them in recview or call from db
-         */
 
         titleView.setText(title);
         dueDateView.setText(dueDate);
         usernameView.setText(username);
         priceView.setText("PHP " + price);
         categoryView.setText(category);
+        descView.setText(desc);
+        dibsByView.setText(dibsBy);
+
+        // TODO: Set do quest button functionality
+        // If dibsby = none; G
+        // If dibsby = someone; not G
+        // If dibsby = yourself; not G
 
         // Set back button functionality
-        ImageButton btnBack = findViewById(R.id.btnBack);
+        ImageButton btnBack = findViewById(R.id.btnQuestBack);
         btnBack.setOnClickListener( v -> {
             finish();
                 }

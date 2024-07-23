@@ -127,6 +127,8 @@ public void updateQuestFeed(){
             QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY,
             QuestContract.QuestEntry.COLUMN_NAME_REWARD,
             QuestContract.QuestEntry.COLUMN_NAME_CATEGORY,
+            QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION,
+            QuestContract.QuestEntry.COLUMN_NAME_DIBSBY
     };
 
     // Filter results WHERE "status" = "NONE"
@@ -169,8 +171,14 @@ public void updateQuestFeed(){
         String itemCategory = cursor.getString(
                 cursor.getColumnIndexOrThrow(QuestContract.QuestEntry.COLUMN_NAME_CATEGORY)
         );
+        String itemDesc = cursor.getString(
+                cursor.getColumnIndexOrThrow(QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION)
+        );
+        String itemDibsBy = cursor.getString(
+                cursor.getColumnIndexOrThrow(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY)
+        );
         // Add to list
-        DataHelper.addPost(itemTitle, itemDueDate, itemAuthor, itemReward, itemCategory);
+        DataHelper.addPost(itemTitle, itemDueDate, itemAuthor, itemReward, itemCategory, itemDesc, itemDibsBy);
     }
     // Close cursor
     cursor.close();

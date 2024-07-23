@@ -39,6 +39,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.username.setText(post.getUsername());
         holder.price.setText("PHP " + post.getPrice());
         holder.image.setImageResource(post.getImageResource());
+        holder.desc.setText(post.getDesc());
+        holder.dibsBy.setText(post.getDibsBy());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class); // TODO: Change to the new Activity for view quest
@@ -47,6 +49,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             intent.putExtra("username", post.getUsername());
             intent.putExtra("price", post.getPrice());
             intent.putExtra("imageResource", post.getImageResource());
+            intent.putExtra("desc", post.getDesc());
+            intent.putExtra("dibsBy",post.getDibsBy());
             context.startActivity(intent);
         });
     }
@@ -57,7 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView title, dueDate, username, price;
+        TextView title, dueDate, username, price, desc, dibsBy;
         ImageView image;
 
         public PostViewHolder(@NonNull View itemView) {
@@ -67,6 +71,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             username = itemView.findViewById(R.id.username);
             price = itemView.findViewById(R.id.price);
             image = itemView.findViewById(R.id.image);
+            desc = itemView.findViewById(R.id.desc);
+            dibsBy = itemView.findViewById(R.id.dibsBy);
         }
     }
 }
