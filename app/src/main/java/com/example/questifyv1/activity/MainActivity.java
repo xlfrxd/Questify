@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.example.questifyv1.AddQuestDialog;
 import com.example.questifyv1.DataHelper;
@@ -30,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private HomeFragment homeFragment;
     private QuestsDatabaseHandler dbHelper;
     private SQLiteDatabase db;
+    private String userSession; // Currently signed in user
 
     private ActivityMainBinding binding;
 
@@ -40,6 +42,14 @@ public class MainActivity extends FragmentActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        Bundle extras = getIntent().getExtras();
+        // Get username of currently signed in user
+        if (extras != null) {
+            userSession = extras.getString("userSession");
+        }
+
+        Toast.makeText(this, "Welcome " + userSession, Toast.LENGTH_SHORT).show();
 
         // Instantiate Database
         dbHelper = new QuestsDatabaseHandler(this);

@@ -24,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
     private TextView btnBack;
-
+    private String userSession; // Username for currently signed in user
     private UserDatabaseHandler dbHelper;
 
     @Override
@@ -92,7 +92,11 @@ public class RegisterActivity extends AppCompatActivity {
             db.close();
             // Navigate to Main Activity
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            // Pass username to MainActivity
+            userSession = username;
+            intent.putExtra("userSession", userSession);
             startActivity(intent);
+            finish();
             }
         });
 

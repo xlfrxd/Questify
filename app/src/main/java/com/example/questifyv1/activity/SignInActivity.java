@@ -25,6 +25,7 @@ import com.example.questifyv1.database.UserDatabaseHandler;
 public class SignInActivity extends AppCompatActivity {
     private Button signInButton;
     private TextView registerButton;
+    private String userSession; // Username for currently signed in user
 
     private UserDatabaseHandler dbHelper;
     private SQLiteDatabase db;
@@ -71,8 +72,11 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
             else {
-                // TODO: Pass username to MainActivity
+                // Navigate to MainActivity
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                // Pass username to MainActivity
+                userSession = username;
+                intent.putExtra("userSession", userSession);
                 startActivity(intent);
                 finish();
             }
