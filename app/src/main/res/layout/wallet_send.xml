@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    app:cardElevation="16dp"
+    android:padding="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="427dp">
+
+        <TextView
+            android:id="@+id/tv_CashIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/withdraw"
+            android:textColor="@color/purple"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_CashInAmount"
+            android:layout_width="360dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text_bg"
+            android:ems="10"
+            android:hint="@string/input_withdraw_amount"
+            android:inputType="number"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_CashIn" />
+
+        <TextView
+            android:id="@+id/tv_CurrentBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/current_wallet_balance_480_10"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_CashInAmount" />
+
+        <LinearLayout
+            android:layout_width="353dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_CurrentBalance">
+
+            <Button
+                android:id="@+id/btn_100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/_100"
+                android:textColor="@color/purple"
+                app:strokeColor="@color/purple"
+                app:strokeWidth="1dp"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/_500"
+                android:textColor="@color/purple"
+                app:strokeColor="@color/purple"
+                app:strokeWidth="1dp"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_1000"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:text="@string/_1000"
+                android:textColor="@color/purple"
+                app:strokeColor="@color/purple"
+                app:strokeWidth="1dp"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ConfirmCashIn"
+            android:layout_width="201dp"
+            android:layout_height="55dp"
+            android:background="@drawable/button_home_1"
+            android:text="@string/confirm"
+            android:textColor="@android:color/white"
+            app:cornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.889" />
+
+        <ImageButton
+            android:id="@+id/btn_CloseCashIn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:contentDescription="@string/close_the_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/close" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
