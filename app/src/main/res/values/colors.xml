@@ -10,4 +10,6 @@
     <color name="nav_background_color">#5B5F97</color>
     <color name="teal">#78BCC4</color>
     <color name="dirty_white">#FDFDFD</color>
+    <color name="gray_white">#F7F8F3</color>
+
 </resources>
