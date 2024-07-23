@@ -131,9 +131,8 @@ public class AddQuestDialog extends DialogFragment {
                     // Sort by Title
                     String sortOrder = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " ASC";
 
-                    Cursor cursor;
-                    try {
-
+                    Cursor cursor; // Define cursor for results
+                    try { // Try catch if ever cursor crashes from null value (empty)
                         cursor = db.query(
                                 QuestContract.QuestEntry.TABLE_NAME,
                                 projection,
@@ -143,16 +142,16 @@ public class AddQuestDialog extends DialogFragment {
                                 null,
                                 sortOrder
                         );
-                        if(cursor.getCount()>0){
-                            questValid=false;
-                        } else {
-                            questValid=true;
+                        if(cursor.getCount()>0){ // has result = post exists
+                            questValid=false; // invalid quest
+                        } else { // no results = unique post
+                            questValid=true; // valid quest
                         }
                     } catch (Exception e) {
                         // Quest has unique title and author is not current user
-                        questValid = true;
+                        questValid = true; // Catches null exception if any
                     }
-
+                    // Invalid Quest gets notified
                     if (!questValid) { // Notify user of duplicate quest
                         Toast.makeText(getContext(), "You already posted this quest", Toast.LENGTH_LONG).show();
                     } else { // Start adding quest
