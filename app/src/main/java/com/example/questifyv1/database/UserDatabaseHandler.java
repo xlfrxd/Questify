@@ -1,9 +1,10 @@
 package com.example.questifyv1.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+import android.provider.BaseColumns;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
@@ -18,6 +19,8 @@ public static final String DATABASE_NAME = "Users.sqlite";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + QuestContract.QuestEntry.TABLE_NAME;
+
+
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
@@ -36,4 +39,98 @@ public static final String DATABASE_NAME = "Users.sqlite";
     public UserDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    public boolean verifyCredentials(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Get all users
+        String[] projection = {
+                BaseColumns._ID,
+                UserContract.UserEntry.COLUMN_NAME_USERNAME,
+                UserContract.UserEntry.COLUMN_NAME_EMAIL,
+                UserContract.UserEntry.COLUMN_NAME_PASSWORD
+        };
+
+        // Filter results WHERE "username" = username AND "password" = password
+        String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND " + UserContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
+        String[] selectionArgs = {username, password};
+
+        // Sort by ID
+        String sortOrder = UserContract.UserEntry._ID + " ASC";
+        Cursor cursor;
+        try {
+            cursor = db.query(
+                    UserContract.UserEntry.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    sortOrder
+            );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+        if (cursor.getCount() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkExists(String searchArg, String columnName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Get all users credentials
+        String[] projection = {
+                BaseColumns._ID,
+                UserContract.UserEntry.COLUMN_NAME_USERNAME,
+                UserContract.UserEntry.COLUMN_NAME_EMAIL,
+                UserContract.UserEntry.COLUMN_NAME_PASSWORD
+        };
+        // Filter results WHERE "columnName" = columnName
+        String selection = UserContract.UserEntry._ID + " = ?";
+
+        switch (columnName.toUpperCase()){
+            case "USERNAME":
+                selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
+                break;
+            case "EMAIL":
+                selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = ?";
+                break;
+            case "PASSWORD":
+                selection = UserContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
+                break;
+        }
+        // Filter results for the WHERE clause
+        String[] selectionArgs = {searchArg};
+
+        // Sort by ID
+        String sortOrder = " ASC";
+
+
+        try{ // Cursor will return a table or null if no results
+            // Query the user table
+            Cursor cursor = db.query(
+                    UserContract.UserEntry.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    sortOrder
+            );
+            cursor.getCount();
+
+            // User exists
+            return true;
+        }
+        catch (Exception e){ // User does not exist
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
 }
