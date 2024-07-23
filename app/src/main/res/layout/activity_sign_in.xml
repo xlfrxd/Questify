@@ -7,58 +7,156 @@
     android:layout_height="match_parent"
     tools:context=".activity.SignInActivity">
 
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/background_image_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sign_up_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Sign Up Text -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
-        android:text="Sign in"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/actor_regular"
+        android:text="Sign In"
+        android:textColor="@color/purple"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Username Input Field -->
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="text"
+        android:layout_width="354dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
+        android:hint="@string/username"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
+    <!-- Password Input Field -->
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="Password"
+        android:layout_width="352dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_field_background"
+        android:backgroundTint="#EDEDED"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
+        android:hint="@string/password"
         android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+        app:layout_constraintTop_toBottomOf="@id/etUsername" />
 
+
+    <!-- Sign in Button -->
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_width="wrap_content"
+        android:layout_width="217dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="30dp"
-        android:text="Sign In"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/actor_regular"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="@string/sign_in"
+        android:textColor="#5B5F97"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <Button
-        android:id="@+id/btnRegister"
+    <!-- Custom Sign Up with Google Button -->
+    <LinearLayout
+        android:id="@+id/signUpGoogleButton"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_background"
+        android:elevation="4dp"
+        android:fontFamily="@font/actor_regular"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/signUpGoogleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in_google"
+            android:textColor="#5B5F97"
+            android:textSize="16sp"
+            android:fontFamily="@font/actor_regular" />
+
+        <ImageView
+            android:id="@+id/googleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/google" />
+    </LinearLayout>
+
+    <!-- Don't have an account? Sign Up Text Container -->
+    <LinearLayout
+        android:id="@+id/dontHaveAccountContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="9dp"
-        android:text="Create Account"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/signUpGoogleButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/dontHaveAccountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/actor_regular"
+            android:text="Don't have an account?"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/actor_regular"
+            android:text=" Sign Up"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

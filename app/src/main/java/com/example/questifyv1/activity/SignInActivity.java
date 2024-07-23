@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,7 +24,7 @@ import com.example.questifyv1.database.UserDatabaseHandler;
 
 public class SignInActivity extends AppCompatActivity {
     private Button signInButton;
-    private Button registerButton;
+    private TextView registerButton;
 
     private UserDatabaseHandler dbHelper;
     private SQLiteDatabase db;
@@ -78,7 +79,7 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         // Navigate to Register Activity
-        registerButton = findViewById(R.id.btnRegister);
+        registerButton = findViewById(R.id.tvRegister);
         registerButton.setOnClickListener(v -> {
             // Handle register button click
             Intent intent = new Intent(SignInActivity.this, RegisterActivity.class);

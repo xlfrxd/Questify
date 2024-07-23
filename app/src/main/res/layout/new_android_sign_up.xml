@@ -4,8 +4,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9E8E8"
-    tools:context=".SignUpActivity">
+    android:background="#E9E8E8">
 
     <!-- Sign Up Text -->
     <TextView
@@ -13,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/actor_regular"
         android:text="Sign Up"
         android:textColor="@color/purple"
