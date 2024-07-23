@@ -37,7 +37,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post post = postList.get(position);
         holder.title.setText(post.getTitle());
         holder.dueDate.setText(post.getDueDate());
-        holder.username.setText(post.getUsername());
+        holder.username.setText("@" + post.getUsername());
         holder.price.setText("PHP " + post.getPrice());
         holder.image.setImageResource(post.getImageResource());
         holder.desc.setText(post.getDesc());

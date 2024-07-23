@@ -57,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
 
         titleView.setText(title);
         dueDateView.setText(dueDate);
-        usernameView.setText(username);
+        usernameView.setText("@"+username);
         priceView.setText("PHP " + price);
         categoryView.setText(category);
         descView.setText(desc);
