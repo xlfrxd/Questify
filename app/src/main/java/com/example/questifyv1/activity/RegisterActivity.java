@@ -49,17 +49,19 @@ public class RegisterActivity extends AppCompatActivity {
             // Implement registration logic here
 
             // Get user inputs
+            EditText etName = findViewById(R.id.etName);
             EditText etUsername = findViewById(R.id.etUsername);
             EditText etEmail = findViewById(R.id.etEmail);
             EditText etPassword = findViewById(R.id.etPassword);
             // Store locally
+            String name = etName.getText().toString();
             String username = etUsername.getText().toString();
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 
 
             // Check if empty fields
-            if (username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
+            if ( name.trim().isEmpty() || username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
             // Check if username already exists
@@ -80,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             // Map new values
             ContentValues values = new ContentValues();
+            values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
             values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
             values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
             values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);

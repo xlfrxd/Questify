@@ -23,10 +23,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Full Name Input Field -->
-    <!-- TODO: Implement Full Name in Database -->
-    <!--
     <EditText
-        android:id="@+id/fullNameEditText"
+        android:id="@+id/etName"
         android:layout_width="354dp"
         android:layout_height="62dp"
         android:layout_marginStart="28dp"
@@ -40,8 +38,8 @@
         android:textColor="#5B5F97"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signUpText" />
-    -->
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
 
     <!-- Username Input Field -->
     <EditText
@@ -59,7 +57,7 @@
         android:textColor="#5B5F97"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/etName" />
 
 
     <!-- Email Input Field -->

@@ -9,11 +9,12 @@ import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
-public static final int DATABASE_VERSION = 1;
+public static final int DATABASE_VERSION = 2; // Increment this when you change the database schema
 public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
                     UserContract.UserEntry._ID + " INTEGER PRIMARY KEY," +
+                    UserContract.UserEntry.COLUMN_NAME_NAME + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_USERNAME + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT," +
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT)";
@@ -43,11 +44,10 @@ public static final String DATABASE_NAME = "Users.sqlite";
 
     public boolean verifyCredentials(String username, String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        // Get all users
+        // Get all users information
         String[] projection = {
                 BaseColumns._ID,
                 UserContract.UserEntry.COLUMN_NAME_USERNAME,
-                UserContract.UserEntry.COLUMN_NAME_EMAIL,
                 UserContract.UserEntry.COLUMN_NAME_PASSWORD
         };
 
@@ -88,6 +88,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
         // Get all users credentials
         String[] projection = {
                 BaseColumns._ID,
+                UserContract.UserEntry.COLUMN_NAME_NAME,
                 UserContract.UserEntry.COLUMN_NAME_USERNAME,
                 UserContract.UserEntry.COLUMN_NAME_EMAIL,
                 UserContract.UserEntry.COLUMN_NAME_PASSWORD
@@ -96,9 +97,11 @@ public static final String DATABASE_NAME = "Users.sqlite";
         String selection = UserContract.UserEntry._ID + " = ?";
 
         switch (columnName.toUpperCase()){
+            case "NAME":
+                selection = UserContract.UserEntry.COLUMN_NAME_NAME + " = ?";
+                break;
             case "USERNAME":
                 selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
-                //Log.e("Inside Username Case", "true");
                 break;
             case "EMAIL":
                 selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = ?";
