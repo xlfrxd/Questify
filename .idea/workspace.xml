@@ -15,6 +15,16 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/add_quest.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/card.xml">
         <config>
           <theme>@style/Theme.QuestifyV1</theme>
@@ -30,6 +40,21 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_quest.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/new_activity_quests_taken.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml">
+        <config>
+          <theme>@style/Theme.QuestifyV1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/view_quest.xml">
         <config>
           <theme>@style/Theme.QuestifyV1</theme>
@@ -41,16 +66,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="819be2ce-21df-42a2-865b-c9697c56e52d" name="Changes" comment="Initial commit; Kaye's UI">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/category_container.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/purple_container.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/white_container.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_quest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-    </list>
+    <list default="true" id="819be2ce-21df-42a2-865b-c9697c56e52d" name="Changes" comment="Function: Added name to sql schema and implemented to all functions" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +75,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\Kaye\.android\avd\Pixel_3a_API_34.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/alfredeugenevictoria/.android/avd/Medium_Phone_API_34_2.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -76,22 +92,22 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Questify v.1" type="f1a62948:ProjectNode" />
+                <item name="Questify" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Questify v.1" type="f1a62948:ProjectNode" />
+                <item name="Questify" type="f1a62948:ProjectNode" />
                 <item name="app" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Questify v.1" type="f1a62948:ProjectNode" />
+                <item name="Questify" type="f1a62948:ProjectNode" />
                 <item name="app" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Questify v.1" type="f1a62948:ProjectNode" />
+                <item name="Questify" type="f1a62948:ProjectNode" />
                 <item name="app" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="other" type="c8890929:TasksNode$1" />
@@ -129,7 +145,9 @@
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="2iXSrlnUMTFfKaQpB4CbXr42Dhh" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -242,7 +260,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719651311100</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Docs: removed unused files">
+      <option name="closed" value="true" />
+      <created>1721717138179</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721717138179</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Function: Added name to sql schema and implemented to all functions">
+      <option name="closed" value="true" />
+      <created>1721718032515</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1721718032515</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +292,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit; Kaye's UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit; Kaye's UI" />
+    <MESSAGE value="Docs: removed unused files" />
+    <MESSAGE value="Function: Added name to sql schema and implemented to all functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Function: Added name to sql schema and implemented to all functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -266,7 +302,7 @@
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/questifyv1/AddQuestDialog.java</url>
           <line>31</line>
-          <properties field="etNumReward" class="com.example.questifyv1.AddQuestDialog" />
+          <properties field="etDesc" class="com.example.questifyv1.AddQuestDialog" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
