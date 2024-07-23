@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.questifyv1.R;
 
@@ -41,6 +43,8 @@ public class DetailActivity extends AppCompatActivity {
         category = category + " Service";
         String desc = getIntent().getStringExtra("desc");
         String dibsBy = getIntent().getStringExtra("dibsBy");
+        // Get current user signed in
+        String userSession = getIntent().getStringExtra("userSession");
 
         // Find the views and set data
         TextView titleView = findViewById(R.id.tvQuestTitle);
@@ -51,7 +55,6 @@ public class DetailActivity extends AppCompatActivity {
         TextView descView = findViewById(R.id.tvQuestDesc);
         TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
 
-
         titleView.setText(title);
         dueDateView.setText(dueDate);
         usernameView.setText(username);
@@ -61,6 +64,25 @@ public class DetailActivity extends AppCompatActivity {
         dibsByView.setText(dibsBy);
 
         // TODO: Set do quest button functionality
+        // Get do quest button
+        Button btnDoQuest = findViewById(R.id.btnQuestConfirm);
+        btnDoQuest.setOnClickListener(v ->{
+            // Check dibsby
+            if(dibsByView.getText().equals("NONE")){
+                // Quest is vacant
+                Toast.makeText(this, "Vacant",Toast.LENGTH_LONG).show();
+                // TODO: Search database for same title and author
+                // TODO: Update database
+            }
+            else if(dibsByView.getText().equals(userSession)){
+                // Quest is already dibs by current user
+                Toast.makeText(this,"You", Toast.LENGTH_LONG).show();
+            } else {
+                // Quest is dibs by other users
+                Toast.makeText(this, dibsBy,Toast.LENGTH_LONG).show();;
+            }
+        });
+
         // If dibsby = none; G
         // If dibsby = someone; not G
         // If dibsby = yourself; not G

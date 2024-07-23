@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.questifyv1.activity.DetailActivity;
+import com.example.questifyv1.activity.MainActivity;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.dibsBy.setText(post.getDibsBy());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class); // TODO: Change to the new Activity for view quest
+            Intent intent = new Intent(context, DetailActivity.class);
             intent.putExtra("title", post.getTitle());
             intent.putExtra("dueDate", post.getDueDate());
             intent.putExtra("username", post.getUsername());
@@ -51,6 +52,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             intent.putExtra("imageResource", post.getImageResource());
             intent.putExtra("desc", post.getDesc());
             intent.putExtra("dibsBy",post.getDibsBy());
+            // Get currently signed in user
+            intent.putExtra("userSession", MainActivity.getUserSession());
+
             context.startActivity(intent);
         });
     }

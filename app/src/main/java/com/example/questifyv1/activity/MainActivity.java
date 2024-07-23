@@ -31,9 +31,13 @@ public class MainActivity extends FragmentActivity {
     private HomeFragment homeFragment;
     private QuestsDatabaseHandler dbHelper;
     private SQLiteDatabase db;
-    private String userSession; // Currently signed in user
+    private static String userSession; // Currently signed in user
 
     private ActivityMainBinding binding;
+
+    public static String getUserSession(){
+        return userSession;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
