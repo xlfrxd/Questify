@@ -30,12 +30,7 @@
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/profile.xml">
-        <config>
-          <theme>@style/Theme.QuestifyV1</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml">
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/view_quest.xml">
         <config>
           <theme>@style/Theme.QuestifyV1</theme>
         </config>
@@ -47,8 +42,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="819be2ce-21df-42a2-865b-c9697c56e52d" name="Changes" comment="Initial commit; Kaye's UI">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/category_container.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/purple_container.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/white_container.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_quest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/questifyv1/AddQuestDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/questifyv1/AddQuestDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,8 +106,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -121,6 +122,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="_Designer_Tab" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -130,23 +134,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.app.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Kaye/Documents/GitHub/Questify/app/src/main/res/drawable",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kaye/Documents/GitHub/Questify/app/src/main/res/drawable&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kaye\Documents\GitHub\Questify\app\src\main\res\drawable" />
@@ -255,5 +259,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit; Kaye's UI" />
     <option name="LAST_COMMIT_MESSAGE" value="Initial commit; Kaye's UI" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/questifyv1/AddQuestDialog.java</url>
+          <line>31</line>
+          <properties field="etNumReward" class="com.example.questifyv1.AddQuestDialog" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
