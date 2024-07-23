@@ -1,8 +1,10 @@
 package com.example.questifyv1.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.ImageView;
+
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.questifyv1.R;
@@ -10,6 +12,7 @@ import com.example.questifyv1.R;
 import org.w3c.dom.Text;
 
 public class DetailActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,24 @@ public class DetailActivity extends AppCompatActivity {
         TextView priceView = findViewById(R.id.tvReward);
         TextView categoryView = findViewById(R.id.tvCategory);
 
+        /*
+        TODO: Implement getting desc, dibsby either by hiding them in recview or call from db
+         */
 
         titleView.setText(title);
         dueDateView.setText(dueDate);
         usernameView.setText(username);
         priceView.setText("PHP " + price);
         categoryView.setText(category);
+
+        // Set back button functionality
+        ImageButton btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener( v -> {
+            finish();
+                }
+        );
+        //btnBack.setOnClickListener();
+
 
     }
 }

@@ -11,9 +11,10 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:orientation="vertical"
         android:background="@drawable/teal_container"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -29,29 +30,29 @@
 
         <TextView
             android:id="@+id/questTitle"
-            android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="26sp"
+            android:layout_marginTop="60dp"
+            android:text="Fix My Cellphone"
             android:textColor="#FFFFFF"
-            android:text="Fix My Cellphone" />
+            android:textSize="26sp" />
 
         <TextView
             android:id="@+id/tvPostedBy"
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:text="Posted by @isakyaki"
             android:textColor="#FFFFFF"
-            android:text="Posted by @isakyaki" />
+            android:textSize="14sp" />
 
 
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/btn_back"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
