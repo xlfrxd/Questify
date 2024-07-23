@@ -143,7 +143,11 @@ public class AddQuestDialog extends DialogFragment {
                                 null,
                                 sortOrder
                         );
-                        if(cursor.getCount()>0)questValid=false;
+                        if(cursor.getCount()>0){
+                            questValid=false;
+                        } else {
+                            questValid=true;
+                        }
                     } catch (Exception e) {
                         // Quest has unique title and author is not current user
                         questValid = true;
