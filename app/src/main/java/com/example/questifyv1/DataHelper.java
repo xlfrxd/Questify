@@ -16,7 +16,6 @@ public class DataHelper {
         posts.add(new Post("Categorize My Emails", "Due Today at 7:00am", "@xlfrxd", 300, R.drawable.laptop));
         posts.add(new Post("Fix My Cellphone", "Due Today at 5:00pm", "@lsakyaki", 900, R.drawable.briefcase));
         posts.add(new Post("Create Logo For My Brand", "Due Today at 9:00am", "@caicai", 2000, R.drawable.idea));
-
         */
         return posts;
 

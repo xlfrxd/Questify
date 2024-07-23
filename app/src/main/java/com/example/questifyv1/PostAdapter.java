@@ -10,6 +10,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.questifyv1.activity.DetailActivity;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -39,7 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.image.setImageResource(post.getImageResource());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class);
+            Intent intent = new Intent(context, DetailActivity.class); // TODO: Change to the new Activity for view quest
             intent.putExtra("title", post.getTitle());
             intent.putExtra("dueDate", post.getDueDate());
             intent.putExtra("username", post.getUsername());

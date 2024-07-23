@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED">
+    android:background="#EDEDED"
+    tools:context=".activity.DetailActivity">
 
     <LinearLayout
         android:id="@+id/header"
@@ -27,7 +28,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/title_quest"
+            android:id="@+id/questTitle"
             android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
             android:text="Fix My Cellphone" />
 
         <TextView
-            android:id="@+id/posted_quest"
+            android:id="@+id/tvPostedBy"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Physical Service"
@@ -105,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@id/category">
 
         <TextView
-            android:id="@+id/text_due1"
+            android:id="@+id/tvDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="70dp"
@@ -114,7 +115,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/text_reward"
+            android:id="@+id/tvReward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PHP 900"
@@ -145,7 +146,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/text_desc_content"
+            android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

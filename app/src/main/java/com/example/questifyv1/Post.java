@@ -5,6 +5,7 @@ public class Post {
     private String dueDate;
     private String username;
     private String price;
+
     private int imageResource;
 
     public Post(String title, String dueDate, String username, String price, int imageResource) {
