@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +12,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.questifyv1.AddQuestDialog;
+import com.example.questifyv1.DataHelper;
+import com.example.questifyv1.HomeFragment;
+import com.example.questifyv1.Post;
+import com.example.questifyv1.ProfileFragment;
+import com.example.questifyv1.R;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;
 import com.example.questifyv1.databinding.ActivityMainBinding;
