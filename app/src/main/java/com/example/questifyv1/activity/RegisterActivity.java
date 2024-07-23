@@ -58,7 +58,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
             // Check if empty fields
-            Log.e("username contents", username);
             if (username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
@@ -66,13 +65,13 @@ public class RegisterActivity extends AppCompatActivity {
             else if (dbHelper.checkExists(username, "username")) {
                 // Show error message
                 //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "USER ALREADY EXISTS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
             }
             // Check if email already exists
             else if (dbHelper.checkExists(email, "email")) {
                 // Show error message
                 //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "EMAIL ALREADY EXITS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
             }
             else {
 

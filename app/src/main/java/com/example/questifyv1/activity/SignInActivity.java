@@ -56,54 +56,25 @@ public class SignInActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
 
             // Check user credentials
-            String[] projection = {
-                    BaseColumns._ID,
-                    UserContract.UserEntry.COLUMN_NAME_USERNAME,
-                    UserContract.UserEntry.COLUMN_NAME_PASSWORD
-            };
-            // Filter results WHERE "username" = username AND "password" = password
-            String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND " +
-                    UserContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
-            String[] selectionArgs = {username, password};
-
-            // Sort
-            String sortOrder = UserContract.UserEntry._ID + " ASC";
-
-            // TODO: Create better workaround for this
-            try{ // Check if users table is empty
-
-                // Query
-                Cursor cursor = db.query(
-                        UserContract.UserEntry.TABLE_NAME,
-                        projection,         // Columns to display
-                        selection,          // Filter results
-                        selectionArgs,      // Filter results
-                        null,               // Group by
-                        null,               // Filter by row groups
-                        sortOrder           // Sort order
-                );
+            if (username.trim().isEmpty() || password.trim().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
-            catch (Exception e){ // Users table is empty
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-            // Sign in flag
-            boolean isUserValid = false;
-
-            // Check if username exists
-            if(dbHelper.checkExists(username, UserContract.UserEntry.COLUMN_NAME_USERNAME)){
+            // Check if username does not exist
+            else if(!dbHelper.checkExists(username, UserContract.UserEntry.COLUMN_NAME_USERNAME)){
                 // TODO: Replace hardcoded text
                 Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
             }
-
-            // Sign in Successful
-            if(isUserValid){
+            // Check if credentials is match
+            else if(!dbHelper.verifyCredentials(username, password)){
+                // TODO: Replace hardcoded text
+                Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
+            }
+            else {
                 // TODO: Pass username to MainActivity
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
-
-
         });
 
         // Navigate to Register Activity

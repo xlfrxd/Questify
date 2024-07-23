@@ -55,10 +55,11 @@ public static final String DATABASE_NAME = "Users.sqlite";
         String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ? AND " + UserContract.UserEntry.COLUMN_NAME_PASSWORD + " = ?";
         String[] selectionArgs = {username, password};
 
-        // Sort by ID
-        String sortOrder = UserContract.UserEntry._ID + " ASC";
+        // Sort by username
+        String sortOrder = UserContract.UserEntry.COLUMN_NAME_USERNAME + " ASC";
+
         Cursor cursor;
-        try {
+        try { // Cursor will return a table or null if no results
             cursor = db.query(
                     UserContract.UserEntry.TABLE_NAME,
                     projection,
@@ -69,14 +70,16 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     sortOrder
             );
         }
-        catch (Exception e){
+        catch (Exception e){ // If table is null or empty
             e.printStackTrace();
             return false;
         }
 
+        // Check if query returns results
         if (cursor.getCount() > 0){
             return true;
         }
+        // Invalid Credentials
         return false;
     }
 
@@ -95,7 +98,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
         switch (columnName.toUpperCase()){
             case "USERNAME":
                 selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " = ?";
-                Log.e("Inside Username Case", "true");
+                //Log.e("Inside Username Case", "true");
                 break;
             case "EMAIL":
                 selection = UserContract.UserEntry.COLUMN_NAME_EMAIL + " = ?";
@@ -123,10 +126,10 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     null,
                     sortOrder
             );
-            Log.e("Cursor Count", String.valueOf(cursor.getCount()));
+            //Log.e("Cursor Count", String.valueOf(cursor.getCount()));
         }
         catch (Exception e){ // User does not exist
-            Log.e("User does not exist", e.toString());
+            //Log.e("User does not exist", e.toString());
             return false;
         }
         if (cursor.getCount() == 0){
