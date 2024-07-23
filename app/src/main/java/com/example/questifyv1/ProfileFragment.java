@@ -29,6 +29,7 @@ public class ProfileFragment extends Fragment {
     private String userPassword;
     private TextView tvProfileTitle;
     private TextView tvWallet;
+    private TextView tvProfileSubtitle;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -74,10 +75,15 @@ public class ProfileFragment extends Fragment {
         // Initialize widgets
         tvProfileTitle = view.findViewById(R.id.tvProfileTitle);
         tvWallet = view.findViewById(R.id.tvWallet);
+        tvProfileSubtitle = view.findViewById(R.id.tvProfileSubtitle);
+
+        // Display widgets
         // Display Wallet Balance (wallet)
         tvWallet.setText(String.format("₱%.2f", userWallet));
-        // Display Profile Title (username)
-        tvProfileTitle.setText(userName);
+        // Display Profile Title (full name)
+        tvProfileTitle.setText(userFullName);
+        // Display Profile Subtitle (username)
+        tvProfileSubtitle.setText("@"+userName);
 
         // Logout Button
         Button btnLogout = view.findViewById(R.id.btnLogout);

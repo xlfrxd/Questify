@@ -51,7 +51,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/profile_joined_date"
+                    android:id="@+id/tvProfileSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
