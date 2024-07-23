@@ -70,14 +70,15 @@ public class MainActivity extends FragmentActivity {
 
             if(item.getItemId() == R.id.nav_add) { // Add Quest Dialog
                 // Create Dialog
-                DialogFragment dialog_add;
-                dialog_add = new AddQuestDialog();
+                DialogFragment dialog_add = new AddQuestDialog();
+                dialog_add.setArguments(extras); // Send current user
 
+                // Display Dialog
                 dialog_add.show(getSupportFragmentManager(),"addquest");
 
             } else if (item.getItemId() == R.id.nav_profile) {
                 ProfileFragment profileFragment = new ProfileFragment();
-                profileFragment.setArguments(extras);
+                profileFragment.setArguments(extras); // Send current user
                 replaceFragment(profileFragment);
 
             } else if (item.getItemId() == R.id.nav_home) {

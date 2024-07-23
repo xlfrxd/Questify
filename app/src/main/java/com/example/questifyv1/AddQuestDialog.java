@@ -36,6 +36,7 @@ public class AddQuestDialog extends DialogFragment {
     private ImageButton btnClose;
     private Spinner spCategory;
     private MainActivity mainActivity;
+    private static final String USER_SESSION = "userSession";
 
     @Override
     public void onAttach(Context context) {
@@ -98,6 +99,13 @@ public class AddQuestDialog extends DialogFragment {
                 }
                 else {
 
+                    String userName = "default_user";
+                    // Get currently signed in user
+                    if (getArguments() != null) {
+                         userName = "@" + getArguments().getString(USER_SESSION);
+                    }
+
+
 
                 // Gets the data repository in write mode
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -110,7 +118,7 @@ public class AddQuestDialog extends DialogFragment {
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION, etDesc.getText().toString());
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_REWARD, etNumReward.getText().toString());
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "NONE");
-                values.put(QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY, "default_user"); //TODO: Change to current user
+                values.put(QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY, userName); //TODO: Change to current user
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY, "NONE"); // default; to be updated when status changes
 
                 // Insert the new row, returning the primary key value of the new row
