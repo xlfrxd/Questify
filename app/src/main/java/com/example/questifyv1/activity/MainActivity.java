@@ -76,7 +76,9 @@ public class MainActivity extends FragmentActivity {
                 dialog_add.show(getSupportFragmentManager(),"addquest");
 
             } else if (item.getItemId() == R.id.nav_profile) {
-                replaceFragment(new ProfileFragment());
+                ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.setArguments(extras);
+                replaceFragment(profileFragment);
 
             } else if (item.getItemId() == R.id.nav_home) {
                 //homeFragment = new HomeFragment();
