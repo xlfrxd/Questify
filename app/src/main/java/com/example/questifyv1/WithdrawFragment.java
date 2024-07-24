@@ -100,15 +100,13 @@ public class WithdrawFragment extends DialogFragment {
 
         // Confirm withdraw
         btnConfirmCashIn.setOnClickListener(view1 -> {
-
-
             // Check if empty
             if(etWithdrawAmt.getText().toString().isEmpty()){
-                Toast.makeText(getContext(), "Input amount to withdraw", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Input amount to withdraw", Toast.LENGTH_SHORT).show();
             }
             // Check if balance < withdrawAmount
             else if(currentBalance < Double.valueOf(etWithdrawAmt.getText().toString())){
-                Toast.makeText(getContext(),"You have insufficient funds", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"You have insufficient funds", Toast.LENGTH_SHORT).show();
             }
             else {
                 // Get amount to withdraw

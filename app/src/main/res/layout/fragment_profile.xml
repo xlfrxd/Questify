@@ -207,7 +207,7 @@
                     android:layout_width="40dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
-                    android:text="Send" />
+                    android:text="Withdraw" />
             </LinearLayout>
         </LinearLayout>
 

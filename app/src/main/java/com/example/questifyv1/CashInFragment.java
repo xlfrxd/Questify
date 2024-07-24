@@ -100,15 +100,15 @@ public class CashInFragment extends DialogFragment {
         });
         // Confirm deposit
         btnConfirmCashIn.setOnClickListener(view1 -> {
-
+            // Check if empty
             if(etCashInAmt.getText().toString().isEmpty()){
-                Toast.makeText(getContext(), "Input amount to deposit", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Input amount to deposit", Toast.LENGTH_SHORT).show();
             }
             else {
-                // Get amount to withdraw
+                // Get amount to deposit
                 depositAmount = Double.valueOf(etCashInAmt.getText().toString());
-                //Log.e("withdrawAmt:",String.valueOf(depositAmount));
                 double newBalance = depositAmount + currentBalance;
+                // Update user balance
                 mainActivity.updateUserBalance(newBalance);
 
                 dismiss();
