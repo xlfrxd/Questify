@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -66,7 +67,14 @@ public class DetailActivity extends AppCompatActivity {
         TextView statusView = findViewById(R.id.tvQuestStatus);
         LinearLayout categoryContainer = findViewById(R.id.categoryContainer); // Changes between 4 categories
 
+        // Buttons
+        Button btnDoQuest = findViewById(R.id.btnQuestConfirm);
+        Button btnCancelQuest = findViewById(R.id.btnQuestCancel); // TODO link
+        Button btnCompleteQuest = findViewById(R.id.btnQuestCompleted); // TODO link
 
+        // Set buttons to invisible by default
+
+        // Set widget data
         titleView.setText(title);
         dueDateView.setText(dueDate);
         usernameView.setText("@"+username);
@@ -91,10 +99,65 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
 
-        // TODO: Set do quest button functionality
-        // Get do quest button
-        Button btnDoQuest = findViewById(R.id.btnQuestConfirm);
+        // postedBy != currentUser && status = NONE ( -> IN_PROGRESS)
+        Log.e("!username.equals(userSession) && status.equals(\"NONE\")", String.valueOf(!username.equals(userSession) && status.equals("NONE")));
+        if(username.equals(userSession)){
+            // Posted by user
+            // Show Cancel and Mark as Complete
+            btnDoQuest.setVisibility(View.GONE);
+            btnCompleteQuest.setVisibility(View.VISIBLE);
+            btnCancelQuest.setVisibility(View.VISIBLE);
+            // User can't mark this as complete by default
+            btnCompleteQuest.setEnabled(false);
+            if(status.equals("IN_PROGRESS")){
+                // Posted by user and has dibs
+                // User can mark this as complete
+                btnCompleteQuest.setEnabled(true);
+            }
+        }
+        else if(dibsBy.equals(userSession)) {
+            // User dibs post
+            // User can cancel or mark this as complete
+            btnDoQuest.setVisibility(View.GONE);
+            btnCompleteQuest.setVisibility(View.VISIBLE);
+            btnCancelQuest.setVisibility(View.VISIBLE);
+        }
+        else if(status.equals("IN_PROGRESS") && !dibsBy.equals("NONE")){
+            // Not posted by user and is not vacant
+            // Show Do Quest
+            btnDoQuest.setVisibility(View.VISIBLE);
+            btnCompleteQuest.setVisibility(View.GONE);
+            btnCancelQuest.setVisibility(View.GONE);
+            // User can't dibs on this
+            btnDoQuest.setEnabled(false);
+        }
+        else if(status.equals("NONE") && dibsBy.equals("NONE")){
+            // Not posted by user and is vacant
+            btnCompleteQuest.setVisibility(View.GONE);
+            btnCancelQuest.setVisibility(View.GONE);
+        }
+
+        // buttons = DO QUEST (enabled;visible)
         btnDoQuest.setOnClickListener(v ->{
+
+            if(username.equals(userSession)){
+                // User posted
+                btnDoQuest.setVisibility(View.GONE);
+                btnCompleteQuest.setVisibility(View.VISIBLE);
+                btnCancelQuest.setVisibility(View.VISIBLE);
+                btnCompleteQuest.setEnabled(true);
+                if(status.equals("NONE")){
+                    // User post has dibs
+                    btnCompleteQuest.setEnabled(false);
+                }
+            }
+            else if(dibsBy.equals(userSession)) {
+                // User dibs
+                btnDoQuest.setVisibility(View.VISIBLE);
+                btnCompleteQuest.setVisibility(View.GONE);
+                btnCancelQuest.setVisibility(View.GONE);
+            }
+
             // Check if quest is dibsBy = currentUser
             if(dibsByView.getText().equals(userSession)){
                 // Quest is already dibs by current user or is owned by current user
@@ -144,9 +207,10 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        // If dibsby = none; G
-        // If dibsby = someone; not G
-        // If dibsby = yourself; not G
+
+
+
+
 
         // Set back button functionality
         ImageButton btnBack = findViewById(R.id.btnQuestBack);

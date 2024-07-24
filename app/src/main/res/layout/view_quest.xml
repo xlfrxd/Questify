@@ -163,9 +163,36 @@
         android:layout_height="42dp"
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        android:text="DO QUEST"
+        android:text="Do Quest"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/white_container" />
+
+    <Button
+        android:id="@+id/btnQuestCancel"
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:text="Cancel"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.154"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/white_container" />
+
+
+    <Button
+        android:id="@+id/btnQuestCompleted"
+        android:layout_width="150dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:text="Mark as Complete"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.841"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/white_container" />
 
