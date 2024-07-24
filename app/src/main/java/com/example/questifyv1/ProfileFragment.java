@@ -3,8 +3,10 @@ package com.example.questifyv1;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +60,6 @@ public class ProfileFragment extends Fragment {
         // For debugging
         //Toast.makeText(getActivity(), "Profile created for: " + userSession, Toast.LENGTH_SHORT).show();
 
-
-
         // Get user info from db
         String[] userInfo;
         UserDatabaseHandler userDB = new UserDatabaseHandler(getActivity());
@@ -67,9 +67,11 @@ public class ProfileFragment extends Fragment {
         // Store to local variables
         userFullName = userInfo[0];
         userName = userInfo[1];
-        userWallet = Integer.parseInt(userInfo[2]);
+        userWallet = Double.parseDouble(userInfo[2]);
         userEmail = userInfo[3];
         userPassword = userInfo[4];
+
+        // Create bundle to send userWaller to cashin/withdraw
 
         // TODO: Display user information onto widgets
         // Initialize widgets
@@ -86,15 +88,20 @@ public class ProfileFragment extends Fragment {
         tvProfileSubtitle.setText("@"+userName);
 
         // Buttons
-
         // Cash In Button
         Button btnOpenCashIn = view.findViewById(R.id.btnOpenCashIn);
         btnOpenCashIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Open cash in dialog
-
+                DialogFragment dialog_deposit = new CashInFragment();
+                Bundle args = new Bundle();
+                args.putDouble("userWallet",userWallet);
+                dialog_deposit.setArguments(args); // Send user current wallet balance
                 // TODO: Update balance via mainAcitivty.updateBalance("deposit", balance)
+
+                dialog_deposit.show(getActivity().getSupportFragmentManager(), "deposit");
+
             }
         });
 
@@ -104,9 +111,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Open the withdraw dialog
-
+                DialogFragment dialog_withdraw = new WithdrawFragment();
+                Bundle args = new Bundle();
+                args.putDouble("userWallet",userWallet);
+                dialog_withdraw.setArguments(args); // Send user current wallet balance
 
                 // TODO: Update balance via mainAcitivty.updateBalance("withdraw", balance)
+                dialog_withdraw.show(getActivity().getSupportFragmentManager(), "withdraw");
             }
         });
 

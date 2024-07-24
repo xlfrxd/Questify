@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -20,8 +23,8 @@ public class WithdrawFragment extends DialogFragment {
     private MainActivity mainActivity;
 
     private String displayCurrentBalance; // Current Wallet Balance: ₱480.10
-    private int currentBalance; // 480.10
-    private String withdrawBalance;
+    private double currentBalance; // 480.10
+    private double withdrawAmount;
     private String[] amountChoices = {"100", "500", "1000"};
 
     @Override
@@ -37,7 +40,7 @@ public class WithdrawFragment extends DialogFragment {
         super.onResume();
         WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = 1200;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         getDialog().getWindow().setAttributes(params);
     }
 
@@ -53,41 +56,69 @@ public class WithdrawFragment extends DialogFragment {
         // Set the view for the dialog
         builder.setView(view);
 
+        // Get current balance
+        Bundle bundle = getArguments();
+        currentBalance = bundle.getDouble("userWallet");
+
         // Initialize widgets
-        // Display current balance
+        // Displays user current balance
         TextView tvCurrentBalance = view.findViewById(R.id.tvWithdraw_CurrentBalance);
-        // Input cash to deposit
-        EditText etCashInAmt = view.findViewById(R.id.et_WithdrawAmount);
+        // Input cash to withdraw
+        EditText etWithdrawAmt = view.findViewById(R.id.et_WithdrawAmount);
         // Helper buttons for simple cash in (100, 500, 1000)
         Button btnAmt100 = view.findViewById(R.id.btnWithdraw100);
         Button btnAmt500 = view.findViewById(R.id.btnWithdraw500);
         Button btnAmt1000 = view.findViewById(R.id.btnWithdraw1000);
         // Close button
-        Button btnClose = view.findViewById(R.id.btn_CloseWithdraw);
+        ImageButton btnClose = view.findViewById(R.id.btn_CloseWithdraw);
         // Confirm button
         Button btnConfirmCashIn = view.findViewById(R.id.btn_ConfirmWithdraw);
 
-        // Set button behavior
+        // Format currentBalance to 2 decimal places and add placeholder text
+        displayCurrentBalance = "Current Wallet Balance: ₱" + String.format("%.2f", currentBalance);
 
+        // Set current balance
+        tvCurrentBalance.setText(displayCurrentBalance);
+
+        // Set button behaviors
         // Close button
         btnClose.setOnClickListener(view1 -> {
             dismiss(); // Close dialog
         });
         // Set amount 100
         btnAmt100.setOnClickListener(view1 -> {
-            etCashInAmt.setText(amountChoices[0]);
+            etWithdrawAmt.setText(amountChoices[0]);
         });
         // Set amount 500
         btnAmt500.setOnClickListener(view1 -> {
-            etCashInAmt.setText(amountChoices[1]);
+            etWithdrawAmt.setText(amountChoices[1]);
         });
         // Set amount 1000
         btnAmt1000.setOnClickListener(view1 -> {
-            etCashInAmt.setText(amountChoices[2]);
+            etWithdrawAmt.setText(amountChoices[2]);
         });
+
         // Confirm withdraw
         btnConfirmCashIn.setOnClickListener(view1 -> {
 
+
+            // Check if empty
+            if(etWithdrawAmt.getText().toString().isEmpty()){
+                Toast.makeText(getContext(), "Input amount to withdraw", Toast.LENGTH_LONG).show();
+            }
+            // Check if balance < withdrawAmount
+            else if(currentBalance < Double.valueOf(etWithdrawAmt.getText().toString())){
+                Toast.makeText(getContext(),"You have insufficient funds", Toast.LENGTH_LONG).show();
+            }
+            else {
+                // Get amount to withdraw
+                withdrawAmount = Double.valueOf(etWithdrawAmt.getText().toString());
+                //Log.e("withdrawAmt:",String.valueOf(withdrawAmount));
+                double newBalance = currentBalance - withdrawAmount;
+                mainActivity.updateUserBalance(newBalance);
+
+                dismiss();
+            }
         });
 
 

@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -19,8 +22,8 @@ import com.example.questifyv1.activity.MainActivity;
 public class CashInFragment extends DialogFragment {
     private MainActivity mainActivity;
     private String displayCurrentBalance; // Current Wallet Balance: ₱480.10
-    private int currentBalance; // 480.10
-    private String depositBalance;
+    private double currentBalance; // 480.10
+    private double depositAmount;
     private String[] amountChoices = {"100", "500", "1000"};
 
     @Override
@@ -36,7 +39,7 @@ public class CashInFragment extends DialogFragment {
         super.onResume();
         WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = 1200;
+        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         getDialog().getWindow().setAttributes(params);
     }
 
@@ -52,6 +55,11 @@ public class CashInFragment extends DialogFragment {
         // Set the view for the dialog
         builder.setView(view);
 
+
+        // Get current balance
+        Bundle bundle = getArguments();
+        currentBalance = bundle.getDouble("userWallet");
+
         // Initialize widgets
         // Display current balance
         TextView tvCurrentBalance = view.findViewById(R.id.tvCashIn_CurrentBalance);
@@ -62,9 +70,15 @@ public class CashInFragment extends DialogFragment {
         Button btnAmt500 = view.findViewById(R.id.btnCashIn500);
         Button btnAmt1000 = view.findViewById(R.id.btnCashIn1000);
         // Close button
-        Button btnClose = view.findViewById(R.id.btn_CloseCashIn);
+        ImageButton btnClose = view.findViewById(R.id.btn_CloseCashIn);
         // Confirm button
         Button btnConfirmCashIn = view.findViewById(R.id.btn_ConfirmCashIn);
+
+        // Format currentBalance to 2 decimal places and add placeholder text
+        displayCurrentBalance = "Current Wallet Balance: ₱" + String.format("%.2f", currentBalance);
+
+        // Set current balance
+        tvCurrentBalance.setText(displayCurrentBalance);
 
         // Set button behavior
 
@@ -87,6 +101,18 @@ public class CashInFragment extends DialogFragment {
         // Confirm deposit
         btnConfirmCashIn.setOnClickListener(view1 -> {
 
+            if(etCashInAmt.getText().toString().isEmpty()){
+                Toast.makeText(getContext(), "Input amount to deposit", Toast.LENGTH_LONG).show();
+            }
+            else {
+                // Get amount to withdraw
+                depositAmount = Double.valueOf(etCashInAmt.getText().toString());
+                //Log.e("withdrawAmt:",String.valueOf(depositAmount));
+                double newBalance = depositAmount + currentBalance;
+                mainActivity.updateUserBalance(newBalance);
+
+                dismiss();
+            }
         });
 
         // Create AlertDialog

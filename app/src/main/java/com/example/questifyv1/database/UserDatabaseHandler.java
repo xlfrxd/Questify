@@ -9,7 +9,7 @@ import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
-public static final int DATABASE_VERSION = 3; // Increment this when you change the database schema
+public static final int DATABASE_VERSION = 3; // Ient this when you change the database schema
 public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
@@ -21,12 +21,17 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + QuestContract.QuestEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
 
 
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        try {
+            db.execSQL(SQL_CREATE_ENTRIES);
+            Log.d("Database", "Table created successfully");
+        } catch (Exception e) {
+            Log.e("Database", "Error creating table: " + e.getMessage());
+        }
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -41,6 +46,8 @@ public static final String DATABASE_NAME = "Users.sqlite";
 
     public UserDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.d("Database Path", context.getDatabasePath(DATABASE_NAME).getAbsolutePath());
+
     }
 
     public boolean verifyCredentials(String username, String password){
