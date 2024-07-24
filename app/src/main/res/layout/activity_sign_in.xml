@@ -20,12 +20,15 @@
 
 
     <!-- Sign Up Text -->
+
+    <!-- Username Input Field -->
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="188dp"
         android:fontFamily="@font/actor_regular"
         android:text="Sign In"
         android:textColor="@color/purple"
@@ -34,7 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Username Input Field -->
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="354dp"
