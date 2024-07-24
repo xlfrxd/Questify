@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.questifyv1.activity.MainActivity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WithdrawFragment extends DialogFragment {
     private MainActivity mainActivity;
@@ -115,7 +119,23 @@ public class WithdrawFragment extends DialogFragment {
                 double newBalance = currentBalance - withdrawAmount;
                 mainActivity.updateUserBalance(newBalance);
 
-                dismiss();
+                Toast.makeText(getContext(), "Attempting withdrawal of ₱" + String.valueOf(withdrawAmount) +"...",Toast.LENGTH_LONG).show();
+
+
+                // Delay window 1.5s
+                final Handler handler = new Handler();
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    public void run() {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                // Notify user of change
+                                Toast.makeText(getContext(), "You have withdrawn ₱" + String.valueOf(withdrawAmount),Toast.LENGTH_LONG).show();
+                                dismiss();
+                            }
+                        });
+                    }
+                }, 1500);
             }
         });
 

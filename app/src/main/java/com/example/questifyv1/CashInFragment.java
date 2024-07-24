@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.questifyv1.activity.MainActivity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class CashInFragment extends DialogFragment {
     private MainActivity mainActivity;
@@ -111,7 +115,23 @@ public class CashInFragment extends DialogFragment {
                 // Update user balance
                 mainActivity.updateUserBalance(newBalance);
 
-                dismiss();
+                Toast.makeText(getContext(), "Attempting deposit of ₱" + String.valueOf(depositAmount) +"...",Toast.LENGTH_LONG).show();
+
+
+                // Delay window 1.5
+                final Handler handler = new Handler();
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    public void run() {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                // Notify user of change
+                                Toast.makeText(getContext(), "You have received ₱" + String.valueOf(depositAmount),Toast.LENGTH_LONG).show();
+                                dismiss();
+                            }
+                        });
+                    }
+                }, 1500);
             }
         });
 
