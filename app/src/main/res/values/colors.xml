@@ -11,5 +11,9 @@
     <color name="teal">#78BCC4</color>
     <color name="dirty_white">#FDFDFD</color>
     <color name="gray_white">#F7F8F3</color>
+    <color name="physical">#FFC655</color>
+    <color name="digital">#FF7C9B</color>
+    <color name="professional">#78BCC4</color>
+    <color name="creative">#869FDF</color>
 
 </resources>

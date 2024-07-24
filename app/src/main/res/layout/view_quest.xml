@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:background="@drawable/teal_container"
+        android:background="@drawable/purple_container"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,11 +76,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/category"
+        android:id="@+id/categoryContainer"
         android:layout_width="170dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/category_container"
+        android:background="@drawable/professional_container"
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -104,7 +104,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category">
+        app:layout_constraintTop_toBottomOf="@id/categoryContainer">
 
         <TextView
             android:id="@+id/tvQuestDueDate"

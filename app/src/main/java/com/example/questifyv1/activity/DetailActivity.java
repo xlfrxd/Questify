@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView categoryView = findViewById(R.id.tvQuestCategory);
         TextView descView = findViewById(R.id.tvQuestDesc);
         TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
+        LinearLayout categoryContainer = findViewById(R.id.categoryContainer); // Changes between 4 categories
+
 
         titleView.setText(title);
         dueDateView.setText(dueDate);
@@ -69,6 +72,21 @@ public class DetailActivity extends AppCompatActivity {
         categoryView.setText(categoryTitle);
         descView.setText(desc);
         dibsByView.setText(dibsBy);
+        // Change quest background based on quest Category
+        switch (category){
+            case "Physical":
+                categoryContainer.setBackground(getDrawable(R.drawable.physical_container));
+                break;
+            case "Digital":
+                categoryContainer.setBackground(getDrawable(R.drawable.digital_container));
+                break;
+            case "Professional":
+                categoryContainer.setBackground(getDrawable(R.drawable.professional_container));
+                break;
+            case "Creative":
+                categoryContainer.setBackground(getDrawable(R.drawable.creative_container));
+                break;
+        }
 
         // TODO: Set do quest button functionality
         // Get do quest button
