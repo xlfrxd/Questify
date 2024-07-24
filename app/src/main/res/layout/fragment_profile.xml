@@ -200,6 +200,7 @@
                     android:layout_height="42dp"
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
+                    style="@style/AddQuest"
                     android:text="Cash In" />
 
                 <Button
@@ -207,6 +208,7 @@
                     android:layout_width="40dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
+                    style="@style/AddQuest"
                     android:text="Withdraw" />
             </LinearLayout>
         </LinearLayout>
@@ -220,6 +222,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            style="@style/AddQuest"
             app:layout_constraintTop_toBottomOf="@+id/wallet_box" />
 
 
