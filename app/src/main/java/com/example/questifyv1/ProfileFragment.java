@@ -85,6 +85,31 @@ public class ProfileFragment extends Fragment {
         // Display Profile Subtitle (username)
         tvProfileSubtitle.setText("@"+userName);
 
+        // Buttons
+
+        // Cash In Button
+        Button btnOpenCashIn = view.findViewById(R.id.btnOpenCashIn);
+        btnOpenCashIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open cash in dialog
+
+                // TODO: Update balance via mainAcitivty.updateBalance("deposit", balance)
+            }
+        });
+
+        // Withdraw Button
+        Button btnOpenWithdraw = view.findViewById(R.id.btnOpenWithdraw);
+        btnOpenWithdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open the withdraw dialog
+
+
+                // TODO: Update balance via mainAcitivty.updateBalance("withdraw", balance)
+            }
+        });
+
         // Logout Button
         Button btnLogout = view.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +120,8 @@ public class ProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), SignInActivity.class);
                 startActivity(intent);
             }
-    });
+        });
+
 
 }
 }

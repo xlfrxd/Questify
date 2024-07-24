@@ -195,7 +195,7 @@
                 android:layout_marginTop="10dp" >
 
                 <Button
-                    android:id="@+id/cashin_button"
+                    android:id="@+id/btnOpenCashIn"
                     android:layout_width="40dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
@@ -203,7 +203,7 @@
                     android:text="Cash In" />
 
                 <Button
-                    android:id="@+id/send_button"
+                    android:id="@+id/btnOpenWithdraw"
                     android:layout_width="40dp"
                     android:layout_height="42dp"
                     android:layout_weight="1"
