@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment {
 
         // Buttons
         // Cash In Button
-        Button btnOpenCashIn = view.findViewById(R.id.btnOpenCashIn);
+        Button btnOpenCashIn = view.findViewById(R.id.cashin_button);
         btnOpenCashIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment {
         });
 
         // Withdraw Button
-        Button btnOpenWithdraw = view.findViewById(R.id.btnOpenWithdraw);
+        Button btnOpenWithdraw = view.findViewById(R.id.send_button);
         btnOpenWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
