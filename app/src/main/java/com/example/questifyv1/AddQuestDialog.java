@@ -196,7 +196,6 @@ public class AddQuestDialog extends DialogFragment {
                         values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "NONE");
                         values.put(QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY, userName);
                         values.put(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY, "NONE"); // default; to be updated when status changes
-
                         // Insert the new row, returning the primary key value of the new row
                         long newRowId = db.insert(QuestContract.QuestEntry.TABLE_NAME, null, values);
 

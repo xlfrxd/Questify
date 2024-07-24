@@ -42,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.image.setImageResource(post.getImageResource());
         holder.desc.setText(post.getDesc());
         holder.dibsBy.setText(post.getDibsBy());
+        holder.status.setText(post.getStatus());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
@@ -52,6 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             intent.putExtra("imageResource", post.getImageResource());
             intent.putExtra("desc", post.getDesc());
             intent.putExtra("dibsBy",post.getDibsBy());
+            intent.putExtra("status", post.getStatus());
             // Get currently signed in user
             intent.putExtra("userSession", MainActivity.getUserSession());
 
@@ -65,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView title, dueDate, username, price, desc, dibsBy;
+        TextView title, dueDate, username, price, desc, dibsBy, status;
         ImageView image;
 
         public PostViewHolder(@NonNull View itemView) {
@@ -77,6 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             image = itemView.findViewById(R.id.image);
             desc = itemView.findViewById(R.id.desc);
             dibsBy = itemView.findViewById(R.id.dibsBy);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }

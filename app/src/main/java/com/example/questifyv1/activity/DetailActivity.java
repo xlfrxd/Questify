@@ -51,6 +51,7 @@ public class DetailActivity extends AppCompatActivity {
         String categoryTitle = category + " Service";
         String desc = getIntent().getStringExtra("desc");
         String dibsBy = getIntent().getStringExtra("dibsBy");
+        String status = getIntent().getStringExtra("status");
         // Get current user signed in
         String userSession = getIntent().getStringExtra("userSession");
 
@@ -62,6 +63,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView categoryView = findViewById(R.id.tvQuestCategory);
         TextView descView = findViewById(R.id.tvQuestDesc);
         TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
+        TextView statusView = findViewById(R.id.tvQuestStatus);
         LinearLayout categoryContainer = findViewById(R.id.categoryContainer); // Changes between 4 categories
 
 
@@ -72,6 +74,7 @@ public class DetailActivity extends AppCompatActivity {
         categoryView.setText(categoryTitle);
         descView.setText(desc);
         dibsByView.setText(dibsBy);
+        statusView.setText(status);
         // Change quest background based on quest Category
         switch (category){
             case "Physical":

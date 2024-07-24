@@ -6,6 +6,17 @@ public class Post {
     private String username;
     private String price;
     private String desc;
+    private String dibsBy;
+    private int imageResource;
+    private String status;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     public String getDesc() {
         return desc;
@@ -23,11 +34,8 @@ public class Post {
         this.dibsBy = dibsBy;
     }
 
-    private String dibsBy;
 
-    private int imageResource;
-
-    public Post(String title, String dueDate, String username, String price, int imageResource, String desc, String dibsBy) {
+    public Post(String title, String dueDate, String username, String price, int imageResource, String desc, String dibsBy, String status) {
         this.title = title;
         this.dueDate = dueDate;
         this.username = username;
@@ -35,6 +43,7 @@ public class Post {
         this.imageResource = imageResource;
         this.desc = desc;
         this.dibsBy = dibsBy;
+        this.status = status;
     }
 
     public String getTitle() { return title; }

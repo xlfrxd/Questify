@@ -173,7 +173,8 @@ public void updateQuestFeed(){
             QuestContract.QuestEntry.COLUMN_NAME_REWARD,
             QuestContract.QuestEntry.COLUMN_NAME_CATEGORY,
             QuestContract.QuestEntry.COLUMN_NAME_DESCRIPTION,
-            QuestContract.QuestEntry.COLUMN_NAME_DIBSBY
+            QuestContract.QuestEntry.COLUMN_NAME_DIBSBY,
+            QuestContract.QuestEntry.COLUMN_NAME_STATUS
     };
 
     // Filter results WHERE "status" != "DONE"
@@ -229,8 +230,11 @@ public void updateQuestFeed(){
         String itemDibsBy = cursor.getString(
                 cursor.getColumnIndexOrThrow(QuestContract.QuestEntry.COLUMN_NAME_DIBSBY)
         );
+        String itemStatus = cursor.getString(
+                cursor.getColumnIndexOrThrow(QuestContract.QuestEntry.COLUMN_NAME_STATUS)
+        );
         // Add to list
-        DataHelper.addPost(itemTitle, itemDueDate, itemAuthor, itemReward, itemCategory, itemDesc, itemDibsBy);
+        DataHelper.addPost(itemTitle, itemDueDate, itemAuthor, itemReward, itemCategory, itemDesc, itemDibsBy, itemStatus);
     }
     // Close cursor
     cursor.close();
@@ -238,8 +242,7 @@ public void updateQuestFeed(){
     if (homeFragment.isVisible()) {
         homeFragment.updateData(updatedPostList);
     }
-        replaceFragment(homeFragment);
-
+    replaceFragment(homeFragment);
 }
 }
 

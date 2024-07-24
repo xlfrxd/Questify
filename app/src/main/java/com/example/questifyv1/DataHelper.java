@@ -21,8 +21,8 @@ public class DataHelper {
 
     }
 
-    public static void addPost(String title, String dueDate, String author, String points, String category, String desc, String dibsBy){
-        posts.add(new Post(title, dueDate, author, points, getCategoryImage(category), desc, dibsBy));
+    public static void addPost(String title, String dueDate, String author, String points, String category, String desc, String dibsBy, String status){
+        posts.add(new Post(title, dueDate, author, points, getCategoryImage(category), desc, dibsBy, status));
     }
 
     public static void clear(){
