@@ -121,7 +121,8 @@ public class WithdrawFragment extends DialogFragment {
 
                 Toast.makeText(getContext(), "Attempting withdrawal of ₱" + String.valueOf(withdrawAmount) +"...",Toast.LENGTH_LONG).show();
 
-
+                // Disable after first press
+                btnConfirmCashIn.setEnabled(false);
                 // Delay window 1.5s
                 final Handler handler = new Handler();
                 Timer t = new Timer();

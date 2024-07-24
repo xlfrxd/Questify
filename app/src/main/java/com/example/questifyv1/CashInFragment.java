@@ -117,7 +117,8 @@ public class CashInFragment extends DialogFragment {
 
                 Toast.makeText(getContext(), "Attempting deposit of ₱" + String.valueOf(depositAmount) +"...",Toast.LENGTH_LONG).show();
 
-
+                // Disable button after first click
+                btnConfirmCashIn.setEnabled(false);
                 // Delay window 1.5
                 final Handler handler = new Handler();
                 Timer t = new Timer();
