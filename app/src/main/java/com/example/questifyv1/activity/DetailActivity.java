@@ -21,6 +21,7 @@ import com.example.questifyv1.database.QuestsDatabaseHandler;
 import org.w3c.dom.Text;
 
 public class DetailActivity extends AppCompatActivity {
+    private MainActivity mainActivity;
     private String categoryTitle;
     private String desc;
     private String dibsBy;
@@ -48,8 +49,12 @@ public class DetailActivity extends AppCompatActivity {
                 // User can mark this as complete
                 btnCompleteQuest.setEnabled(true);
             }
+            else if(status.equals("CANCELLED")){
+                // Disable both cancel and complete
+                btnCancelQuest.setEnabled(false);
+            }
         }
-        else if(dibsBy.equals(userSession)) {
+        else if(dibsBy.equals(userSession) && !dibsBy.equals("CANCELLED") && !dibsBy.equals("DONE")) {
             // User dibs post
             // User can cancel or mark this as complete
             btnDoQuest.setVisibility(View.GONE);
@@ -69,6 +74,17 @@ public class DetailActivity extends AppCompatActivity {
             // Not posted by user and is vacant
             btnCompleteQuest.setVisibility(View.GONE);
             btnCancelQuest.setVisibility(View.GONE);
+        }
+        else if(status.equals("CANCELLED") || status.equals("DONE")) {
+            // Cancelled completed by either host or user
+            btnDoQuest.setVisibility(View.GONE);
+            btnCompleteQuest.setVisibility(View.VISIBLE);
+            btnCancelQuest.setVisibility(View.VISIBLE);
+            // Disable both cancel and complete
+            btnCompleteQuest.setEnabled(false);
+            btnCancelQuest.setEnabled(false);
+
+
         }
     }
 
@@ -152,7 +168,70 @@ public class DetailActivity extends AppCompatActivity {
         // Update button visibility on start up
         toggleButtonVisibility();
 
-        //
+        btnCompleteQuest.setOnClickListener(v -> {
+            //Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show();
+            // update status to cancel
+            QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            // New values for column
+            ContentValues values = new ContentValues();
+            values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "DONE");
+
+            // Search database for title and author
+            String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " LIKE ?";
+            String[] selectionArgs = {title, username};
+
+            // count returns number of rows affected
+            int count = db.update(
+                    QuestContract.QuestEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+            );
+            Toast.makeText(this,"Completed \"" + title + "\"!", Toast.LENGTH_LONG).show();
+            // Update status
+            status = "DONE";
+
+            // Update buttons
+            toggleButtonVisibility();
+            // Update mainActivity on Cancel Quest
+            mainActivity.updateQuestFeed();
+        });
+
+        // Cancel quest
+        btnCancelQuest.setOnClickListener(v -> {
+            //Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show();
+            // update status to cancel
+            QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            // New values for column
+            ContentValues values = new ContentValues();
+            values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "CANCELLED");
+
+            // Search database for title and author
+            String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " LIKE ?";
+            String[] selectionArgs = {title, username};
+
+            // count returns number of rows affected
+            int count = db.update(
+                    QuestContract.QuestEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+            );
+            Toast.makeText(this, "\"" + title + "\" was cancelled!", Toast.LENGTH_LONG).show();
+            // Update status
+            status = "CANCELLED";
+
+            // Update buttons
+            toggleButtonVisibility();
+            // Update mainActivity on Cancel Quest
+            mainActivity.updateQuestFeed();
+        });
+
+        // Do Quest
         btnDoQuest.setOnClickListener(v ->{
             // Check if quest is dibsBy = currentUser
             if(dibsByView.getText().equals(userSession)){
@@ -197,7 +276,6 @@ public class DetailActivity extends AppCompatActivity {
                 // Update status
                 status = "IN_PROGRESS";
 
-                //Log.e("Number of rows affected", String.valueOf(count));
                 Toast.makeText(this, "Dibs on " + title + "!", Toast.LENGTH_SHORT).show();
                 toggleButtonVisibility();
             }
@@ -206,11 +284,6 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(this,  dibsBy + " has dibs on this!",Toast.LENGTH_LONG).show();
             }
         });
-
-
-
-
-
 
         // Set back button functionality
         ImageButton btnBack = findViewById(R.id.btnQuestBack);

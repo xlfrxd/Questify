@@ -177,15 +177,15 @@ public void updateQuestFeed(){
             QuestContract.QuestEntry.COLUMN_NAME_STATUS
     };
 
-    // Filter results WHERE "status" != "DONE"
-    String selection = QuestContract.QuestEntry.COLUMN_NAME_STATUS + " != ?";
+    // Filter results WHERE "status" != "DONE" && "status" != "CANCELLED"
+    String selection = QuestContract.QuestEntry.COLUMN_NAME_STATUS + " != ? AND " + QuestContract.QuestEntry.COLUMN_NAME_STATUS + " != ?";
     /*
     Status can be:
     - NONE (default)
     - IN_PROGRESS
     - DONE
      */
-    String[] selectionArgs = { "DONE" };
+    String[] selectionArgs = { "DONE", "CANCELLED" };
 
 
     // Sorting by title (TODO: Change to due date)
