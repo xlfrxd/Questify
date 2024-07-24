@@ -16,11 +16,12 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.questifyv1.activity.MainActivity;
 
-public class CashInFragment extends DialogFragment {
+public class WithdrawFragment extends DialogFragment {
     private MainActivity mainActivity;
+
     private String displayCurrentBalance; // Current Wallet Balance: ₱480.10
     private int currentBalance; // 480.10
-    private String depositBalance;
+    private String withdrawBalance;
     private String[] amountChoices = {"100", "500", "1000"};
 
     @Override
@@ -48,23 +49,23 @@ public class CashInFragment extends DialogFragment {
         // Get LayoutInflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Store in view to initialize child widgets
-        View view = getActivity().getLayoutInflater().inflate(R.layout.new_wallet_cash_in,null,false);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.new_wallet_withdraw,null,false);
         // Set the view for the dialog
         builder.setView(view);
 
         // Initialize widgets
         // Display current balance
-        TextView tvCurrentBalance = view.findViewById(R.id.tvCashIn_CurrentBalance);
+        TextView tvCurrentBalance = view.findViewById(R.id.tvWithdraw_CurrentBalance);
         // Input cash to deposit
-        EditText etCashInAmt = view.findViewById(R.id.et_CashInAmount);
+        EditText etCashInAmt = view.findViewById(R.id.et_WithdrawAmount);
         // Helper buttons for simple cash in (100, 500, 1000)
-        Button btnAmt100 = view.findViewById(R.id.btnCashIn100);
-        Button btnAmt500 = view.findViewById(R.id.btnCashIn500);
-        Button btnAmt1000 = view.findViewById(R.id.btnCashIn1000);
+        Button btnAmt100 = view.findViewById(R.id.btnWithdraw100);
+        Button btnAmt500 = view.findViewById(R.id.btnWithdraw500);
+        Button btnAmt1000 = view.findViewById(R.id.btnWithdraw1000);
         // Close button
-        Button btnClose = view.findViewById(R.id.btn_CloseCashIn);
+        Button btnClose = view.findViewById(R.id.btn_CloseWithdraw);
         // Confirm button
-        Button btnConfirmCashIn = view.findViewById(R.id.btn_ConfirmCashIn);
+        Button btnConfirmCashIn = view.findViewById(R.id.btn_ConfirmWithdraw);
 
         // Set button behavior
 
@@ -84,12 +85,13 @@ public class CashInFragment extends DialogFragment {
         btnAmt1000.setOnClickListener(view1 -> {
             etCashInAmt.setText(amountChoices[2]);
         });
-        // Confirm deposit
+        // Confirm withdraw
         btnConfirmCashIn.setOnClickListener(view1 -> {
 
         });
 
-        // Create AlertDialog
+
         return builder.create();
     }
+
 }
