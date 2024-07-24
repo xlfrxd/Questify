@@ -205,6 +205,7 @@
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
+                    style="@style/AddQuest"
                     android:text="Cash In" />
 
                 <Button
@@ -212,6 +213,7 @@
                     android:layout_width="52dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    style="@style/AddQuest"
                     android:text="Withdraw" />
             </LinearLayout>
         </LinearLayout>
@@ -221,8 +223,7 @@
             android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:backgroundTint="@color/purple2"
-            android:textColor="@color/white"
+            style="@style/AddQuest"
             android:text="Log Out"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
