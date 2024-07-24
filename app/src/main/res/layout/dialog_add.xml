@@ -15,15 +15,14 @@
         android:layout_width="400dp"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_AddQuest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:text="Add Quest"
             android:textColor="@color/purple"
             android:textSize="34sp"
@@ -70,27 +69,139 @@
             app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
 
         <!--Change to date picker-->
-        <EditText
-            android:id="@+id/et_DueDate"
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+
+        <LinearLayout
+            android:id="@+id/DueDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/edit_text_bg"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Due Date"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_Category" />
+            app:layout_constraintTop_toBottomOf="@+id/et_Category">
+
+            <EditText
+                android:id="@+id/et_month"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:textAlignment="center"
+                android:background="@drawable/edit_text_bg"
+                android:ems="10"
+                android:inputType="text"
+                android:text="MM"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="25sp"
+                android:textColor="@color/gray"
+                android:text="/"/>
+
+            <EditText
+                android:id="@+id/et_day"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:textAlignment="center"
+                android:background="@drawable/edit_text_bg"
+                android:ems="10"
+                android:inputType="text"
+                android:text="DD"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:textSize="25sp"
+                android:textColor="@color/gray"
+                android:text="/"/>
+
+            <EditText
+                android:id="@+id/et_year"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:textAlignment="center"
+                android:background="@drawable/edit_text_bg"
+                android:ems="10"
+                android:inputType="text"
+                android:text="YY"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/DueDate2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/DueDate1">
+
+        <EditText
+            android:id="@+id/et_hour"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_bg"
+            android:ems="10"
+            android:inputType="text"
+            android:text="HH"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text=":"
+                android:textColor="@color/gray"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_MM"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_bg"
+            android:ems="10"
+            android:inputType="text"
+            android:text="MM"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/sp_AMPM"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/spinner_bg"
+                android:spinnerMode="dropdown"
+                android:text="AM/PM"
+                android:padding="0dp"
+                android:textColor="@color/gray"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/et_Desc"
             android:layout_width="330dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/edit_text_bg"
@@ -104,7 +215,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_DueDate" />
+            app:layout_constraintTop_toBottomOf="@+id/DueDate2" />
 
         <EditText
             android:id="@+id/et_Reward"
@@ -129,12 +240,12 @@
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_marginStart="88dp"
-            android:layout_marginTop="328dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_home_1"
             android:text="Publish Quest"
             app:cornerRadius="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_QuestTitle" />
+            app:layout_constraintTop_toBottomOf="@id/et_Reward" />
 
         <!--TODO: Image Button (X) not showing-->
         <ImageButton
