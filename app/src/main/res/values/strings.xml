@@ -8,6 +8,10 @@
         <item>Professional</item>
         <item>Creative</item>
     </string-array>
+    <string-array name="date_categories">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
     <string name="sign_in">Sign in</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -16,7 +20,6 @@
     <string name="sign_in_google">Sign In with Google</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="input_cash_in_amount">Input Cash In Amount</string>
     <string name="current_wallet_balance_480_10">Current wallet balance: ₱480.10</string>
