@@ -1,8 +1,10 @@
 package com.example.questifyv1.activity;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.DialogFragment;
@@ -22,6 +24,8 @@ import com.example.questifyv1.ProfileFragment;
 import com.example.questifyv1.R;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;
+import com.example.questifyv1.database.UserContract;
+import com.example.questifyv1.database.UserDatabaseHandler;
 import com.example.questifyv1.databinding.ActivityMainBinding;
 
 import java.util.List;
@@ -29,6 +33,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     private HomeFragment homeFragment;
+    private ProfileFragment profileFragment;
     private QuestsDatabaseHandler dbHelper;
     private SQLiteDatabase db;
     private static String userSession; // Currently signed in user
@@ -61,6 +66,7 @@ public class MainActivity extends FragmentActivity {
 
         // Initialize fragment
         homeFragment = new HomeFragment();
+        profileFragment = new ProfileFragment();
 
         // Update Quest Feed
         updateQuestFeed();
@@ -81,7 +87,8 @@ public class MainActivity extends FragmentActivity {
                 dialog_add.show(getSupportFragmentManager(),"addquest");
 
             } else if (item.getItemId() == R.id.nav_profile) {
-                ProfileFragment profileFragment = new ProfileFragment();
+                //ProfileFragment profileFragment = new ProfileFragment();
+
                 profileFragment.setArguments(extras); // Send current user
                 replaceFragment(profileFragment);
 
@@ -117,9 +124,43 @@ private void replaceFragment(Fragment fragment){
     fragmentTransaction.commit();
 }
 
+public void updateUserBalance(double newBalance){
+    profileFragment = new ProfileFragment();
+    UserDatabaseHandler userDbHelper = new UserDatabaseHandler(this);
+    db = userDbHelper.getWritableDatabase();
+    String[] projection = {
+            BaseColumns._ID,
+            UserContract.UserEntry.COLUMN_NAME_USERNAME,
+            UserContract.UserEntry.COLUMN_NAME_WALLET
+    };
+
+    // WHERE currentUser = user
+    String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " LIKE ?";
+    String[] selectionArgs = {userSession};
+
+    ContentValues values = new ContentValues();
+    values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, String.valueOf(newBalance));
+
+    // number of rows affected
+    int count = db.update(
+            UserContract.UserEntry.TABLE_NAME,
+            values,
+            selection,
+            selectionArgs
+            );
+
+    Log.e("Balance:",String.valueOf(newBalance));
+    Log.e("Affected Rows:", String.valueOf(count)   );
+    Bundle currentUser = new Bundle();
+    currentUser.putString("userSession", userSession);
+    profileFragment.setArguments(currentUser);
+    replaceFragment(profileFragment);
+}
+
 public void updateQuestFeed(){
     homeFragment = new HomeFragment();
         DataHelper.clear();
+
 
         db = dbHelper.getReadableDatabase();
 
