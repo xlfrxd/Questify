@@ -17,7 +17,7 @@
         android:src="@drawable/sign_up_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <!-- Sign Up Text -->
 
     <!-- Username Input Field -->
