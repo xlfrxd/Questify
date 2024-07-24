@@ -21,86 +21,20 @@ import com.example.questifyv1.database.QuestsDatabaseHandler;
 import org.w3c.dom.Text;
 
 public class DetailActivity extends AppCompatActivity {
+    private String categoryTitle;
+    private String desc;
+    private String dibsBy;
+    private String status;
+    private String username;
+    private String userSession;
 
+    // Buttons
+    private Button btnDoQuest;
+    private Button btnCompleteQuest;
+    private Button btnCancelQuest;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_quest);
-
-        // Retrieve data from the Intent
-        String title = getIntent().getStringExtra("title");
-        String dueDate = getIntent().getStringExtra("dueDate");
-        String username = getIntent().getStringExtra("username");
-        String price = getIntent().getStringExtra("price");
-        int imageResource = getIntent().getIntExtra("imageResource", 0);
-        String category;
-        if(imageResource == R.drawable.physical){
-            category = "Physical";
-        }
-        else if(imageResource == R.drawable.laptop){
-            category = "Digital";
-        }
-        else if(imageResource == R.drawable.briefcase){
-            category = "Professional";
-        }
-        else if(imageResource == R.drawable.idea){
-            category = "Creative";
-        } else {
-            category = "";
-        }
-        String categoryTitle = category + " Service";
-        String desc = getIntent().getStringExtra("desc");
-        String dibsBy = getIntent().getStringExtra("dibsBy");
-        String status = getIntent().getStringExtra("status");
-        // Get current user signed in
-        String userSession = getIntent().getStringExtra("userSession");
-
-        // Find the views and set data
-        TextView titleView = findViewById(R.id.tvQuestTitle);
-        TextView dueDateView = findViewById(R.id.tvQuestDueDate);
-        TextView usernameView = findViewById(R.id.tvQuestPostedBy);
-        TextView priceView = findViewById(R.id.tvQuestReward);
-        TextView categoryView = findViewById(R.id.tvQuestCategory);
-        TextView descView = findViewById(R.id.tvQuestDesc);
-        TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
-        TextView statusView = findViewById(R.id.tvQuestStatus);
-        LinearLayout categoryContainer = findViewById(R.id.categoryContainer); // Changes between 4 categories
-
-        // Buttons
-        Button btnDoQuest = findViewById(R.id.btnQuestConfirm);
-        Button btnCancelQuest = findViewById(R.id.btnQuestCancel); // TODO link
-        Button btnCompleteQuest = findViewById(R.id.btnQuestCompleted); // TODO link
-
-        // Set buttons to invisible by default
-
-        // Set widget data
-        titleView.setText(title);
-        dueDateView.setText(dueDate);
-        usernameView.setText("@"+username);
-        priceView.setText("PHP " + price);
-        categoryView.setText(categoryTitle);
-        descView.setText(desc);
-        dibsByView.setText(dibsBy);
-        statusView.setText(status);
-        // Change quest background based on quest Category
-        switch (category){
-            case "Physical":
-                categoryContainer.setBackground(getDrawable(R.drawable.physical_container));
-                break;
-            case "Digital":
-                categoryContainer.setBackground(getDrawable(R.drawable.digital_container));
-                break;
-            case "Professional":
-                categoryContainer.setBackground(getDrawable(R.drawable.professional_container));
-                break;
-            case "Creative":
-                categoryContainer.setBackground(getDrawable(R.drawable.creative_container));
-                break;
-        }
-
-        // postedBy != currentUser && status = NONE ( -> IN_PROGRESS)
-        Log.e("!username.equals(userSession) && status.equals(\"NONE\")", String.valueOf(!username.equals(userSession) && status.equals("NONE")));
+    private void toggleButtonVisibility(){
+        // Update button displays
         if(username.equals(userSession)){
             // Posted by user
             // Show Cancel and Mark as Complete
@@ -136,28 +70,90 @@ public class DetailActivity extends AppCompatActivity {
             btnCompleteQuest.setVisibility(View.GONE);
             btnCancelQuest.setVisibility(View.GONE);
         }
+    }
 
-        // buttons = DO QUEST (enabled;visible)
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.view_quest);
+
+        // Retrieve data from the Intent
+        String title = getIntent().getStringExtra("title");
+        String dueDate = getIntent().getStringExtra("dueDate");
+        String price = getIntent().getStringExtra("price");
+        int imageResource = getIntent().getIntExtra("imageResource", 0);
+        String category;
+        if(imageResource == R.drawable.physical){
+            category = "Physical";
+        }
+        else if(imageResource == R.drawable.laptop){
+            category = "Digital";
+        }
+        else if(imageResource == R.drawable.briefcase){
+            category = "Professional";
+        }
+        else if(imageResource == R.drawable.idea){
+            category = "Creative";
+        } else {
+            category = "";
+        }
+        username = getIntent().getStringExtra("username");
+        categoryTitle = category + " Service";
+        desc = getIntent().getStringExtra("desc");
+        dibsBy = getIntent().getStringExtra("dibsBy");
+        status = getIntent().getStringExtra("status");
+        // Get current user signed in
+        userSession = getIntent().getStringExtra("userSession");
+
+        // Find the views and set data
+        TextView titleView = findViewById(R.id.tvQuestTitle);
+        TextView dueDateView = findViewById(R.id.tvQuestDueDate);
+        TextView usernameView = findViewById(R.id.tvQuestPostedBy);
+        TextView priceView = findViewById(R.id.tvQuestReward);
+        TextView categoryView = findViewById(R.id.tvQuestCategory);
+        TextView descView = findViewById(R.id.tvQuestDesc);
+        TextView dibsByView = findViewById(R.id.tvQuestDibsBy);
+        TextView statusView = findViewById(R.id.tvQuestStatus);
+        LinearLayout categoryContainer = findViewById(R.id.categoryContainer); // Changes between 4 categories
+
+        // Buttons
+        btnDoQuest = findViewById(R.id.btnQuestConfirm);
+        btnCancelQuest = findViewById(R.id.btnQuestCancel); // TODO link
+        btnCompleteQuest = findViewById(R.id.btnQuestCompleted); // TODO link
+
+        // Set buttons to invisible by default
+
+        // Set widget data
+        titleView.setText(title);
+        dueDateView.setText(dueDate);
+        usernameView.setText("@"+username);
+        priceView.setText("PHP " + price);
+        categoryView.setText(categoryTitle);
+        descView.setText(desc);
+        dibsByView.setText(dibsBy);
+        statusView.setText(status);
+        // Change quest background based on quest Category
+        switch (category){
+            case "Physical":
+                categoryContainer.setBackground(getDrawable(R.drawable.physical_container));
+                break;
+            case "Digital":
+                categoryContainer.setBackground(getDrawable(R.drawable.digital_container));
+                break;
+            case "Professional":
+                categoryContainer.setBackground(getDrawable(R.drawable.professional_container));
+                break;
+            case "Creative":
+                categoryContainer.setBackground(getDrawable(R.drawable.creative_container));
+                break;
+        }
+
+        // Update button visibility on start up
+        toggleButtonVisibility();
+
+        //
         btnDoQuest.setOnClickListener(v ->{
-
-            if(username.equals(userSession)){
-                // User posted
-                btnDoQuest.setVisibility(View.GONE);
-                btnCompleteQuest.setVisibility(View.VISIBLE);
-                btnCancelQuest.setVisibility(View.VISIBLE);
-                btnCompleteQuest.setEnabled(true);
-                if(status.equals("NONE")){
-                    // User post has dibs
-                    btnCompleteQuest.setEnabled(false);
-                }
-            }
-            else if(dibsBy.equals(userSession)) {
-                // User dibs
-                btnDoQuest.setVisibility(View.VISIBLE);
-                btnCompleteQuest.setVisibility(View.GONE);
-                btnCancelQuest.setVisibility(View.GONE);
-            }
-
             // Check if quest is dibsBy = currentUser
             if(dibsByView.getText().equals(userSession)){
                 // Quest is already dibs by current user or is owned by current user
@@ -196,10 +192,14 @@ public class DetailActivity extends AppCompatActivity {
                         selectionArgs
                 );
 
+                // Update dibsBy
+                dibsBy = userSession;
+                // Update status
+                status = "IN_PROGRESS";
+
                 //Log.e("Number of rows affected", String.valueOf(count));
                 Toast.makeText(this, "Dibs on " + title + "!", Toast.LENGTH_SHORT).show();
-                // Back to MainActivity
-                finish();
+                toggleButtonVisibility();
             }
             else {
                 // Quest is dibs by other users
