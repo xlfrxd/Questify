@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.questifyv1.activity.MainActivity;
 import com.example.questifyv1.post.DataHelper;
 import com.example.questifyv1.post.Post;
 import com.example.questifyv1.post.PostAdapter;
@@ -25,6 +26,7 @@ import java.util.List;
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
@@ -61,7 +63,6 @@ import java.util.List;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(postAdapter);
     }
-
     // Method to update the RecyclerView
     public void updateData(List<Post> newPostList) {
         postList.clear();

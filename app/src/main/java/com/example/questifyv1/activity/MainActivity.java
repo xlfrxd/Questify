@@ -158,7 +158,7 @@ public void updateUserBalance(double newBalance){
 }
 
 public void updateQuestFeed(){
-    homeFragment = new HomeFragment();
+    this.homeFragment = new HomeFragment();
         DataHelper.clear();
 
 

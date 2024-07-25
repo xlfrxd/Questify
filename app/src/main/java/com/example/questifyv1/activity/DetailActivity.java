@@ -87,8 +87,6 @@ public class DetailActivity extends AppCompatActivity {
 
         }
     }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,8 +193,7 @@ public class DetailActivity extends AppCompatActivity {
 
             // Update buttons
             toggleButtonVisibility();
-            // Update mainActivity on Cancel Quest
-            mainActivity.updateQuestFeed();
+            finish();
         });
 
         // Cancel quest
@@ -227,7 +224,6 @@ public class DetailActivity extends AppCompatActivity {
 
             // Update buttons
             toggleButtonVisibility();
-            // Update mainActivity on Cancel Quest
             mainActivity.updateQuestFeed();
         });
 
