@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.questifyv1.R;
 import com.example.questifyv1.activity.SignInActivity;
 import com.example.questifyv1.database.UserDatabaseHandler;
-
-import java.text.DecimalFormat;
+import com.example.questifyv1.dialog.CashInDialog;
+import com.example.questifyv1.dialog.WithdrawDialog;
 
 public class ProfileFragment extends Fragment {
 
@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Open cash in dialog
-                DialogFragment dialog_deposit = new CashInFragment();
+                DialogFragment dialog_deposit = new CashInDialog();
                 Bundle args = new Bundle();
                 args.putDouble("userWallet",userWallet);
                 dialog_deposit.setArguments(args); // Send user current wallet balance
@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // Open the withdraw dialog
-                DialogFragment dialog_withdraw = new WithdrawFragment();
+                DialogFragment dialog_withdraw = new WithdrawDialog();
                 Bundle args = new Bundle();
                 args.putDouble("userWallet",userWallet);
                 dialog_withdraw.setArguments(args); // Send user current wallet balance

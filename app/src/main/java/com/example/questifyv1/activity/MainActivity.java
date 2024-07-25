@@ -16,11 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import com.example.questifyv1.AddQuestDialog;
-import com.example.questifyv1.DataHelper;
-import com.example.questifyv1.HomeFragment;
-import com.example.questifyv1.Post;
-import com.example.questifyv1.ProfileFragment;
+import com.example.questifyv1.dialog.AddQuestDialog;
+import com.example.questifyv1.post.DataHelper;
+import com.example.questifyv1.fragment.HomeFragment;
+import com.example.questifyv1.post.Post;
+import com.example.questifyv1.fragment.ProfileFragment;
 import com.example.questifyv1.R;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;

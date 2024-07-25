@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.post;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.questifyv1.R;
 import com.example.questifyv1.activity.DetailActivity;
 import com.example.questifyv1.activity.MainActivity;
 

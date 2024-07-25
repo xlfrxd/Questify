@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -23,6 +23,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.QuestContract;

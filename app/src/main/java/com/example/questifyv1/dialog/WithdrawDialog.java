@@ -1,11 +1,10 @@
-package com.example.questifyv1;
+package com.example.questifyv1.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,12 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class WithdrawFragment extends DialogFragment {
+public class WithdrawDialog extends DialogFragment {
     private MainActivity mainActivity;
 
     private String displayCurrentBalance; // Current Wallet Balance: ₱480.10

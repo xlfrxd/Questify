@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.questifyv1.post.DataHelper;
+import com.example.questifyv1.post.Post;
+import com.example.questifyv1.post.PostAdapter;
+import com.example.questifyv1.R;
 
 import java.util.List;
 

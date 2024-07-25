@@ -1,4 +1,4 @@
-package com.example.questifyv1;
+package com.example.questifyv1.post;
 
 public class Post {
     private String title;

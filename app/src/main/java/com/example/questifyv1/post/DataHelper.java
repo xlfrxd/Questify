@@ -1,4 +1,6 @@
-package com.example.questifyv1;
+package com.example.questifyv1.post;
+
+import com.example.questifyv1.R;
 
 import java.util.ArrayList;
 import java.util.List;
