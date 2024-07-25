@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple2"
     tools:context=".activity.RegisterActivity">
 
     <!-- Sign Up Text -->
@@ -125,7 +126,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/button_background"
-        android:elevation="4dp"
         android:fontFamily="@font/actor_regular"
         android:orientation="horizontal"
         android:gravity="center"
@@ -169,7 +169,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/actor_regular"
             android:text="Have an account?"
-            android:textColor="@android:color/black"
+            android:textColor="@color/purple"
             android:textSize="14sp" />
 
         <TextView
@@ -179,7 +179,7 @@
             android:fontFamily="@font/actor_regular"
             android:text=" Sign In"
             android:textStyle="bold"
-            android:textColor="@color/purple"
+            android:textColor="@color/dirty_white"
             android:textSize="14sp" />
 
     </LinearLayout>

@@ -12,72 +12,64 @@
 
         <LinearLayout
             android:id="@+id/quests_info"
-            android:layout_width="460dp"
-            android:layout_height="265dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             android:background="@drawable/purple_container"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/profile_header"
+            <ImageView
+                android:id="@+id/profile_logo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/profile_logo"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/welcome_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Welcome Questor,"
+                android:textColor="@color/purple3"
+                android:textSize="18sp" />
 
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="15dp"
-                    android:src="@drawable/profile" />
+            <TextView
+                android:id="@+id/tvProfileTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Alex Thompson"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_background"
+                android:backgroundTint="@color/purple"
+                android:gravity="center">
 
                 <TextView
-                    android:id="@+id/tvProfileTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="4dp"
-                    android:text="Alex Thompson"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="34dp"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/rounded_corners_white"
-                    android:gravity="center_horizontal"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:id="@+id/tvProfileSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="\@alexthompson"
-                        android:textColor="@color/purple"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                    android:id="@+id/tvProfileSubtitle"
+                    android:layout_width="137dp"
+                    android:layout_height="48dp"
+                    android:padding="8dp"
+                    android:text="\@alexthompson"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/questor_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:text="Questor Profile"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/quests_taken_posted"

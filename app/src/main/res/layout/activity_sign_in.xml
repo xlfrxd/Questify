@@ -18,14 +18,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <!-- Sign Up Text -->
+
+    <!-- Username Input Field -->
+
+    <!-- Password Input Field -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="176dp"
         android:fontFamily="@font/actor_regular"
         android:text="Sign In"
         android:textColor="@color/white"
@@ -34,13 +37,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Username Input Field -->
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="354dp"
         android:layout_height="62dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="52dp"
         android:background="@drawable/input_field_background"
         android:backgroundTint="#EDEDED"
         android:elevation="4dp"
@@ -52,7 +54,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    <!-- Password Input Field -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="352dp"
@@ -100,7 +101,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/button_background"
-        android:elevation="4dp"
         android:fontFamily="@font/actor_regular"
         android:orientation="horizontal"
         android:gravity="center"
