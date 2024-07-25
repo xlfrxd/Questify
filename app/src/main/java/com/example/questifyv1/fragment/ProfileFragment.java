@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.questifyv1.R;
+import com.example.questifyv1.activity.MainActivity;
 import com.example.questifyv1.activity.SignInActivity;
+import com.example.questifyv1.activity.SplashActivity;
 import com.example.questifyv1.database.QuestContract;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.UserDatabaseHandler;
 import com.example.questifyv1.dialog.CashInDialog;
 import com.example.questifyv1.dialog.WithdrawDialog;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ProfileFragment extends Fragment {
 
@@ -232,9 +238,21 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Logout
-                Toast.makeText(getActivity(), "Logging out...", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), SignInActivity.class);
-                startActivity(intent);
+
+                final Handler handler = new Handler();
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    public void run() {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                // Notify user of change
+                                Toast.makeText(getActivity(), "Logging out...", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getActivity(), SplashActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }, 1500);
             }
         });
 
