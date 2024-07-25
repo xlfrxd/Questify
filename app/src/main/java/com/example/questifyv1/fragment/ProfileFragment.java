@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
         String[] selectionArgs = {userName};
 
         // Initialize count for postedBy
-        questsPosted = "";
+        questsPosted = "0";
 
         try {
             // SELECT posts WHERE postedBy = {currentUser}
@@ -114,15 +114,16 @@ public class ProfileFragment extends Fragment {
         // New projection for getting status
         projection = new String[]{
                 QuestContract.QuestEntry._ID,
-                QuestContract.QuestEntry.COLUMN_NAME_STATUS
+                QuestContract.QuestEntry.COLUMN_NAME_STATUS,
+                QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY
         };
 
         // WHERE status = DONE
-        selection = new String(QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ?");
-        selectionArgs = new String[]{"DONE"};
+        selection = new String(QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ? AND" + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " = ?");
+        selectionArgs = new String[]{"DONE", userName};
 
         // Initialize count for questsCompleted
-        questsCompleted = "";
+        questsCompleted = "0";
 
         try {
 
@@ -137,6 +138,7 @@ public class ProfileFragment extends Fragment {
                     null
             );
             questsCompleted = String.valueOf(cursor.getCount());
+            Log.e("questsCompleted",questsCompleted);
         }
         catch (Exception e) {
             Log.e("questsCompleted", e.toString());
