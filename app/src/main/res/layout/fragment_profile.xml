@@ -36,7 +36,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="Welcome Questor,"
-                android:textColor="@color/purple3"
+                android:textColor="@color/dark_purple"
                 android:textSize="18sp" />
 
             <TextView
