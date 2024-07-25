@@ -39,18 +39,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Subtitle -->
-    <TextView
-    android:id="@+id/tvSubtitle"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:text="Conquer Tasks, Earn Rewards."
-    android:textColor="@android:color/black"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.153"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" >
+
+        <TextView
+            android:id="@+id/tvConquer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="Conquer"
+            android:textColor="@color/digital"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="Tasks,"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvEarn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="Earn"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvReward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rewards"
+            android:textColor="@color/green"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <!-- Get Started Button -->
     <Button
@@ -61,7 +96,7 @@
         android:background="@drawable/button_home_1"
         android:text="Get Started"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
