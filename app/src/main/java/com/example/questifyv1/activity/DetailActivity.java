@@ -224,7 +224,7 @@ public class DetailActivity extends AppCompatActivity {
 
             // Update buttons
             toggleButtonVisibility();
-            mainActivity.updateQuestFeed();
+            finish();
         });
 
         // Do Quest
