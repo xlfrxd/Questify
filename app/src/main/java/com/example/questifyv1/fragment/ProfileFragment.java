@@ -1,11 +1,14 @@
 package com.example.questifyv1.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.activity.SignInActivity;
+import com.example.questifyv1.database.QuestContract;
+import com.example.questifyv1.database.QuestsDatabaseHandler;
 import com.example.questifyv1.database.UserDatabaseHandler;
 import com.example.questifyv1.dialog.CashInDialog;
 import com.example.questifyv1.dialog.WithdrawDialog;
@@ -27,11 +32,14 @@ public class ProfileFragment extends Fragment {
     private String userName;
     private String userFullName;
     private double userWallet;
-    private String userEmail;
-    private String userPassword;
+    private String questsCompleted;
+    private String questsPosted;
     private TextView tvProfileTitle;
     private TextView tvWallet;
     private TextView tvProfileSubtitle;
+    private TextView tvCompletedQuests;
+    private TextView tvPostedQuests;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -60,7 +68,7 @@ public class ProfileFragment extends Fragment {
         // For debugging
         //Toast.makeText(getActivity(), "Profile created for: " + userSession, Toast.LENGTH_SHORT).show();
 
-        // Get user info from db
+        // Get full name, username, email, password and wallet balance from db
         String[] userInfo;
         UserDatabaseHandler userDB = new UserDatabaseHandler(getActivity());
         userInfo = userDB.getUserInfo(userName);
@@ -68,16 +76,106 @@ public class ProfileFragment extends Fragment {
         userFullName = userInfo[0];
         userName = userInfo[1];
         userWallet = Double.parseDouble(userInfo[2]);
-        userEmail = userInfo[3];
-        userPassword = userInfo[4];
+        String userEmail = userInfo[3];
+        String userPassword = userInfo[4];
 
-        // Create bundle to send userWaller to cashin/withdraw
+        // Get quest posted and quests taken
+        QuestsDatabaseHandler questDB = new QuestsDatabaseHandler(getActivity());
+        SQLiteDatabase questDBHelper = questDB.getReadableDatabase();
+
+        String[] projection = {
+                QuestContract.QuestEntry._ID,
+                QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY
+        };
+        String selection = QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " = ?";
+        String[] selectionArgs = {userName};
+
+        // Initialize count for postedBy
+        questsPosted = "";
+
+        try {
+            // SELECT posts WHERE postedBy = {currentUser}
+            Cursor cursor = questDBHelper.query(
+                    QuestContract.QuestEntry.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            questsPosted = String.valueOf(cursor.getCount());
+        }
+        catch (Exception e){
+            Log.e("questsPosted", e.toString());
+        }
+
+        // New projection for getting status
+        projection = new String[]{
+                QuestContract.QuestEntry._ID,
+                QuestContract.QuestEntry.COLUMN_NAME_STATUS
+        };
+
+        // WHERE status = DONE
+        selection = new String(QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ?");
+        selectionArgs = new String[]{"DONE"};
+
+        // Initialize count for questsCompleted
+        questsCompleted = "";
+
+        try {
+
+            // SELECT posts WHERE status = DONE
+            Cursor cursor = questDBHelper.query(
+                    QuestContract.QuestEntry.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+            questsCompleted = String.valueOf(cursor.getCount());
+        }
+        catch (Exception e) {
+            Log.e("questsCompleted", e.toString());
+        }
+
+        // Handle counter values
+        // Quests Posted
+        switch (questsPosted){
+            case "0":
+                    questsPosted = "No Quests Posted";
+                break;
+            case "1":
+                    questsPosted = questsPosted + " Quest Posted";
+                break;
+            default:
+                    questsPosted = questsPosted + " Quests Posted";
+                break;
+        }
+        // Quests Completed
+        switch (questsCompleted){
+            case "0":
+                questsCompleted = "No Quests Completed";
+                break;
+            case "1":
+                questsCompleted = questsCompleted + " Quest Completed";
+                break;
+            default:
+                questsCompleted = questsCompleted + " Quests Completed";
+                break;
+        }
+
 
         // TODO: Display user information onto widgets
         // Initialize widgets
         tvProfileTitle = view.findViewById(R.id.tvProfileTitle);
         tvWallet = view.findViewById(R.id.tvWallet);
         tvProfileSubtitle = view.findViewById(R.id.tvProfileSubtitle);
+        tvPostedQuests = view.findViewById(R.id.tvQuestsPostedCount);
+        tvCompletedQuests = view.findViewById(R.id.tvQuestsCompletedCount);
 
         // Display widgets
         // Display Wallet Balance (wallet)
@@ -86,6 +184,10 @@ public class ProfileFragment extends Fragment {
         tvProfileTitle.setText(userFullName);
         // Display Profile Subtitle (username)
         tvProfileSubtitle.setText("@"+userName);
+        // Display Posted Quests
+        tvPostedQuests.setText(questsPosted);
+        // Display Completed Quests
+        tvCompletedQuests.setText(questsCompleted);
 
         // Buttons
         // Cash In Button
@@ -95,6 +197,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 // Open cash in dialog
                 DialogFragment dialog_deposit = new CashInDialog();
+                // Create bundle to send userWallet to cashin/withdraw
                 Bundle args = new Bundle();
                 args.putDouble("userWallet",userWallet);
                 dialog_deposit.setArguments(args); // Send user current wallet balance

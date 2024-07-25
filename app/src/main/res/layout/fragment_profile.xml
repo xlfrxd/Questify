@@ -59,7 +59,7 @@
                         android:id="@+id/tvProfileSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@alexthompson"
+                        android:text="\@alexthompson"
                         android:textColor="@color/purple"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -112,7 +112,7 @@
                     tools:layout_editor_absoluteY="264dp" />
 
                 <TextView
-                    android:id="@+id/taken_count"
+                    android:id="@+id/tvQuestsCompletedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -144,7 +144,7 @@
                     tools:layout_editor_absoluteY="264dp" />
 
                 <TextView
-                    android:id="@+id/posted_count"
+                    android:id="@+id/tvQuestsPostedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
