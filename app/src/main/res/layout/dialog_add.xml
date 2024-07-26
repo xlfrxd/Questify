@@ -89,7 +89,8 @@
                 android:textAlignment="center"
                 android:background="@drawable/edit_text_bg"
                 android:ems="10"
-                android:inputType="text"
+                android:inputType="numberDecimal"
+                android:maxLength="2"
                 android:hint="MM"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
@@ -110,8 +111,10 @@
                 android:textAlignment="center"
                 android:background="@drawable/edit_text_bg"
                 android:ems="10"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:hint="DD"
+                android:maxLength="2"
+
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
 
@@ -131,8 +134,10 @@
                 android:textAlignment="center"
                 android:background="@drawable/edit_text_bg"
                 android:ems="10"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:hint="YY"
+                android:maxLength="2"
+
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
 
@@ -157,8 +162,10 @@
             android:textAlignment="center"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:hint="HH"
+            android:maxLength="2"
+
             android:textColor="@color/gray"
             android:textSize="16sp" />
 
@@ -179,14 +186,16 @@
             android:textAlignment="center"
             android:background="@drawable/edit_text_bg"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:hint="mm"
+            android:maxLength="2"
+
             android:textColor="@color/gray"
             android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/sp_AMPM"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="0dp"
