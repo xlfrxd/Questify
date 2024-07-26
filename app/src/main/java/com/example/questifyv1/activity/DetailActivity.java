@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.BaseColumns;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.questifyv1.R;
 import com.example.questifyv1.database.QuestContract;
 import com.example.questifyv1.database.QuestsDatabaseHandler;
+import com.example.questifyv1.database.UserContract;
+import com.example.questifyv1.database.UserDatabaseHandler;
 
 import org.w3c.dom.Text;
 
@@ -52,6 +55,9 @@ public class DetailActivity extends AppCompatActivity {
             else if(status.equals("CANCELLED")){
                 // Disable both cancel and complete
                 btnCancelQuest.setEnabled(false);
+            }
+            else if(status.equals("FLAG_DONE")){
+                btnCompleteQuest.setEnabled(true);
             }
         }
         else if(dibsBy.equals(userSession) && !dibsBy.equals("CANCELLED") && !dibsBy.equals("DONE")) {
@@ -167,29 +173,87 @@ public class DetailActivity extends AppCompatActivity {
         toggleButtonVisibility();
 
         btnCompleteQuest.setOnClickListener(v -> {
-            //Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show();
-            // update status to cancel
+
+
+
+
             QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-            // New values for column
             ContentValues values = new ContentValues();
-            values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "DONE");
+            // if user dibsBy
+            if(userSession.equals(dibsBy)){
 
-            // Search database for title and author
-            String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " LIKE ?";
-            String[] selectionArgs = {title, username};
+                // update status to FLAG_DONE
+                values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "FLAG_DONE");
+                // search database for title and dibsby
+                String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_DIBSBY + " LIKE ?";
+                String[] selectionArgs = {title, dibsBy};
 
-            // count returns number of rows affected
-            int count = db.update(
-                    QuestContract.QuestEntry.TABLE_NAME,
-                    values,
-                    selection,
-                    selectionArgs
-            );
-            Toast.makeText(this,"Completed \"" + title + "\"!", Toast.LENGTH_LONG).show();
-            // Update status
-            status = "DONE";
+                // count returns number of rows affected
+                int count = db.update(
+                        QuestContract.QuestEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+                Toast.makeText(this, "Sent Completed Request to " + username, Toast.LENGTH_SHORT).show();
+
+
+            }
+            // if user postedBy
+            else if(userSession.equals(username)){
+
+                // update status to done
+
+                // New values for column
+                values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "DONE");
+
+                // Search database for title and author
+                String selection = QuestContract.QuestEntry.COLUMN_NAME_TITLE + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " LIKE ? AND " + QuestContract.QuestEntry.COLUMN_NAME_STATUS + " LIKE ?";
+                String[] selectionArgs = {title, username, "FLAG_DONE"};
+
+                // count returns number of rows affected
+                int count = db.update(
+                        QuestContract.QuestEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+                Toast.makeText(this,"Completed \"" + title + "\"!", Toast.LENGTH_LONG).show();
+
+                // Update status of post
+                status = "DONE";
+
+                // Release funds to dibsBy
+                UserDatabaseHandler userDatabaseHandler = new UserDatabaseHandler(this);
+                double walletBalance = Double.parseDouble(userDatabaseHandler.getUserInfo(dibsBy)[2]);
+                double sendBalance = Double.parseDouble(price);
+                sendBalance = walletBalance + sendBalance;
+
+                UserDatabaseHandler userDbHelper = new UserDatabaseHandler(this);
+                db = userDbHelper.getWritableDatabase();
+                String[] projection = {
+                        BaseColumns._ID,
+                        UserContract.UserEntry.COLUMN_NAME_USERNAME,
+                        UserContract.UserEntry.COLUMN_NAME_WALLET
+                };
+
+                // WHERE currentUser = user
+                selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " LIKE ?";
+                selectionArgs = new String[]{dibsBy};
+
+                values = new ContentValues();
+                values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, String.valueOf(sendBalance));
+
+                // number of rows affected
+                count = db.update(
+                        UserContract.UserEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+            }
+
 
             // Update buttons
             toggleButtonVisibility();
@@ -224,7 +288,7 @@ public class DetailActivity extends AppCompatActivity {
 
             // Update buttons
             toggleButtonVisibility();
-            finish();
+            mainActivity.updateQuestFeed();
         });
 
         // Do Quest

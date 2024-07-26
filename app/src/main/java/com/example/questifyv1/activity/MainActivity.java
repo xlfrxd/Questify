@@ -104,18 +104,6 @@ public class MainActivity extends FragmentActivity {
 
             return true;
         });
-
-        // RecyclerView Stuff
-        /*
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        postList = DataHelper.getPostData();
-        postAdapter = new PostAdapter(this, postList);
-        recyclerView.setAdapter(postAdapter);
-
-         */
-
     }
 private void replaceFragment(Fragment fragment){
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -124,7 +112,7 @@ private void replaceFragment(Fragment fragment){
     fragmentTransaction.commit();
 }
 
-public void updateUserBalance(double newBalance){
+public void updateUserBalance(String toUser, double newBalance){
     profileFragment = new ProfileFragment();
     UserDatabaseHandler userDbHelper = new UserDatabaseHandler(this);
     db = userDbHelper.getWritableDatabase();
@@ -136,7 +124,7 @@ public void updateUserBalance(double newBalance){
 
     // WHERE currentUser = user
     String selection = UserContract.UserEntry.COLUMN_NAME_USERNAME + " LIKE ?";
-    String[] selectionArgs = {userSession};
+    String[] selectionArgs = {toUser};
 
     ContentValues values = new ContentValues();
     values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, String.valueOf(newBalance));

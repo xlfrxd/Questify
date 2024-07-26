@@ -117,7 +117,7 @@ public class WithdrawDialog extends DialogFragment {
                 withdrawAmount = Double.valueOf(etWithdrawAmt.getText().toString());
                 //Log.e("withdrawAmt:",String.valueOf(withdrawAmount));
                 double newBalance = currentBalance - withdrawAmount;
-                mainActivity.updateUserBalance(newBalance);
+                mainActivity.updateUserBalance(MainActivity.getUserSession(),newBalance);
 
                 Toast.makeText(getContext(), "Attempting withdrawal of ₱" + String.valueOf(withdrawAmount) +"...",Toast.LENGTH_LONG).show();
 

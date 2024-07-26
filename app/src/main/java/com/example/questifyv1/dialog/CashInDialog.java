@@ -113,7 +113,7 @@ public class CashInDialog extends DialogFragment {
                 depositAmount = Double.valueOf(etCashInAmt.getText().toString());
                 double newBalance = depositAmount + currentBalance;
                 // Update user balance
-                mainActivity.updateUserBalance(newBalance);
+                mainActivity.updateUserBalance(MainActivity.getUserSession(),newBalance);
 
                 Toast.makeText(getContext(), "Attempting deposit of ₱" + String.valueOf(depositAmount) +"...",Toast.LENGTH_LONG).show();
 
