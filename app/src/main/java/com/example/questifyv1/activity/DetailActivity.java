@@ -288,7 +288,6 @@ public class DetailActivity extends AppCompatActivity {
 
             // Update buttons
             toggleButtonVisibility();
-            finish();
         });
 
         // Do Quest
