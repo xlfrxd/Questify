@@ -188,7 +188,7 @@ public class AddQuestDialog extends DialogFragment {
                                 etMonth.getText().toString() + "/" +
                                 etDay.getText().toString() +  "/" +
                                 etYear.getText().toString() + " " +
-                                "@ " + etHour.getText().toString() +
+                                "at " + etHour.getText().toString() +
                                 ":" + etMinute.getText().toString() +
                                 " " + spAmPm.getSelectedItem().toString();
                         values.put(QuestContract.QuestEntry.COLUMN_NAME_DUE_DATE, dateString);
