@@ -1,16 +1,22 @@
 package com.example.questifyv1.activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,13 +25,24 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.questifyv1.R;
 import com.example.questifyv1.database.UserContract;
 import com.example.questifyv1.database.UserDatabaseHandler;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.recaptcha.Recaptcha;
+import com.google.android.recaptcha.RecaptchaTasksClient;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
     private TextView btnBack;
     private String userSession; // Username for currently signed in user
+    private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
+    @Nullable private RecaptchaTasksClient recaptchaTasksClient = null;
+
+    private final String SITE_KEY = "6LfG9RcqAAAAABve7cUxqDQDpZR--jgM40Uub4hb";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +55,20 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Instantiate dbHelper
 
+        // Instantiate dbHelper
         dbHelper = new UserDatabaseHandler(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // reCAPTCHA
+        cbCaptcha = findViewById(R.id.cbCaptcha);
+        cbCaptcha.setOnClickListener(view -> {
+            if (isNetworkAvailable()) {
+                initializeReCaptcha();
+            } else {
+                Toast.makeText(RegisterActivity.this, "No network connection available", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // Register Account
         btnRegister = findViewById(R.id.btnRegister);
@@ -77,7 +104,11 @@ public class RegisterActivity extends AppCompatActivity {
                 //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
             }
-            else {
+            // Check if captcha is not verified
+            else if (cbCaptcha.isChecked() == false) {
+                Toast.makeText(getApplicationContext(), "Verify ReCaptcha", Toast.LENGTH_LONG).show();
+
+            } else {
 
             // Register user credentials to database
 
@@ -110,5 +141,48 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
         finish();
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void initializeReCaptcha(){
+        Recaptcha
+                .getTasksClient(getApplication(), SITE_KEY)
+                .addOnSuccessListener(
+                        this,
+                        new OnSuccessListener<RecaptchaTasksClient>() {
+                            @Override
+                            public void onSuccess(RecaptchaTasksClient client) {
+                                RegisterActivity.this.recaptchaTasksClient = client;
+                                handleSuccess();
+                                cbCaptcha.setEnabled(false);
+                            }
+                        })
+                .addOnFailureListener(
+                        this,
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Handle communication errors ...
+                                // See "Handle communication errors" section
+                                handleFailure(e);
+                                cbCaptcha.setChecked(false);
+                            }
+                        });
+    }
+
+    private void handleSuccess() {
+        // Implement your logic for successful reCAPTCHA verification
+        Toast.makeText(this, "reCAPTCHA verified successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleFailure(Exception e) {
+        // Implement your logic for reCAPTCHA failure
+        Log.e("reCAPTCHA", "Error: " + e.getMessage());
+        Toast.makeText(this, "reCAPTCHA verification failed", Toast.LENGTH_SHORT).show();
     }
 }

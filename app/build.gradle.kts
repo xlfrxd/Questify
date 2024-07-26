@@ -35,12 +35,14 @@ android {
 }
 
 dependencies {
+    implementation(libs.recaptcha)
     val fragment_version = "1.8.1"
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.play.services.safetynet)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

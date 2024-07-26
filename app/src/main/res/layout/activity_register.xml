@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/actor_regular"
         android:text="Sign Up"
         android:textColor="@color/purple"
@@ -134,15 +134,21 @@
         app:layout_constraintTop_toBottomOf="@id/btnRegister"
         android:padding="10dp">
 
+        <CheckBox
+            android:id="@+id/cbCaptcha"
+            android:layout_width="28dp"
+            android:layout_height="33dp" />
+
         <TextView
             android:id="@+id/tvGoogleSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up with Google"
+            android:text="Verify reCAPTCHA"
             android:textColor="#5B5F97"
             android:textSize="16sp"
             android:fontFamily="@font/actor_regular" />
 
+        <!-- Input reCAPTCHA icon -->
         <ImageView
             android:id="@+id/ivGoogleIcon"
             android:layout_width="24dp"
