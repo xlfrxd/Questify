@@ -92,39 +92,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <!-- Custom Sign Up with Google Button -->
-    <LinearLayout
-        android:id="@+id/signUpGoogleButton"
-        android:layout_width="217dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/button_background"
-        android:fontFamily="@font/actor_regular"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
-        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/signUpGoogleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_in_google"
-            android:textColor="#5B5F97"
-            android:textSize="16sp"
-            android:fontFamily="@font/actor_regular" />
-
-        <ImageView
-            android:id="@+id/googleIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/google" />
-    </LinearLayout>
 
     <!-- Don't have an account? Sign Up Text Container -->
     <LinearLayout
@@ -133,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/signUpGoogleButton"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:orientation="horizontal">
