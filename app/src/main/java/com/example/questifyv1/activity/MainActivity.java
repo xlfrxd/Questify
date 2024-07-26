@@ -32,7 +32,10 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
-    private HomeFragment homeFragment;
+
+    public static List<Post> updatedPostList;
+
+    private static HomeFragment homeFragment;
     private ProfileFragment profileFragment;
     private QuestsDatabaseHandler dbHelper;
     private SQLiteDatabase db;
@@ -189,7 +192,7 @@ public void updateQuestFeed(){
     );
 
     // Create new post list
-    List<Post> updatedPostList = DataHelper.getPostData();
+    updatedPostList = DataHelper.getPostData();
 
     // Loop through items
     while (cursor.moveToNext()){

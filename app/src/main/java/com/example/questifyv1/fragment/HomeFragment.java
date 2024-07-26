@@ -1,5 +1,7 @@
 package com.example.questifyv1.fragment;
 
+import static com.example.questifyv1.activity.MainActivity.*;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
