@@ -14,10 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/actor_regular"
         android:text="Sign Up"
-        android:textColor="@color/purple"
+        android:textColor="@color/white"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:layout_width="354dp"
         android:layout_height="62dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/input_field_background"
         android:backgroundTint="#EDEDED"
         android:elevation="4dp"
@@ -121,7 +121,7 @@
     <LinearLayout
         android:id="@+id/llGoogleSignUp"
         android:layout_width="217dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
@@ -137,6 +137,7 @@
         <CheckBox
             android:id="@+id/cbCaptcha"
             android:layout_width="28dp"
+            android:layout_marginRight="7dp"
             android:layout_height="33dp" />
 
         <TextView
@@ -148,13 +149,6 @@
             android:textSize="16sp"
             android:fontFamily="@font/actor_regular" />
 
-        <!-- Input reCAPTCHA icon -->
-        <ImageView
-            android:id="@+id/ivGoogleIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/google" />
     </LinearLayout>
 
     <!-- Have an account? Sign In Text Container -->
@@ -173,6 +167,7 @@
             android:id="@+id/tvHaveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
             android:fontFamily="@font/actor_regular"
             android:text="Have an account?"
             android:textColor="@color/purple"
