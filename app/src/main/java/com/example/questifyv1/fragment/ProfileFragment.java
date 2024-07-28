@@ -125,7 +125,7 @@ public class ProfileFragment extends Fragment {
         };
 
         // WHERE status = DONE
-        selection = new String(QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ? AND " + QuestContract.QuestEntry.COLUMN_NAME_POSTEDBY + " = ?");
+        selection = QuestContract.QuestEntry.COLUMN_NAME_STATUS + " = ? AND " + QuestContract.QuestEntry.COLUMN_NAME_DIBSBY + " = ?";
         selectionArgs = new String[]{"DONE", userName};
 
         // Initialize count for questsCompleted

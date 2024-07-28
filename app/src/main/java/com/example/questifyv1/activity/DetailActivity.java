@@ -173,10 +173,6 @@ public class DetailActivity extends AppCompatActivity {
         toggleButtonVisibility();
 
         btnCompleteQuest.setOnClickListener(v -> {
-
-
-
-
             QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();

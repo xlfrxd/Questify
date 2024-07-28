@@ -99,10 +99,8 @@ public class MainActivity extends FragmentActivity {
                 //homeFragment = new HomeFragment();
                 updateQuestFeed();
                 if(!homeFragment.isVisible()){
-
                    replaceFragment(homeFragment);
                 }
-
             }
 
             return true;
