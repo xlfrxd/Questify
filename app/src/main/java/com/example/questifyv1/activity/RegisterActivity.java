@@ -31,6 +31,7 @@ import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.recaptcha.Recaptcha;
+import com.google.android.recaptcha.RecaptchaAction;
 import com.google.android.recaptcha.RecaptchaTasksClient;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -40,9 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
     private String userSession; // Username for currently signed in user
     private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
-    @Nullable private RecaptchaTasksClient recaptchaTasksClient = null;
+    @Nullable RecaptchaTasksClient recaptchaTasksClient = null;
 
-    private final String SITE_KEY = "6LfG9RcqAAAAABve7cUxqDQDpZR--jgM40Uub4hb";
+    private final String SITE_KEY = "6LfyTSAqAAAAAELdW1s62o6lmBBYX7isQ7mlPoMD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Isntantiate reCaptcha
+        initializeReCaptcha();
 
         // Instantiate dbHelper
         dbHelper = new UserDatabaseHandler(this);
@@ -63,11 +66,32 @@ public class RegisterActivity extends AppCompatActivity {
         // reCAPTCHA
         cbCaptcha = findViewById(R.id.cbCaptcha);
         cbCaptcha.setOnClickListener(view -> {
-            if (isNetworkAvailable()) {
-                initializeReCaptcha();
-            } else {
-                Toast.makeText(RegisterActivity.this, "No network connection available", Toast.LENGTH_SHORT).show();
-            }
+            assert recaptchaTasksClient != null;
+            recaptchaTasksClient
+                    .executeTask(RecaptchaAction.LOGIN)
+                    .addOnSuccessListener(
+                            this,
+                            new OnSuccessListener<String>() {
+                                @Override
+                                public void onSuccess(String token) {
+                                    // Handle success ...
+                                    // See "What's next" section for instructions
+                                    // about handling tokens.
+                                    handleSuccess();
+                                    cbCaptcha.setEnabled(false);
+                                }
+                            })
+                    .addOnFailureListener(
+                            this,
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Handle communication errors ...
+                                    // See "Handle communication errors" section
+                                handleFailure(e);
+                                    cbCaptcha.setChecked(false);
+                                }
+                            });
         });
 
         // Register Account
@@ -158,8 +182,6 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(RecaptchaTasksClient client) {
                                 RegisterActivity.this.recaptchaTasksClient = client;
-                                handleSuccess();
-                                cbCaptcha.setEnabled(false);
                             }
                         })
                 .addOnFailureListener(
