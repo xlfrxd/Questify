@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.questifyv1"
+        applicationId = "com.questify.apk"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
