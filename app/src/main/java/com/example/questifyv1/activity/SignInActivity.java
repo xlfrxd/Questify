@@ -72,6 +72,9 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
             else {
+                // Log the action that the user successfully signed in
+                dbHelper.logAction(username, "User signed in successfully");
+
                 // Navigate to MainActivity
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 // Pass username to MainActivity

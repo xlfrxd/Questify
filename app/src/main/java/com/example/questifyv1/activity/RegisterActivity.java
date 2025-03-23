@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                     // Handle communication errors ...
                                     // See "Handle communication errors" section
-                                handleFailure(e);
+                                    handleFailure(e);
                                     cbCaptcha.setChecked(false);
                                 }
                             });
@@ -134,26 +134,28 @@ public class RegisterActivity extends AppCompatActivity {
 
             } else {
 
-            // Register user credentials to database
+                // Register user credentials to database
 
-            // Map new values
-            ContentValues values = new ContentValues();
-            values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
-            values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
-            values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
-            values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
-            values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
+                // Map new values
+                ContentValues values = new ContentValues();
+                values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
+                values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
+                values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
+                values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
+                values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
 
-            // Insert the new row
-            db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
-            db.close();
-            // Navigate to Main Activity
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-            // Pass username to MainActivity
-            userSession = username;
-            intent.putExtra("userSession", userSession);
-            startActivity(intent);
-            finish();
+                // Insert the new row
+                db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+
+
+                dbHelper.logAction(username, "User successfully registered");
+                // Navigate to Main Activity
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                // Pass username to MainActivity
+                userSession = username;
+                intent.putExtra("userSession", userSession);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -163,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this,SignInActivity.class);
             startActivity(intent);
-        finish();
+            finish();
         });
     }
 

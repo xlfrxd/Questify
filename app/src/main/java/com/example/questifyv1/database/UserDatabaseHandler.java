@@ -10,7 +10,7 @@ import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
-public static final int DATABASE_VERSION = 3; // Ient this when you change the database schema
+public static final int DATABASE_VERSION = 4; // Ient this when you change the database schema
 public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
@@ -24,8 +24,6 @@ public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
@@ -33,7 +31,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
             String createUsersTable = "CREATE TABLE IF NOT EXISTS " + UserContract.UserEntry.TABLE_NAME + " (" +
                     UserContract.UserEntry._ID + " INTEGER PRIMARY KEY," +
                     UserContract.UserEntry.COLUMN_NAME_NAME + " TEXT," +
-                    UserContract.UserEntry.COLUMN_NAME_WALLET + " REAL DEFAULT 0.0," + // Ensure correct column type
+                    UserContract.UserEntry.COLUMN_NAME_WALLET + " REAL DEFAULT 0.0," +
                     UserContract.UserEntry.COLUMN_NAME_USERNAME + " TEXT UNIQUE," +
                     UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT UNIQUE," +
                     UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL," +
@@ -56,6 +54,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
             Log.e("Database", "Error creating tables: " + e.getMessage());
         }
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
