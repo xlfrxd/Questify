@@ -15,13 +15,17 @@ import com.example.questifyv1.R;
 import com.example.questifyv1.database.UserContract;
 import com.example.questifyv1.database.UserDatabaseHandler;
 import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.safetynet.SafetyNetApi;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
+import java.util.Objects;
+
+// TOTP imports
+import dev.samstevens.totp.code.CodeGenerator;
+import dev.samstevens.totp.code.DefaultCodeGenerator;
+import dev.samstevens.totp.secret.DefaultSecretGenerator;
+import dev.samstevens.totp.time.SystemTimeProvider;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Button btnRegister;
     private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
 
@@ -35,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         dbHelper = new UserDatabaseHandler(this);
         cbCaptcha = findViewById(R.id.cbCaptcha);
 
-        btnRegister = findViewById(R.id.btnRegister);
+        Button btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(v -> attemptRegistration());
 
         cbCaptcha.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -68,19 +72,21 @@ public class RegisterActivity extends AppCompatActivity {
     private void verifyRecaptcha() {
         SafetyNet.getClient(this).verifyWithRecaptcha(SITE_KEY)
                 .addOnSuccessListener(this, response -> {
-                    if (response.getTokenResult().isEmpty()) {
+                    if (Objects.requireNonNull(response.getTokenResult()).isEmpty()) {
                         Toast.makeText(this, "ReCaptcha verification failed, try again.", Toast.LENGTH_LONG).show();
                     } else {
                         cbCaptcha.setChecked(true); // Programmatically check this if verification is successful
                         Toast.makeText(this, "Verification succeeded.", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(this, e -> {
-                    Toast.makeText(this, "ReCaptcha verification failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                });
+                .addOnFailureListener(this, e -> Toast.makeText(this, "ReCaptcha verification failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
     }
 
     private void registerUser(String name, String username, String email, String password) {
+        // Generate TOTP secret key
+        DefaultSecretGenerator secretGenerator = new DefaultSecretGenerator();
+        String secretKey = secretGenerator.generate();
+
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
@@ -88,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
         values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
         values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
         values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, 0); // Default wallet balance
+        values.put(UserContract.UserEntry.COLUMN_NAME_TOTP_SECRET, secretKey); // Use the constant from UserContract
 
         long newRowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
         db.close();

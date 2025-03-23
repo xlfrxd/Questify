@@ -32,4 +32,7 @@
     <string name="cash_in">Cash In</string>
     <string name="withdraw">Withdraw</string>
     <string name="input_withdraw_amount">Input Withdraw Amount</string>
+    <string name="token">Token</string>
+    <string name="verify">Verify</string>
+    <string name="enter_verification_token">Enter verification token</string>
 </resources>

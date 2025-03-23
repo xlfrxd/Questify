@@ -10,8 +10,11 @@
         android:id="@+id/tokenField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter verification token"
-        android:inputType="number"/>
+        android:autofillHints=""
+        android:hint="@string/enter_verification_token"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A" />
 
     <Button
         android:id="@+id/verifyButton"

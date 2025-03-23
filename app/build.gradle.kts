@@ -45,6 +45,7 @@ dependencies {
 
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.android.gms:play-services-safetynet")
+    implementation("dev.samstevens.totp:totp:1.7.1")  // TOTP library
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

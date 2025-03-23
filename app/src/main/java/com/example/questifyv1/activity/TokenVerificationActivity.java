@@ -42,25 +42,17 @@ public class TokenVerificationActivity extends AppCompatActivity {
 
     private void verifyToken(String token) {
         String url = "https://your-backend.com/api/verifyToken";  // Replace with your actual URL
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // Assuming the response from the server is a simple success flag
-                if ("success".equals(response)) {
-                    Toast.makeText(TokenVerificationActivity.this, "Token verified successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(TokenVerificationActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(TokenVerificationActivity.this, "Invalid token, please try again.", Toast.LENGTH_SHORT).show();
-                }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response -> {
+            // Assuming the response from the server is a simple success flag
+            if ("success".equals(response)) {
+                Toast.makeText(TokenVerificationActivity.this, "Token verified successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TokenVerificationActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(TokenVerificationActivity.this, "Invalid token, please try again.", Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(TokenVerificationActivity.this, "Error verifying token: " + error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
+        }, error -> Toast.makeText(TokenVerificationActivity.this, "Error verifying token: " + error.toString(), Toast.LENGTH_SHORT).show()) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();

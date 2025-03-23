@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,20 +11,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter your verification token"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/etToken"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Token"
-        android:inputType="text"/>
+        android:autofillHints=""
+        android:hint="@string/token"
+        android:inputType="text"
+        android:minHeight="48dp"
+        tools:ignore="VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/btnVerifyToken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Verify"
+        android:text="@string/verify"
         android:layout_marginTop="24dp"/>
 
 </LinearLayout>

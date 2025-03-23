@@ -12,5 +12,6 @@ public class UserContract {
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
         public static final String COLUMN_NAME_EMAIL = "email";
+        public static final String COLUMN_NAME_TOTP_SECRET = "totp_secret";
     }
 }
