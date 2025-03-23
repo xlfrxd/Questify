@@ -66,17 +66,16 @@ public class SignInActivity extends AppCompatActivity {
                 // TODO: Replace hardcoded text
                 Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
             }
-            // Check if credentials is match
+            // Check if credentials match
             else if(!dbHelper.verifyCredentials(username, password)){
                 // TODO: Replace hardcoded text
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
             else {
-                // Navigate to MainActivity
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                // Pass username to MainActivity
-                userSession = username;
-                intent.putExtra("userSession", userSession);
+                // MFA Integration: Send verification token and move to verification activity
+                sendVerificationEmail(username); // This method needs to be implemented
+                Intent intent = new Intent(SignInActivity.this, TokenVerificationActivity.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
                 finish();
             }
@@ -90,5 +89,17 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    // Implement sendVerificationEmail
+    private void sendVerificationEmail(String username) {
+        String token = generateToken(); // Implement token generation
+        // Logic to send email with token
+    }
+
+    // Generate a secure random token
+    private String generateToken() {
+        // Implementation of secure random token generation
+        return "123456"; // This is a placeholder
     }
 }
