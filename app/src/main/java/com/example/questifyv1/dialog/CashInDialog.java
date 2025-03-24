@@ -16,10 +16,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import com.example.questifyv1.database.QuestsDatabaseHandler;
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
+import com.example.questifyv1.database.UserDatabaseHandler;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +31,6 @@ public class CashInDialog extends DialogFragment {
     private double depositAmount;
     private String[] amountChoices = {"100", "500", "1000"};
 
-    QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
 
     @Override
     public void onAttach(Context context){
@@ -114,12 +113,10 @@ public class CashInDialog extends DialogFragment {
                 depositAmount = Double.valueOf(etCashInAmt.getText().toString());
                 double newBalance = depositAmount + currentBalance;
 
-                // ✅ Update balance
                 String currentUser = MainActivity.getUserSession();
                 mainActivity.updateUserBalance(currentUser, newBalance);
 
-                // ✅ Instantiate and log audit
-                QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
+                UserDatabaseHandler dbHelper = new UserDatabaseHandler(getContext());
                 String action = "User " + currentUser + " cashed in ₱" + String.format("%.2f", depositAmount);
                 dbHelper.logAction(currentUser, action);
 

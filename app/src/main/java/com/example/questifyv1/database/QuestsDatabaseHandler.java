@@ -100,7 +100,6 @@ public class QuestsDatabaseHandler extends SQLiteOpenHelper{
         } else {
             Log.e("Database", "'users' table does not exist.");
         }
-
         db.close();
     }
 

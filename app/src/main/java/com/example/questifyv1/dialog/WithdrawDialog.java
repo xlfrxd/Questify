@@ -21,6 +21,7 @@ import com.example.questifyv1.database.QuestsDatabaseHandler;
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
+import com.example.questifyv1.database.UserDatabaseHandler;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,8 +33,6 @@ public class WithdrawDialog extends DialogFragment {
     private double currentBalance; // 480.10
     private double withdrawAmount;
     private String[] amountChoices = {"100", "500", "1000"};
-
-    QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
 
     @Override
     public void onAttach(Context context){
@@ -113,7 +112,6 @@ public class WithdrawDialog extends DialogFragment {
             } else if (currentBalance < Double.valueOf(etWithdrawAmt.getText().toString())) {
                 Toast.makeText(getContext(), "You have insufficient funds", Toast.LENGTH_SHORT).show();
             } else {
-                // ✅ Declare and assign user first
                 String currentUser = MainActivity.getUserSession();
 
                 // Get amount to withdraw
@@ -123,8 +121,7 @@ public class WithdrawDialog extends DialogFragment {
                 // Update balance
                 mainActivity.updateUserBalance(currentUser, newBalance);
 
-                // ✅ Instantiate DB handler and log action
-                QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
+                UserDatabaseHandler dbHelper = new UserDatabaseHandler(getContext());
                 String action = "User " + currentUser + " withdrew ₱" + String.format("%.2f", withdrawAmount);
                 dbHelper.logAction(currentUser, action);
 
