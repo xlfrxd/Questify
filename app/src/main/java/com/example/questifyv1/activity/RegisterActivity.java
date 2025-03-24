@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.se.omapi.Session;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,8 +33,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.recaptcha.Recaptcha;
 import com.google.android.recaptcha.RecaptchaAction;
 import com.google.android.recaptcha.RecaptchaTasksClient;
-
-import java.util.UUID; // For verification
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -171,13 +168,6 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         });
     }
-
-    private String generateVerificationCode() {
-        // TODO: Implement using a library to get better verification code
-        String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-        return uuid.substring(0, 6);
-    }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
