@@ -145,10 +145,16 @@ public class RegisterActivity extends AppCompatActivity {
                 values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
 
                 // Insert the new row
-                db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+                long rowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+
+                if (rowId != -1) {
+                    // ✅ Insert succeeded, now it's safe to log
+                    dbHelper.logAction(username, "User " + username + " successfully registered");
+                } else {
+                    Log.e("Register", "Failed to insert new user");
+                }
 
 
-                dbHelper.logAction(username, "User successfully registered");
                 // Navigate to Main Activity
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 // Pass username to MainActivity
