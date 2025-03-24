@@ -63,19 +63,23 @@ public class SignInActivity extends AppCompatActivity {
             }
             // Check if username does not exist
             else if(!dbHelper.checkExists(username, UserContract.UserEntry.COLUMN_NAME_USERNAME)){
-                // TODO: Replace hardcoded text
+                dbHelper.logAction(username, "Failed login attempt - username does not exist: " + username);
                 Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
             }
-            // Check if credentials match
+            // Check if credentials is match
             else if(!dbHelper.verifyCredentials(username, password)){
-                // TODO: Replace hardcoded text
+                dbHelper.logAction(username, "Failed login attempt - incorrect password for: " + username);
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
             else {
-                // MFA Integration: Send verification token and move to verification activity
-                sendVerificationEmail(username); // This method needs to be implemented
-                Intent intent = new Intent(SignInActivity.this, TokenVerificationActivity.class);
-                intent.putExtra("username", username);
+                // Log the action that the user successfully signed in
+                dbHelper.logAction(username, "User " + username + " signed in successfully");
+
+                // Navigate to MainActivity
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                // Pass username to MainActivity
+                userSession = username;
+                intent.putExtra("userSession", userSession);
                 startActivity(intent);
                 finish();
             }
@@ -89,17 +93,5 @@ public class SignInActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-    }
-
-    // Implement sendVerificationEmail
-    private void sendVerificationEmail(String username) {
-        String token = generateToken(); // Implement token generation
-        // Logic to send email with token
-    }
-
-    // Generate a secure random token
-    private String generateToken() {
-        // Implementation of secure random token generation
-        return "123456"; // This is a placeholder
     }
 }

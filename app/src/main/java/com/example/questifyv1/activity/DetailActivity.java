@@ -37,6 +37,8 @@ public class DetailActivity extends AppCompatActivity {
     private Button btnCompleteQuest;
     private Button btnCancelQuest;
 
+    QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
+
     private void toggleButtonVisibility(){
         // Update button displays
         if(username.equals(userSession)){
@@ -142,6 +144,7 @@ public class DetailActivity extends AppCompatActivity {
         btnCancelQuest = findViewById(R.id.btnQuestCancel); // TODO link
         btnCompleteQuest = findViewById(R.id.btnQuestCompleted); // TODO link
 
+
         // Set buttons to invisible by default
 
         // Set widget data
@@ -172,12 +175,13 @@ public class DetailActivity extends AppCompatActivity {
         // Update button visibility on start up
         toggleButtonVisibility();
 
+
         btnCompleteQuest.setOnClickListener(v -> {
             QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             // if user dibsBy
-            if(userSession.equals(dibsBy)){
+            if(userSession.equals(dibsBy)){ // Quest Taker clicks "Mark as Complete" Button
 
                 // update status to FLAG_DONE
                 values.put(QuestContract.QuestEntry.COLUMN_NAME_STATUS, "FLAG_DONE");
@@ -192,12 +196,13 @@ public class DetailActivity extends AppCompatActivity {
                         selection,
                         selectionArgs
                 );
+                dbHelper.logAction(userSession, "Quest Taker " + userSession + " flagged quest as complete: " + title);
                 Toast.makeText(this, "Sent Completed Request to " + username, Toast.LENGTH_SHORT).show();
 
 
             }
             // if user postedBy
-            else if(userSession.equals(username)){
+            else if(userSession.equals(username)){ // Quest Owner clicks "Mark as Complete" Button
 
                 // update status to done
 
@@ -215,6 +220,7 @@ public class DetailActivity extends AppCompatActivity {
                         selection,
                         selectionArgs
                 );
+                dbHelper.logAction(userSession, "Quest Owner " + username + " marked quest as complete: " + title);
                 Toast.makeText(this,"Completed \"" + title + "\"!", Toast.LENGTH_LONG).show();
 
                 // Update status of post
@@ -257,7 +263,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
         // Cancel quest
-        btnCancelQuest.setOnClickListener(v -> {
+        btnCancelQuest.setOnClickListener(v -> { // Quest Taker clicks "Cancel" Button
             //Toast.makeText(this, "Cancel", Toast.LENGTH_LONG).show();
             // update status to cancel
             QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(this);
@@ -278,6 +284,7 @@ public class DetailActivity extends AppCompatActivity {
                     selection,
                     selectionArgs
             );
+            dbHelper.logAction(userSession, "Quest Taker " + userSession + " canceled the quest: " + title);
             Toast.makeText(this, "\"" + title + "\" was cancelled!", Toast.LENGTH_LONG).show();
             // Update status
             status = "CANCELLED";
@@ -289,12 +296,14 @@ public class DetailActivity extends AppCompatActivity {
         // Do Quest
         btnDoQuest.setOnClickListener(v ->{
             // Check if quest is dibsBy = currentUser
-            if(dibsByView.getText().equals(userSession)){
+            if(dibsByView.getText().equals(userSession)){ // Quest Taker clicks "Do Quest" button
                 // Quest is already dibs by current user or is owned by current user
+                dbHelper.logAction(userSession, "Quest Taker" + userSession + "tried to do the a quest they already took: " + title);
                 Toast.makeText(this,"You already called dibs on this!", Toast.LENGTH_LONG).show();
             }
-            else if(username.equals(userSession)){
+            else if(username.equals(userSession)){ // Quest Owner clicks "Do Quest" button on their own posted quest
                 // Quest is owned by current user
+                dbHelper.logAction(userSession, "Quest Owner" + userSession + " tried to do their own quest: " + title);
                 Toast.makeText(this,"You posted this!", Toast.LENGTH_LONG).show();
             }
             // Check if quest is vacant (dibsBy is NONE)
@@ -331,6 +340,7 @@ public class DetailActivity extends AppCompatActivity {
                 // Update status
                 status = "IN_PROGRESS";
 
+                dbHelper.logAction(userSession, "User " + userSession + " took the quest: " + title);
                 Toast.makeText(this, "Dibs on " + title + "!", Toast.LENGTH_SHORT).show();
                 toggleButtonVisibility();
             }

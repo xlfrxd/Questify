@@ -1,5 +1,6 @@
 package com.example.questifyv1.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +10,7 @@ import android.util.Log;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
-public static final int DATABASE_VERSION = 3; // Ient this when you change the database schema
+public static final int DATABASE_VERSION = 4; // Ient this when you change the database schema
 public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + UserContract.UserEntry.TABLE_NAME + " (" +
@@ -23,26 +24,87 @@ public static final String DATABASE_NAME = "Users.sqlite";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + UserContract.UserEntry.TABLE_NAME;
 
-
-
+    @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL(SQL_CREATE_ENTRIES);
-            Log.d("Database", "Table created successfully");
+            // Creating the 'users' table with a new 'wallet' column.
+            String createUsersTable = "CREATE TABLE IF NOT EXISTS " + UserContract.UserEntry.TABLE_NAME + " (" +
+                    UserContract.UserEntry._ID + " INTEGER PRIMARY KEY," +
+                    UserContract.UserEntry.COLUMN_NAME_NAME + " TEXT," +
+                    UserContract.UserEntry.COLUMN_NAME_WALLET + " REAL DEFAULT 0.0," +
+                    UserContract.UserEntry.COLUMN_NAME_USERNAME + " TEXT UNIQUE," +
+                    UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT UNIQUE," +
+                    UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL," +
+                    "role TEXT CHECK(role IN ('admin', 'quest_poster', 'quest_taker')) NOT NULL DEFAULT 'quest_taker'," +
+                    "mfa_code TEXT," +
+                    "mfa_verified INTEGER DEFAULT 0)";
+            db.execSQL(createUsersTable);
+            Log.d("Database", "Users table created successfully");
+
+            // Create the 'audit_logs' table for logging user actions.
+            String createAuditLogsTable = "CREATE TABLE IF NOT EXISTS audit_logs (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "user_id INTEGER, " +
+                    "user_action TEXT NOT NULL, " +
+                    "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(_id))";
+            db.execSQL(createAuditLogsTable);
+            Log.d("Database", "Audit Logs table created successfully");
         } catch (Exception e) {
-            Log.e("Database", "Error creating table: " + e.getMessage());
+            Log.e("Database", "Error creating tables: " + e.getMessage());
         }
     }
 
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
+        if (oldVersion < 3) {
+            // Update logic for new version
+            // Add new columns or create tables if necessary
+            db.execSQL("ALTER TABLE users ADD COLUMN wallet REAL DEFAULT 0.0");
+            db.execSQL("CREATE TABLE IF NOT EXISTS audit_logs (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "user_id INTEGER, " +
+                    "user_action TEXT NOT NULL, " +
+                    "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(_id))");
+            Log.d("Database", "Database updated to version 3");
+        }
+        // Handle further upgrades for higher versions if necessary
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
+
+    public void logAction(String username, String action) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Try to fetch the user ID
+        Cursor cursor = db.rawQuery("SELECT _id FROM users WHERE username = ?", new String[]{username});
+        if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(0);
+            values.put("user_id", userId);
+        } else {
+            Log.w("Database", "Username '" + username + "' not found. Logging action without user_id.");
+            // Leave user_id NULL
+        }
+
+        // Log the action regardless of whether the user was found
+        values.put("user_action", action);
+        long result = db.insert("audit_logs", null, values);
+
+        if (result != -1) {
+            Log.d("Database", "Action logged: " + action);
+        } else {
+            Log.e("Database", "Failed to log action: " + action);
+        }
+
+        if (cursor != null) cursor.close();
+        db.close();
+    }
+
 
     public UserDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

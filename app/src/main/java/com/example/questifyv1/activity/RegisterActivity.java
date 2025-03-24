@@ -1,109 +1,218 @@
 package com.example.questifyv1.activity;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.database.UserContract;
 import com.example.questifyv1.database.UserDatabaseHandler;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.safetynet.SafetyNet;
-
-import java.util.Objects;
-
-// TOTP imports
-import dev.samstevens.totp.code.CodeGenerator;
-import dev.samstevens.totp.code.DefaultCodeGenerator;
-import dev.samstevens.totp.secret.DefaultSecretGenerator;
-import dev.samstevens.totp.time.SystemTimeProvider;
+import com.google.android.gms.safetynet.SafetyNetApi;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.recaptcha.Recaptcha;
+import com.google.android.recaptcha.RecaptchaAction;
+import com.google.android.recaptcha.RecaptchaTasksClient;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private Button btnRegister;
+    private TextView btnBack;
+    private String userSession; // Username for currently signed in user
     private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
+    @Nullable RecaptchaTasksClient recaptchaTasksClient = null;
 
-    private static final String SITE_KEY = "your_site_key_here"; // Replace with your actual site key
+    private final String SITE_KEY = "6LfyTSAqAAAAAELdW1s62o6lmBBYX7isQ7mlPoMD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
+        // Isntantiate reCaptcha
+        initializeReCaptcha();
+
+        // Instantiate dbHelper
         dbHelper = new UserDatabaseHandler(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // reCAPTCHA
         cbCaptcha = findViewById(R.id.cbCaptcha);
+        cbCaptcha.setOnClickListener(view -> {
+            assert recaptchaTasksClient != null;
+            recaptchaTasksClient
+                    .executeTask(RecaptchaAction.LOGIN)
+                    .addOnSuccessListener(
+                            this,
+                            new OnSuccessListener<String>() {
+                                @Override
+                                public void onSuccess(String token) {
+                                    // Handle success ...
+                                    // See "What's next" section for instructions
+                                    // about handling tokens.
+                                    handleSuccess();
+                                    cbCaptcha.setEnabled(false);
+                                }
+                            })
+                    .addOnFailureListener(
+                            this,
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Handle communication errors ...
+                                    // See "Handle communication errors" section
+                                    handleFailure(e);
+                                    cbCaptcha.setChecked(false);
+                                }
+                            });
+        });
 
-        Button btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(v -> attemptRegistration());
+        // Register Account
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(v -> {
+            // Implement registration logic here
 
-        cbCaptcha.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                verifyRecaptcha();
+            // Get user inputs
+            EditText etName = findViewById(R.id.etName);
+            EditText etUsername = findViewById(R.id.etUsername);
+            EditText etEmail = findViewById(R.id.etEmail);
+            EditText etPassword = findViewById(R.id.etPassword);
+            // Store locally
+            String name = etName.getText().toString();
+            String username = etUsername.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            int wallet = 0; // Default wallet balance
+
+
+            // Check if empty fields
+            if ( name.trim().isEmpty() || username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
             }
+            // Check if username already exists
+            else if (dbHelper.checkExists(username, "username")) {
+                // Show error message
+                //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
+            }
+            // Check if email already exists
+            else if (dbHelper.checkExists(email, "email")) {
+                // Show error message
+                //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
+            }
+            // Check if captcha is not verified
+            else if (cbCaptcha.isChecked() == false) {
+                Toast.makeText(getApplicationContext(), "Verify ReCaptcha", Toast.LENGTH_LONG).show();
+
+            } else {
+
+                // Register user credentials to database
+
+                // Map new values
+                ContentValues values = new ContentValues();
+                values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
+                values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
+                values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
+                values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
+                values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
+
+                // Insert the new row
+                long rowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+
+                if (rowId != -1) {
+                    // ✅ Insert succeeded, now it's safe to log
+                    dbHelper.logAction(username, "User " + username + " successfully registered");
+                } else {
+                    Log.e("Register", "Failed to insert new user");
+                }
+
+
+                // Navigate to Main Activity
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                // Pass username to MainActivity
+                userSession = username;
+                intent.putExtra("userSession", userSession);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // TODO: Implement reverse swipe animation
+        // Navigate back to Sign In
+        btnBack = findViewById(R.id.tvSignIn);
+        btnBack.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this,SignInActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 
-    private void attemptRegistration() {
-        EditText etName = findViewById(R.id.etName);
-        EditText etUsername = findViewById(R.id.etUsername);
-        EditText etEmail = findViewById(R.id.etEmail);
-        EditText etPassword = findViewById(R.id.etPassword);
-
-        String name = etName.getText().toString().trim();
-        String username = etUsername.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-
-        if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
-        } else if (!cbCaptcha.isChecked()) {
-            Toast.makeText(getApplicationContext(), "Please verify the reCAPTCHA", Toast.LENGTH_LONG).show();
-        } else {
-            registerUser(name, username, email, password);
-        }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void verifyRecaptcha() {
-        SafetyNet.getClient(this).verifyWithRecaptcha(SITE_KEY)
-                .addOnSuccessListener(this, response -> {
-                    if (Objects.requireNonNull(response.getTokenResult()).isEmpty()) {
-                        Toast.makeText(this, "ReCaptcha verification failed, try again.", Toast.LENGTH_LONG).show();
-                    } else {
-                        cbCaptcha.setChecked(true); // Programmatically check this if verification is successful
-                        Toast.makeText(this, "Verification succeeded.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(this, e -> Toast.makeText(this, "ReCaptcha verification failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+    private void initializeReCaptcha(){
+        Recaptcha
+                .getTasksClient(getApplication(), SITE_KEY)
+                .addOnSuccessListener(
+                        this,
+                        new OnSuccessListener<RecaptchaTasksClient>() {
+                            @Override
+                            public void onSuccess(RecaptchaTasksClient client) {
+                                RegisterActivity.this.recaptchaTasksClient = client;
+                            }
+                        })
+                .addOnFailureListener(
+                        this,
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Handle communication errors ...
+                                // See "Handle communication errors" section
+                                handleFailure(e);
+                                cbCaptcha.setChecked(false);
+                            }
+                        });
     }
 
-    private void registerUser(String name, String username, String email, String password) {
-        // Generate TOTP secret key
-        DefaultSecretGenerator secretGenerator = new DefaultSecretGenerator();
-        String secretKey = secretGenerator.generate();
+    private void handleSuccess() {
+        // Implement your logic for successful reCAPTCHA verification
+        Toast.makeText(this, "reCAPTCHA verified successfully", Toast.LENGTH_SHORT).show();
+    }
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
-        values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
-        values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
-        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
-        values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, 0); // Default wallet balance
-        values.put(UserContract.UserEntry.COLUMN_NAME_TOTP_SECRET, secretKey); // Use the constant from UserContract
-
-        long newRowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
-        db.close();
-
-        if (newRowId != -1) {
-            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish();
-        } else {
-            Toast.makeText(this, "Registration failed. Please try again.", Toast.LENGTH_LONG).show();
-        }
+    private void handleFailure(Exception e) {
+        // Implement your logic for reCAPTCHA failure
+        Log.e("reCAPTCHA", "Error: " + e.getMessage());
+        Toast.makeText(this, "reCAPTCHA verification failed", Toast.LENGTH_SHORT).show();
     }
 }

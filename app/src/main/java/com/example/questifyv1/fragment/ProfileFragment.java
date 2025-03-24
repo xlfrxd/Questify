@@ -64,8 +64,9 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 
         if (getArguments() != null) {
@@ -112,8 +113,7 @@ public class ProfileFragment extends Fragment {
             );
 
             questsPosted = String.valueOf(cursor.getCount());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Log.e("questsPosted", e.toString());
         }
 
@@ -144,27 +144,26 @@ public class ProfileFragment extends Fragment {
                     null
             );
             questsCompleted = String.valueOf(cursor.getCount());
-            Log.e("questsCompleted",questsCompleted);
-        }
-        catch (Exception e) {
+            Log.e("questsCompleted", questsCompleted);
+        } catch (Exception e) {
             Log.e("questsCompleted", e.toString());
         }
 
         // Handle counter values
         // Quests Posted
-        switch (questsPosted){
+        switch (questsPosted) {
             case "0":
-                    questsPosted = "No Quests Posted";
+                questsPosted = "No Quests Posted";
                 break;
             case "1":
-                    questsPosted = questsPosted + " Quest Posted";
+                questsPosted = questsPosted + " Quest Posted";
                 break;
             default:
-                    questsPosted = questsPosted + " Quests Posted";
+                questsPosted = questsPosted + " Quests Posted";
                 break;
         }
         // Quests Completed
-        switch (questsCompleted){
+        switch (questsCompleted) {
             case "0":
                 questsCompleted = "No Quests Completed";
                 break;
@@ -191,7 +190,7 @@ public class ProfileFragment extends Fragment {
         // Display Profile Title (full name)
         tvProfileTitle.setText(userFullName);
         // Display Profile Subtitle (username)
-        tvProfileSubtitle.setText("@"+userName);
+        tvProfileSubtitle.setText("@" + userName);
         // Display Posted Quests
         tvPostedQuests.setText(questsPosted);
         // Display Completed Quests
@@ -207,7 +206,7 @@ public class ProfileFragment extends Fragment {
                 DialogFragment dialog_deposit = new CashInDialog();
                 // Create bundle to send userWallet to cashin/withdraw
                 Bundle args = new Bundle();
-                args.putDouble("userWallet",userWallet);
+                args.putDouble("userWallet", userWallet);
                 dialog_deposit.setArguments(args); // Send user current wallet balance
                 // TODO: Update balance via mainAcitivty.updateBalance("deposit", balance)
 
@@ -224,7 +223,7 @@ public class ProfileFragment extends Fragment {
                 // Open the withdraw dialog
                 DialogFragment dialog_withdraw = new WithdrawDialog();
                 Bundle args = new Bundle();
-                args.putDouble("userWallet",userWallet);
+                args.putDouble("userWallet", userWallet);
                 dialog_withdraw.setArguments(args); // Send user current wallet balance
 
                 // TODO: Update balance via mainAcitivty.updateBalance("withdraw", balance)
@@ -232,13 +231,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // Logout Button
+// Logout Button
         Button btnLogout = view.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Logout
+                // Log the logout action
+                UserDatabaseHandler userDB = new UserDatabaseHandler(getActivity());
+                userDB.logAction(userName, "User " + userName + " logged out.");
 
+                // Logout logic
                 final Handler handler = new Handler();
                 Timer t = new Timer();
                 t.schedule(new TimerTask() {
@@ -256,6 +258,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+    }
+}
 
-}
-}
