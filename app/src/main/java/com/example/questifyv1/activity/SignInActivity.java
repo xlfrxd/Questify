@@ -75,11 +75,11 @@ public class SignInActivity extends AppCompatActivity {
                 // Log the action that the user successfully signed in
                 dbHelper.logAction(username, "User " + username + " signed in successfully");
 
-                // Navigate to MainActivity
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                // Pass username to MainActivity
-                userSession = username;
-                intent.putExtra("userSession", userSession);
+                // Redirect to MFA verification instead of MainActivity
+                Intent intent = new Intent(SignInActivity.this, MfaVerifyActivity.class);
+                intent.putExtra("USER_ID", dbHelper.getUserIdFromUsername(username)); // You'll need to implement this
+                intent.putExtra("USERNAME", username); // Pass username for session
+                intent.putExtra("USER_EMAIL", dbHelper.getUserEmail(username)); // Get from DB if needed for email
                 startActivity(intent);
                 finish();
             }

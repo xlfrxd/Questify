@@ -32,6 +32,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    packagingOptions {
+        exclude("META-INF/NOTICE.md")
+        exclude("META-INF/LICENSE.md")
+    }
+
+
 }
 
 dependencies {
@@ -46,6 +53,8 @@ dependencies {
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.android.gms:play-services-safetynet")
     implementation("dev.samstevens.totp:totp:1.7.1")  // TOTP library
+    implementation ("com.sun.mail:android-mail:1.6.7")
+    implementation ("com.sun.mail:android-activation:1.6.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
