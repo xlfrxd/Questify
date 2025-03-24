@@ -8,8 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class QuestsDatabaseHandler extends SQLiteOpenHelper{
-    public static final int DATABASE_VERSION = 3; // Incremented to reflect schema changes
+    public static final int DATABASE_VERSION = 4; // Incremented to reflect schema changes
     public static final String DATABASE_NAME = "Posts.sqlite";
+
+    private static final String SQL_CREATE_USERS_TABLE =
+            "CREATE TABLE IF NOT EXISTS users (" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "username TEXT UNIQUE NOT NULL)";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + QuestContract.QuestEntry.TABLE_NAME + " (" +
@@ -41,6 +46,7 @@ public class QuestsDatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
+            db.execSQL(SQL_CREATE_USERS_TABLE); // ✅ Ensure users table exists
             db.execSQL(SQL_CREATE_ENTRIES);
             db.execSQL(SQL_CREATE_AUDIT_LOGS_TABLE);
             Log.d("Database", "Tables created successfully");
@@ -48,6 +54,7 @@ public class QuestsDatabaseHandler extends SQLiteOpenHelper{
             Log.e("Database", "Error creating tables: " + e.getMessage());
         }
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -68,30 +75,35 @@ public class QuestsDatabaseHandler extends SQLiteOpenHelper{
     public void logAction(String username, String action) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        int userId = -1;
 
-        // Check if the 'users' table exists
         Cursor cursorCheck = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", null);
         if (cursorCheck != null && cursorCheck.moveToFirst()) {
-            // 'users' table exists, fetch the user id
             cursorCheck.close();
 
             Cursor cursor = db.rawQuery("SELECT _id FROM users WHERE username = ?", new String[]{username});
             if (cursor.moveToFirst()) {
-                int userId = cursor.getInt(0);
-
-                // Insert the log into the audit_logs table
-                values.put("user_id", userId);
-                values.put("user_action", action);
-                db.insert("audit_logs", null, values);
+                userId = cursor.getInt(0);
+            } else {
+                // Username not found — insert it
+                ContentValues userValues = new ContentValues();
+                userValues.put("username", username);
+                userId = (int) db.insert("users", null, userValues);
+                Log.i("Database", "Inserted new user '" + username + "' with ID " + userId);
             }
-            cursor.close();
+            if (cursor != null) cursor.close();
+
+            values.put("user_id", userId);
+            values.put("user_action", action);
+            long rowId = db.insert("audit_logs", null, values);
+            Log.d("Database", "Logged action: " + action + " | Row ID: " + rowId);
         } else {
             Log.e("Database", "'users' table does not exist.");
-            // Handle the error, such as showing an error message or logging it.
         }
 
         db.close();
     }
+
 
 
     public void logPostQuestAction(String userName, String questTitle) {
