@@ -64,7 +64,6 @@ public class MfaVerifyActivity extends AppCompatActivity {
     }
 
     private void sendEmailWithToken(String email, String token) {
-        // Replace with actual email logic (e.g., Firebase, JavaMail)
         Log.d("MFA_DEBUG", "Email to: " + email + " | Token: " + token);
     }
 }
