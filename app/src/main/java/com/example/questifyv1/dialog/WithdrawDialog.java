@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import com.example.questifyv1.database.QuestsDatabaseHandler;
+
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
@@ -30,6 +32,8 @@ public class WithdrawDialog extends DialogFragment {
     private double currentBalance; // 480.10
     private double withdrawAmount;
     private String[] amountChoices = {"100", "500", "1000"};
+
+    QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
 
     @Override
     public void onAttach(Context context){
@@ -104,41 +108,44 @@ public class WithdrawDialog extends DialogFragment {
 
         // Confirm withdraw
         btnConfirmCashIn.setOnClickListener(view1 -> {
-            // Check if empty
-            if(etWithdrawAmt.getText().toString().isEmpty()){
+            if (etWithdrawAmt.getText().toString().isEmpty()) {
                 Toast.makeText(getContext(), "Input amount to withdraw", Toast.LENGTH_SHORT).show();
-            }
-            // Check if balance < withdrawAmount
-            else if(currentBalance < Double.valueOf(etWithdrawAmt.getText().toString())){
-                Toast.makeText(getContext(),"You have insufficient funds", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else if (currentBalance < Double.valueOf(etWithdrawAmt.getText().toString())) {
+                Toast.makeText(getContext(), "You have insufficient funds", Toast.LENGTH_SHORT).show();
+            } else {
+                // ✅ Declare and assign user first
+                String currentUser = MainActivity.getUserSession();
+
                 // Get amount to withdraw
                 withdrawAmount = Double.valueOf(etWithdrawAmt.getText().toString());
-                //Log.e("withdrawAmt:",String.valueOf(withdrawAmount));
                 double newBalance = currentBalance - withdrawAmount;
-                mainActivity.updateUserBalance(MainActivity.getUserSession(),newBalance);
 
-                Toast.makeText(getContext(), "Attempting withdrawal of ₱" + String.valueOf(withdrawAmount) +"...",Toast.LENGTH_LONG).show();
+                // Update balance
+                mainActivity.updateUserBalance(currentUser, newBalance);
+
+                // ✅ Instantiate DB handler and log action
+                QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
+                String action = "User " + currentUser + " withdrew ₱" + String.format("%.2f", withdrawAmount);
+                dbHelper.logAction(currentUser, action);
+
+                Toast.makeText(getContext(), "Attempting withdrawal of ₱" + withdrawAmount + "...", Toast.LENGTH_LONG).show();
 
                 // Disable after first press
                 btnConfirmCashIn.setEnabled(false);
-                // Delay window 1.5s
+
+                // Delay dialog close by 1.5s
                 final Handler handler = new Handler();
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
+                new Timer().schedule(new TimerTask() {
                     public void run() {
-                        handler.post(new Runnable() {
-                            public void run() {
-                                // Notify user of change
-                                Toast.makeText(getContext(), "You have withdrawn ₱" + String.valueOf(withdrawAmount),Toast.LENGTH_LONG).show();
-                                dismiss();
-                            }
+                        handler.post(() -> {
+                            Toast.makeText(getContext(), "You have withdrawn ₱" + withdrawAmount, Toast.LENGTH_LONG).show();
+                            dismiss();
                         });
                     }
                 }, 1500);
             }
         });
+
 
 
         return builder.create();

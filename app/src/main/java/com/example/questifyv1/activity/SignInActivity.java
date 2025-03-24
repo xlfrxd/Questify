@@ -63,17 +63,17 @@ public class SignInActivity extends AppCompatActivity {
             }
             // Check if username does not exist
             else if(!dbHelper.checkExists(username, UserContract.UserEntry.COLUMN_NAME_USERNAME)){
-                // TODO: Replace hardcoded text
+                dbHelper.logAction(username, "Failed login attempt - username does not exist: " + username);
                 Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
             }
             // Check if credentials is match
             else if(!dbHelper.verifyCredentials(username, password)){
-                // TODO: Replace hardcoded text
+                dbHelper.logAction(username, "Failed login attempt - incorrect password for: " + username);
                 Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
             }
             else {
                 // Log the action that the user successfully signed in
-                dbHelper.logAction(username, "User signed in successfully");
+                dbHelper.logAction(username, "User " + username + " signed in successfully");
 
                 // Navigate to MainActivity
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);

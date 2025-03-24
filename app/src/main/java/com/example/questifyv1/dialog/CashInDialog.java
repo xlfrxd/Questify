@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import com.example.questifyv1.database.QuestsDatabaseHandler;
 
 import com.example.questifyv1.R;
 import com.example.questifyv1.activity.MainActivity;
@@ -29,6 +30,8 @@ public class CashInDialog extends DialogFragment {
     private double currentBalance; // 480.10
     private double depositAmount;
     private String[] amountChoices = {"100", "500", "1000"};
+
+    QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
 
     @Override
     public void onAttach(Context context){
@@ -103,35 +106,30 @@ public class CashInDialog extends DialogFragment {
             etCashInAmt.setText(amountChoices[2]);
         });
         // Confirm deposit
+
         btnConfirmCashIn.setOnClickListener(view1 -> {
-            // Check if empty
             if(etCashInAmt.getText().toString().isEmpty()){
                 Toast.makeText(getContext(), "Input amount to deposit", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                // Get amount to deposit
+            } else {
                 depositAmount = Double.valueOf(etCashInAmt.getText().toString());
                 double newBalance = depositAmount + currentBalance;
-                // Update user balance
-                mainActivity.updateUserBalance(MainActivity.getUserSession(),newBalance);
 
-                Toast.makeText(getContext(), "Attempting deposit of ₱" + String.valueOf(depositAmount) +"...",Toast.LENGTH_LONG).show();
+                // ✅ Update balance
+                String currentUser = MainActivity.getUserSession();
+                mainActivity.updateUserBalance(currentUser, newBalance);
 
-                // Disable button after first click
+                // ✅ Instantiate and log audit
+                QuestsDatabaseHandler dbHelper = new QuestsDatabaseHandler(getContext());
+                String action = "User " + currentUser + " cashed in ₱" + String.format("%.2f", depositAmount);
+                dbHelper.logAction(currentUser, action);
+
+                Toast.makeText(getContext(), "Attempting deposit of ₱" + depositAmount + "...", Toast.LENGTH_LONG).show();
+
+                // Disable and delay
                 btnConfirmCashIn.setEnabled(false);
-                // Delay window 1.5
-                final Handler handler = new Handler();
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
-                    public void run() {
-                        handler.post(new Runnable() {
-                            public void run() {
-                                // Notify user of change
-                                Toast.makeText(getContext(), "You have received ₱" + String.valueOf(depositAmount),Toast.LENGTH_LONG).show();
-                                dismiss();
-                            }
-                        });
-                    }
+                new Handler().postDelayed(() -> {
+                    Toast.makeText(getContext(), "You have received ₱" + depositAmount, Toast.LENGTH_LONG).show();
+                    dismiss();
                 }, 1500);
             }
         });

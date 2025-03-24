@@ -104,10 +104,8 @@ public class QuestsDatabaseHandler extends SQLiteOpenHelper{
         db.close();
     }
 
-
-
     public void logPostQuestAction(String userName, String questTitle) {
-        String action = "User posted a quest: " + questTitle;
+        String action = "User " + userName + " posted a quest: " + questTitle;
         logAction(userName, action); // Log the action when a quest is posted
     }
 }

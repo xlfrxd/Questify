@@ -81,26 +81,30 @@ public static final String DATABASE_NAME = "Users.sqlite";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        // Fetch the user id based on username
+        // Try to fetch the user ID
         Cursor cursor = db.rawQuery("SELECT _id FROM users WHERE username = ?", new String[]{username});
         if (cursor.moveToFirst()) {
             int userId = cursor.getInt(0);
-
-            // Insert the log into the audit_logs table
             values.put("user_id", userId);
-            values.put("user_action", action);
-            long result = db.insert("audit_logs", null, values);
-
-            // Log if the insert was successful or not
-            if (result != -1) {
-                Log.d("Database", "User action logged successfully: " + action);
-            } else {
-                Log.e("Database", "Failed to log user action: " + action);
-            }
+        } else {
+            Log.w("Database", "Username '" + username + "' not found. Logging action without user_id.");
+            // Leave user_id NULL
         }
-        cursor.close();
+
+        // Log the action regardless of whether the user was found
+        values.put("user_action", action);
+        long result = db.insert("audit_logs", null, values);
+
+        if (result != -1) {
+            Log.d("Database", "Action logged: " + action);
+        } else {
+            Log.e("Database", "Failed to log action: " + action);
+        }
+
+        if (cursor != null) cursor.close();
         db.close();
     }
+
 
     public UserDatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
