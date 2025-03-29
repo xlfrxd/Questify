@@ -163,7 +163,14 @@ public class RegisterActivity extends AppCompatActivity {
                                                 // Store user in local database
                                                 insertUserIntoLocalDatabase(name, username, email, password, wallet);
                                                 // Navigate to MainActivity or prompt user to verify email
-                                                navigateToMainActivity(username);
+
+                                                // Log out user to prevent access before verification
+                                                firebaseAuth.signOut();
+
+                                                // Redirect to SignInActivity
+                                                Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                                                startActivity(intent);
+                                                finish();
                                             } else {
                                                 Toast.makeText(getApplicationContext(),
                                                         "Failed to send verification email.",
