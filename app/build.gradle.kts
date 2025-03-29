@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.questify.apk"
+        applicationId = "com.example.questifyv1"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -46,4 +46,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
+    //TODO: Add the dependencies for Firebase products
 }
