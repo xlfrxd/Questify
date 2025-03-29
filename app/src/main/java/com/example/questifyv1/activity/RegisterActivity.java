@@ -33,37 +33,45 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.recaptcha.Recaptcha;
 import com.google.android.recaptcha.RecaptchaAction;
 import com.google.android.recaptcha.RecaptchaTasksClient;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private Button btnRegister;
     private TextView btnBack;
     private String userSession; // Username for currently signed in user
-    private CheckBox cbCaptcha;
+    // private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
-    @Nullable RecaptchaTasksClient recaptchaTasksClient = null;
+    private FirebaseAuth firebaseAuth;
 
-    private final String SITE_KEY = "6LfyTSAqAAAAAELdW1s62o6lmBBYX7isQ7mlPoMD";
+    // @Nullable RecaptchaTasksClient recaptchaTasksClient = null;
+
+    // private final String SITE_KEY = "6LfyTSAqAAAAAELdW1s62o6lmBBYX7isQ7mlPoMD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
+        firebaseAuth = FirebaseAuth.getInstance();
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Isntantiate reCaptcha
-        initializeReCaptcha();
+        // Instantiate reCaptcha
+        // initializeReCaptcha();
 
         // Instantiate dbHelper
         dbHelper = new UserDatabaseHandler(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // reCAPTCHA
+        /*
         cbCaptcha = findViewById(R.id.cbCaptcha);
         cbCaptcha.setOnClickListener(view -> {
             assert recaptchaTasksClient != null;
@@ -93,77 +101,85 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
         });
+        */
+
 
         // Register Account
         btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(v -> {
-            // Implement registration logic here
-
             // Get user inputs
             EditText etName = findViewById(R.id.etName);
             EditText etUsername = findViewById(R.id.etUsername);
             EditText etEmail = findViewById(R.id.etEmail);
             EditText etPassword = findViewById(R.id.etPassword);
-            // Store locally
-            String name = etName.getText().toString();
-            String username = etUsername.getText().toString();
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
+
+            String name = etName.getText().toString().trim();
+            String username = etUsername.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
             int wallet = 0; // Default wallet balance
 
-
-            // Check if empty fields
-            if ( name.trim().isEmpty() || username.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()) {
+            // Check for empty fields
+            if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_LONG).show();
+                return;
             }
+
             // Check if username already exists
-            else if (dbHelper.checkExists(username, "username")) {
-                // Show error message
-                //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+            if (dbHelper.checkExists(username, "username")) {
                 Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_LONG).show();
+                return;
             }
+
             // Check if email already exists
-            else if (dbHelper.checkExists(email, "email")) {
-                // Show error message
-                //Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+            if (dbHelper.checkExists(email, "email")) {
                 Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_LONG).show();
+                return;
             }
-            // Check if captcha is not verified
-            else if (cbCaptcha.isChecked() == false) {
+
+            /*
+            // Check if captcha is verified
+            if (!cbCaptcha.isChecked()) {
                 Toast.makeText(getApplicationContext(), "Verify ReCaptcha", Toast.LENGTH_LONG).show();
-
-            } else {
-
-                // Register user credentials to database
-
-                // Map new values
-                ContentValues values = new ContentValues();
-                values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
-                values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
-                values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
-                values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
-                values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
-
-                // Insert the new row
-                long rowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
-
-                if (rowId != -1) {
-                    // ✅ Insert succeeded, now it's safe to log
-                    dbHelper.logAction(username, "User " + username + " successfully registered");
-                } else {
-                    Log.e("Register", "Failed to insert new user");
-                }
-
-
-                // Navigate to Main Activity
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                // Pass username to MainActivity
-                userSession = username;
-                intent.putExtra("userSession", userSession);
-                startActivity(intent);
-                finish();
+                return;
             }
+
+             */
+
+            // Proceed with Firebase Authentication
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // Firebase user registration successful
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            if (firebaseUser != null) {
+                                // Send verification email
+                                firebaseUser.sendEmailVerification()
+                                        .addOnCompleteListener(verificationTask -> {
+                                            if (verificationTask.isSuccessful()) {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "Verification email sent to " + email,
+                                                        Toast.LENGTH_LONG).show();
+                                                // Store user in local database
+                                                insertUserIntoLocalDatabase(name, username, email, password, wallet);
+                                                // Navigate to MainActivity or prompt user to verify email
+                                                navigateToMainActivity(username);
+                                            } else {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "Failed to send verification email.",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+                            }
+                        } else {
+                            // Handle registration failure
+                            Toast.makeText(getApplicationContext(),
+                                    "Registration failed: " + task.getException().getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
         });
+
 
         // TODO: Implement reverse swipe animation
         // Navigate back to Sign In
@@ -175,12 +191,39 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void insertUserIntoLocalDatabase(String name, String username, String email, String password, int wallet) {
+        ContentValues values = new ContentValues();
+        values.put(UserContract.UserEntry.COLUMN_NAME_NAME, name);
+        values.put(UserContract.UserEntry.COLUMN_NAME_WALLET, wallet);
+        values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME, username);
+        values.put(UserContract.UserEntry.COLUMN_NAME_EMAIL, email);
+        values.put(UserContract.UserEntry.COLUMN_NAME_PASSWORD, password);
+
+        dbHelper = new UserDatabaseHandler(this);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        long rowId = db.insert(UserContract.UserEntry.TABLE_NAME, null, values);
+        if (rowId != -1) {
+            dbHelper.logAction(username, "User " + username + " successfully registered");
+        } else {
+            Log.e("Register", "Failed to insert new user");
+        }
+    }
+
+    private void navigateToMainActivity(String username) {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        intent.putExtra("userSession", username);
+        startActivity(intent);
+        finish();
+    }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    /*
     private void initializeReCaptcha(){
         Recaptcha
                 .getTasksClient(getApplication(), SITE_KEY)
@@ -204,6 +247,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
     }
+     */
 
     private void handleSuccess() {
         // Implement your logic for successful reCAPTCHA verification
