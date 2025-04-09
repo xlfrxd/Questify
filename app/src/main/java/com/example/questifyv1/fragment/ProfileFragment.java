@@ -238,7 +238,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 // Log the logout action
                 UserDatabaseHandler userDB = new UserDatabaseHandler(getActivity());
-                userDB.logAction(userName, "User " + userName + " logged out.");
+                userDB.logAction(userName, "User " + userName + " logged out");
 
                 // Logout logic
                 final Handler handler = new Handler();

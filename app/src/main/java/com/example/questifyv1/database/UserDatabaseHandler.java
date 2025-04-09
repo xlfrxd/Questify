@@ -34,10 +34,8 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     UserContract.UserEntry.COLUMN_NAME_WALLET + " REAL DEFAULT 0.0," +
                     UserContract.UserEntry.COLUMN_NAME_USERNAME + " TEXT UNIQUE," +
                     UserContract.UserEntry.COLUMN_NAME_EMAIL + " TEXT UNIQUE," +
-                    UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL," +
-                    "role TEXT CHECK(role IN ('admin', 'quest_poster', 'quest_taker')) NOT NULL DEFAULT 'quest_taker'," +
-                    "mfa_code TEXT," +
-                    "mfa_verified INTEGER DEFAULT 0)";
+                    UserContract.UserEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL" +  // Removed 'role', 'mfa_code', 'mfa_verified'
+                    ")";
             db.execSQL(createUsersTable);
             Log.d("Database", "Users table created successfully");
 
@@ -58,7 +56,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 3) {
+        if (oldVersion < 4) {
             // Update logic for new version
             // Add new columns or create tables if necessary
             db.execSQL("ALTER TABLE users ADD COLUMN wallet REAL DEFAULT 0.0");
@@ -68,7 +66,7 @@ public static final String DATABASE_NAME = "Users.sqlite";
                     "user_action TEXT NOT NULL, " +
                     "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                     "FOREIGN KEY(user_id) REFERENCES users(_id))");
-            Log.d("Database", "Database updated to version 3");
+            Log.d("Database", "Database updated to version 4");
         }
         // Handle further upgrades for higher versions if necessary
     }

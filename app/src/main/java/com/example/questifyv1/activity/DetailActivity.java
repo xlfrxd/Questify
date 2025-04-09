@@ -284,7 +284,7 @@ public class DetailActivity extends AppCompatActivity {
                     selection,
                     selectionArgs
             );
-            dbHelper.logAction(userSession, "Quest Taker " + userSession + " canceled the quest: " + title);
+            dbHelper.logAction(userSession, "User " + userSession + " canceled the quest: " + title);
             Toast.makeText(this, "\"" + title + "\" was cancelled!", Toast.LENGTH_LONG).show();
             // Update status
             status = "CANCELLED";

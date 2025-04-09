@@ -42,13 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     private TextView btnBack;
     private String userSession; // Username for currently signed in user
-    // private CheckBox cbCaptcha;
     private UserDatabaseHandler dbHelper;
     private FirebaseAuth firebaseAuth;
-
-    // @Nullable RecaptchaTasksClient recaptchaTasksClient = null;
-
-    // private final String SITE_KEY = "6LfyTSAqAAAAAELdW1s62o6lmBBYX7isQ7mlPoMD";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,46 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Instantiate reCaptcha
-        // initializeReCaptcha();
-
         // Instantiate dbHelper
         dbHelper = new UserDatabaseHandler(this);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        // reCAPTCHA
-        /*
-        cbCaptcha = findViewById(R.id.cbCaptcha);
-        cbCaptcha.setOnClickListener(view -> {
-            assert recaptchaTasksClient != null;
-            recaptchaTasksClient
-                    .executeTask(RecaptchaAction.LOGIN)
-                    .addOnSuccessListener(
-                            this,
-                            new OnSuccessListener<String>() {
-                                @Override
-                                public void onSuccess(String token) {
-                                    // Handle success ...
-                                    // See "What's next" section for instructions
-                                    // about handling tokens.
-                                    handleSuccess();
-                                    cbCaptcha.setEnabled(false);
-                                }
-                            })
-                    .addOnFailureListener(
-                            this,
-                            new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Handle communication errors ...
-                                    // See "Handle communication errors" section
-                                    handleFailure(e);
-                                    cbCaptcha.setChecked(false);
-                                }
-                            });
-        });
-        */
-
 
         // Register Account
         btnRegister = findViewById(R.id.btnRegister);
@@ -137,40 +95,29 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            /*
-            // Check if captcha is verified
-            if (!cbCaptcha.isChecked()) {
-                Toast.makeText(getApplicationContext(), "Verify ReCaptcha", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-             */
-
             // Proceed with Firebase Authentication
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             // Firebase user registration successful
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
                             if (firebaseUser != null) {
                                 // Send verification email
                                 firebaseUser.sendEmailVerification()
                                         .addOnCompleteListener(verificationTask -> {
                                             if (verificationTask.isSuccessful()) {
                                                 Toast.makeText(getApplicationContext(),
-                                                        "Verification email sent to " + email,
+                                                        "User registered. Verification email sent to " + email,
                                                         Toast.LENGTH_LONG).show();
                                                 // Store user in local database
                                                 insertUserIntoLocalDatabase(name, username, email, password, wallet);
                                                 // Navigate to MainActivity or prompt user to verify email
 
-                                                // Log out user to prevent access before verification
-                                                firebaseAuth.signOut();
-
-                                                // Redirect to SignInActivity
                                                 Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
                                                 startActivity(intent);
                                                 finish();
+
                                             } else {
                                                 Toast.makeText(getApplicationContext(),
                                                         "Failed to send verification email.",
@@ -178,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
                                         });
                             }
+
                         } else {
                             // Handle registration failure
                             Toast.makeText(getApplicationContext(),
@@ -187,8 +135,6 @@ public class RegisterActivity extends AppCompatActivity {
                     });
         });
 
-
-        // TODO: Implement reverse swipe animation
         // Navigate back to Sign In
         btnBack = findViewById(R.id.tvSignIn);
         btnBack.setOnClickListener(v -> {
@@ -228,42 +174,5 @@ public class RegisterActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    /*
-    private void initializeReCaptcha(){
-        Recaptcha
-                .getTasksClient(getApplication(), SITE_KEY)
-                .addOnSuccessListener(
-                        this,
-                        new OnSuccessListener<RecaptchaTasksClient>() {
-                            @Override
-                            public void onSuccess(RecaptchaTasksClient client) {
-                                RegisterActivity.this.recaptchaTasksClient = client;
-                            }
-                        })
-                .addOnFailureListener(
-                        this,
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Handle communication errors ...
-                                // See "Handle communication errors" section
-                                handleFailure(e);
-                                cbCaptcha.setChecked(false);
-                            }
-                        });
-    }
-     */
-
-    private void handleSuccess() {
-        // Implement your logic for successful reCAPTCHA verification
-        Toast.makeText(this, "reCAPTCHA verified successfully", Toast.LENGTH_SHORT).show();
-    }
-
-    private void handleFailure(Exception e) {
-        // Implement your logic for reCAPTCHA failure
-        Log.e("reCAPTCHA", "Error: " + e.getMessage());
-        Toast.makeText(this, "reCAPTCHA verification failed", Toast.LENGTH_SHORT).show();
     }
 }
